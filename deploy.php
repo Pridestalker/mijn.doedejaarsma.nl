@@ -7,7 +7,7 @@ require 'recipe/laravel.php';
 set('application', 'DJC-DTP');
 
 // Project repository
-set('repository', '');
+set('repository', 'git@github.com:Pridestalker/mijn.doedejaarsma.nl.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
@@ -22,8 +22,10 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('project.com')
-    ->set('deploy_path', '~/{{application}}');
+host('141.105.127.47')
+	->port('33')
+	->user('djc')
+    ->set('deploy_path', '~/domains/mijn.doedejaarsma.nl/public_html');
     
 // Tasks
 
