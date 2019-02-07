@@ -1,0 +1,127 @@
+<?php
+
+namespace App\Http\Controllers\Resources;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class ProductController extends Controller
+{
+    /**
+     * @var \App\User
+     */
+    private $user;
+    
+    private $producten = [];
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        ($this->isAnAdmin() || $this->isADesigner())
+            ? $this->fetchAllProducts() : $this->fetchOwnedProducts();
+        
+        return \View::make('products.index')
+            ->with('producten', $this->producten);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+        return \View::make('products.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+    
+    private function isAnAdmin()
+    {
+        $this->setUser();
+        return $this->user->isAn('admin');
+    }
+    
+    private function isADesigner()
+    {
+        $this->setUser();
+        return $this->user->isA('designer');
+    }
+    
+    private function fetchOwnedProducts()
+    {
+        $this->setUser();
+    }
+    
+    private function fetchAllProducts()
+    {
+        $this->producten = Product::all();
+    }
+    
+    private function setUser()
+    {
+        if (!isset($this->user)) {
+            $this->user = \Auth::user();
+        }
+    }
+}

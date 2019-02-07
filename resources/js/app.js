@@ -1,6 +1,8 @@
 require('./bootstrap');
 import Vue from 'vue';
 import * as axios from 'axios';
+import store from './store/store';
+
 Vue.config.productionTip = false;
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -23,8 +25,9 @@ Vue.prototype.$http = axios;
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
+const files = require.context('./views', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 const app = new Vue({
+    store,
 }).$mount('#app');
