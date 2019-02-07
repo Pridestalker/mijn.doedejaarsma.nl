@@ -14,7 +14,8 @@ class BouncerSeeder extends Seeder
     {
         //
         Bouncer::allow('admin')->everything();
-	    Bouncer::allow('admin')->to('create', \App\User::class);
+        Bouncer::allow('admin')->to('create', \App\User::class);
+        Bouncer::allow('admin')->to('create', \App\Models\Team);
         
         Bouncer::allow('customer')->to('create', Product::class);
         Bouncer::allow('customer')->to('read', Product::class);

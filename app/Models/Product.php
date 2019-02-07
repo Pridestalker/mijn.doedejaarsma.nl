@@ -35,8 +35,37 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereUserId($value)
+ * @property string|null $factuur
+ * @property string|null $kostenplaats
+ * @property string|null $referentie
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereFactuur($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereKostenplaats($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereReferentie($value)
  */
 class Product extends Model
 {
     //
+    
+    protected $fillable = array(
+        'name',
+        'description',
+        'options',
+        'format',
+        'attachment',
+        'factuur',
+        'kostenplaats',
+        'referentie',
+        'user_id',
+        'soort',
+        'status',
+        'deadline',
+        'created_at',
+        'updated_at',
+    );
+    
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\User::class);
+    }
 }

@@ -53,6 +53,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'unique:users'],
+            'role' => ['required'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -65,11 +67,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'username' => $data['username'],
+            'current_team_id' => $data['team']?? null,
             'password' => Hash::make($data['password']),
         ]);
+        
+        \Bouncer::assign($data[ 'role' ])->to($user);
+        
+        return $user;
     }
     
     public function register(Request $request)
