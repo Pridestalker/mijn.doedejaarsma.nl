@@ -17,5 +17,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('products/{product}/image', 'Resources\ProductController@showImage')->name( 'products.image');
 Route::resource('products', 'Resources\ProductController');
+
 Route::resource('teams', 'Resources\TeamController');
+
+Route::resource('users', 'Resources\UserController');

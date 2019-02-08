@@ -55,9 +55,9 @@
 
                 <div class="col-md-6">
                     <select id="role" type="text" class="custom-select{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" value="{{ old('role') }}" required>
-                        <option value="admin">{{ 'Admin' }}</option>
-                        <option value="designer">{{ 'Designer' }}</option>
                         <option value="customer">{{ 'Customer' }}</option>
+                        <option value="designer">{{ 'Designer' }}</option>
+                        <option value="admin">{{ 'Admin' }}</option>
                     </select>
 
                     @if ($errors->has('role'))

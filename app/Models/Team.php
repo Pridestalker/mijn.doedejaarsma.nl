@@ -2,29 +2,42 @@
 
 namespace App\Models;
 
+use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Team
  *
  * @property int $id
  * @property string $name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method   static Builder|Team newModelQuery()
+ * @method   static Builder|Team newQuery()
+ * @method   static Builder|Team query()
+ * @method   static Builder|Team whereCreatedAt($value)
+ * @method   static Builder|Team whereId($value)
+ * @method   static Builder|Team whereName($value)
+ * @method   static Builder|Team whereUpdatedAt($value)
+ * @mixin    \Eloquent
  */
 class Team extends Model
 {
     //
-	
-	protected $fillable = [
-		'name', 'email'
-	];
+    
+    protected $fillable = [
+        'name', 'email'
+    ];
+    
+    /**
+     * Returns the users via pivot.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

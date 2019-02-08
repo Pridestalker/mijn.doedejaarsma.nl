@@ -9,11 +9,36 @@
             @endcan
         </div>
         <div class="card-body">
-            @foreach($teams as $team)
-                <a href="{{ route('teams.show', $team) }}">
-                    {{ $team->name }}
-                </a>
-            @endforeach
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Bedrijfsnaam</th>
+                    <th scope="col">email</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($teams as $team)
+                    <tr>
+                        <th scope="row">
+                            <a href="{{ route('teams.show', $team) }}">
+                                {{ $team->id }}
+                            </a>
+                        </th>
+                        <td>
+                            <a href="{{ route('teams.show', $team) }}">
+                                {{ $team->name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary text-white" href="mailto:{{ $team->email }}">
+                                {{ $team->email }}
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

@@ -8,7 +8,7 @@
                 <a class="nav-link" href="{{ route('products.index') }}">Producten</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#" aria-disabled="true">Gebruikers</a>
+                <a class="nav-link" href="{{ route('users.index') }}">Gebruikers</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('teams.index') }}">Bedrijven</a>

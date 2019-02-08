@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Resources;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     /**
+     * The current user.
+     *
      * @var \App\User
      */
     private $user;
@@ -26,7 +29,7 @@ class ProductController extends Controller
             ? $this->fetchAllProducts() : $this->fetchOwnedProducts();
         
         return \View::make('products.index')
-            ->with('producten', $this->producten);
+            ->with('products', $this->producten);
     }
 
     /**
@@ -43,29 +46,62 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //
+        
+        if ($request->hasFile('attachment')) {
+            $path = $request->file('attachment')
+                ->storePublicly('voorbeelden');
+        }
+        
+        try {
+            $product = Product::create(
+                $request->except('attachment') +
+                [
+                    'status'    => 'aangevraagd',
+                    'attachment'  => $path?? '',
+                ]
+            );
+        } catch (\Exception $e) {
+            return back()
+                ->with('status', $e->getMessage());
+        }
+        
+        if ($product) {
+            return redirect()
+                ->route('products.show', $product->id)
+                ->with('clearStorage', true);
+        } else {
+            return back()
+                ->with('status', 'De aanvraag is niet doorgekomen. Als dit vaker voor komt neem dan contact met ons op');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
         //
+        return \View::make('products.show')
+            ->with('product', $product);
     }
-
+	
+	public function showImage( Product $product )
+	{
+		return \Storage::download( $product->attachment);
+    }
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -76,19 +112,20 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
         //
+	    $product->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

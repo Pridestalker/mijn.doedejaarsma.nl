@@ -1,20 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+
 <div class="card">
     <div class="card-header">
         Product aanvragen
     </div>
     <div class="card-body">
-        <form action="{{ route('products.store') }}" method="POST">
+        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="form-group">
-                <label for="name">Naam</label>
-                <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Naam van de opdracht...">
-                <small id="nameHelp" class="form-text text-muted">Voer hier een beschrijvende naam van de opdracht in.</small>
-            </div>
-
-            <button type="submit" class="btn btn-primary text-white">Aanvraag indienen</button>
+            <create-product-view></create-product-view>
+            <input type="hidden" name="user_id" value="{{ \Auth::user()->id }}">
         </form>
     </div>
 </div>

@@ -20,6 +20,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+<noscript>
+    <div class="alert alert-danger">
+        Je hebt javascript nodig om de site goed te laten werken.
+        Als je problemen ervaart kan javascript aanzetten een oplossing bieden.
+    </div>
+</noscript>
     <div id="app">
         @includeIf('layouts.partials.navbar')
 
@@ -38,5 +44,20 @@
             </div>
         </main>
     </div>
+
+
+@if(session('clearStorage'))
+    <script>
+        localStorage.removeItem('product_soort');
+        localStorage.removeItem('product_omschrijving');
+        localStorage.removeItem('product_name');
+        localStorage.removeItem('product_kostenplaats');
+        localStorage.removeItem('product_format');
+        localStorage.removeItem('product_deadline');
+        localStorage.removeItem('product_oplage');
+        localStorage.removeItem('product_gewicht');
+        localStorage.removeItem('product_afleveradres');
+    </script>
+@endif
 </body>
 </html>

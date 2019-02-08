@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
         $doede = User::create([
             'name'      => 'Doede Jaarsma',
             'username'  => 'doedejaarsma',
-            'email'     => 'dpede@doedejaarsma.nl',
+            'email'     => 'doede@doedejaarsma.nl',
             'password'  => Hash::make('Werkplaats54'),
             'created_at'=> \Carbon\Carbon::now(),
             'updated_at'=> \Carbon\Carbon::now(),

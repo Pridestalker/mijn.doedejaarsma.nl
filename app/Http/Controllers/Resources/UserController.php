@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers\Resources;
 
-use App\Http\Controllers\Teams\RegisterTeamController;
-use App\Models\Team;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
-class TeamController extends Controller
+class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -23,10 +17,10 @@ class TeamController extends Controller
     public function index()
     {
         //
-        $teams = Team::all();
+        $users = User::all();
         
-        return \View::make('teams.index')
-                    ->with('teams', $teams);
+        return \View::make('users.index')
+            ->with('users', $users);
     }
 
     /**
@@ -37,7 +31,7 @@ class TeamController extends Controller
     public function create()
     {
         //
-        return \View::make('teams.create');
+        return redirect()->to('register');
     }
 
     /**
@@ -50,33 +44,19 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         //
-        $validated = $request->validate(
-            [
-            'name'  => 'required|unique:teams',
-            'email' => 'required|email',
-            ]
-        );
-        
-        try {
-            Team::create($request->only('name', 'email'));
-        } catch (\Exception $e) {
-            return back()->with('status', $e->getMessage());
-        }
-        
-        return back()->with('status', 'Bedrijf toegevoegd');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Team $team
+     * @param  int $id
      * @return Response
      */
-    public function show(Team $team)
+    public function show(User $user)
     {
         //
-	    return \View::make('teams.show')
-		    ->with('team', $team);
+        return \View::make('users.show')
+            ->with('user', $user);
     }
 
     /**
@@ -85,11 +65,11 @@ class TeamController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function edit(Team $team)
+    public function edit(User $user)
     {
         //
-	    return \View::make('teams.edit')
-		    ->with('team', $team);
+        return \View::make('users.edit')
+            ->with('user', $user);
     }
 
     /**
@@ -100,9 +80,23 @@ class TeamController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
+        if (\Auth::user() !== $user && !\Auth::user()->isAn('admin')) {
+            return back()
+                ->with(
+                    'status',
+                    'Je hebt geen toestemming om andere accounts aan te passen'
+                );
+        }
+        
+        $user->update(
+            $request->all()
+        );
+        
+        return back()
+            ->with('status', "$user->name aangepast!");
     }
 
     /**
