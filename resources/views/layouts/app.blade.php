@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'DJC_DTP') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -45,7 +45,11 @@
         </main>
     </div>
 
-
+<footer class="container d-flex">
+    <small class="text-muted ml-auto">
+        Versie: {{ config('app.version') }}
+    </small>
+</footer>
 @if(session('clearStorage'))
     <script>
         localStorage.removeItem('product_soort');

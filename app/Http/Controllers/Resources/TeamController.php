@@ -37,6 +37,10 @@ class TeamController extends Controller
     public function create()
     {
         //
+        if (!$this->isUserAdmin() && !$this->isUserCustomer()) {
+            return redirect('home')
+                ->with('status', 'je bent niet bevoegd om deze pagina te bekijken');
+        }
         return \View::make('teams.create');
     }
 
@@ -75,8 +79,8 @@ class TeamController extends Controller
     public function show(Team $team)
     {
         //
-	    return \View::make('teams.show')
-		    ->with('team', $team);
+        return \View::make('teams.show')
+            ->with('team', $team);
     }
 
     /**
@@ -88,8 +92,8 @@ class TeamController extends Controller
     public function edit(Team $team)
     {
         //
-	    return \View::make('teams.edit')
-		    ->with('team', $team);
+        return \View::make('teams.edit')
+            ->with('team', $team);
     }
 
     /**
@@ -114,5 +118,20 @@ class TeamController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    protected function isUserAdmin()
+    {
+        return \Auth::user()->isAn('admin');
+    }
+    
+    protected function isUserDesigner()
+    {
+        return \Auth::user()->isA('designer');
+    }
+    
+    protected function isUserCustomer()
+    {
+        return \Auth::user()->isA('customer');
     }
 }

@@ -1,8 +1,14 @@
 <template>
-    <div class="form-group">
-        <label for="kostenplaats">Kostenplaats</label>
-        <input type="text" class="form-control" id="kostenplaats" name="kostenplaats" aria-describedby="kostenplaatsHelp" placeholder="Kostenplaats van de opdracht..." v-model="kostenplaats">
-    </div>
+    <section>
+        <div class="form-group">
+            <label for="kostenplaats">Kostenplaats</label>
+            <input type="text" class="form-control" id="kostenplaats" name="kostenplaats" aria-describedby="kostenplaatsHelp" placeholder="Kostenplaats van de opdracht..." v-model="kostenplaats">
+        </div>
+        <div class="form-group">
+            <label for="referentie">Referentie</label>
+            <input type="text" name="referentie" id="referentie" class="form-control" v-model="referentie">
+        </div>
+    </section>
 </template>
 
 <script>
@@ -10,16 +16,23 @@
         name: "KostenplaatsComponent",
         data() {
             return {
-                kostenplaats: ''
+                kostenplaats: '',
+                referentie: '',
             }
         },
         mounted() {
             if (localStorage.getItem('product_kostenplaats'))
                 this.kostenplaats = localStorage.getItem('product_kostenplaats')
+            
+            if (localStorage.getItem('product_referentie'))
+                this.kostenplaats = localStorage.getItem('product_referentie')
         },
         watch: {
             kostenplaats() {
                 localStorage.setItem('product_kostenplaats', this.kostenplaats)
+            },
+            referentie() {
+                localStorage.setItem('product_referentie', this.referentie);
             }
         },
     }

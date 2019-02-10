@@ -1863,19 +1863,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "KostenplaatsComponent",
   data: function data() {
     return {
-      kostenplaats: ''
+      kostenplaats: '',
+      referentie: ''
     };
   },
   mounted: function mounted() {
     if (localStorage.getItem('product_kostenplaats')) this.kostenplaats = localStorage.getItem('product_kostenplaats');
+    if (localStorage.getItem('product_referentie')) this.kostenplaats = localStorage.getItem('product_referentie');
   },
   watch: {
     kostenplaats: function kostenplaats() {
       localStorage.setItem('product_kostenplaats', this.kostenplaats);
+    },
+    referentie: function referentie() {
+      localStorage.setItem('product_referentie', this.referentie);
     }
   }
 });
@@ -37179,36 +37190,64 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
-    _c("label", { attrs: { for: "kostenplaats" } }, [_vm._v("Kostenplaats")]),
-    _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.kostenplaats,
-          expression: "kostenplaats"
-        }
-      ],
-      staticClass: "form-control",
-      attrs: {
-        type: "text",
-        id: "kostenplaats",
-        name: "kostenplaats",
-        "aria-describedby": "kostenplaatsHelp",
-        placeholder: "Kostenplaats van de opdracht..."
-      },
-      domProps: { value: _vm.kostenplaats },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
+  return _c("section", [
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "kostenplaats" } }, [_vm._v("Kostenplaats")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.kostenplaats,
+            expression: "kostenplaats"
           }
-          _vm.kostenplaats = $event.target.value
+        ],
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          id: "kostenplaats",
+          name: "kostenplaats",
+          "aria-describedby": "kostenplaatsHelp",
+          placeholder: "Kostenplaats van de opdracht..."
+        },
+        domProps: { value: _vm.kostenplaats },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.kostenplaats = $event.target.value
+          }
         }
-      }
-    })
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "referentie" } }, [_vm._v("Referentie")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.referentie,
+            expression: "referentie"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "text", name: "referentie", id: "referentie" },
+        domProps: { value: _vm.referentie },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.referentie = $event.target.value
+          }
+        }
+      })
+    ])
   ])
 }
 var staticRenderFns = []
@@ -37784,7 +37823,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
             [_vm._v("Aanpassen")]
           )
         ])
@@ -37796,7 +37835,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("select", { attrs: { name: "", id: "" } }, [
+    return _c("select", { attrs: { name: "status", id: "status" } }, [
       _c("option", { attrs: { value: "aangevraagd" } }, [
         _vm._v("Aangevraagd")
       ]),
@@ -51621,8 +51660,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/mitch/Documents/Doede Jaarsma communicatie/Projecten/Doedejaarsma/mijn/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/mitch/Documents/Doede Jaarsma communicatie/Projecten/Doedejaarsma/mijn/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/mitch/Desktop/PHP/mijn.doedejaarsma.nl/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/mitch/Desktop/PHP/mijn.doedejaarsma.nl/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

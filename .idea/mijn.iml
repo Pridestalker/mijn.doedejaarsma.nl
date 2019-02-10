@@ -9,6 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/beyondcode/laravel-dump-server" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/binarytorch/larecipe" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/defuse/php-encryption" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
@@ -22,6 +23,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dragonmantank/cron-expression" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/erusev/parsedown" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/erusev/parsedown-extra" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/advanced-json-rpc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fideloper/proxy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/filp/whoops" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/firebase/php-jwt" />
@@ -46,11 +50,14 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/maximebf/debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/muglug/package-versions-56" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/netresearch/jsonmapper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nexmo/client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nunomaduro/collision" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/openlss/lib-array2xml" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/opis/closure" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
@@ -77,6 +84,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psy/psysh" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sabre/event" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/comparator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/diff" />
@@ -98,6 +106,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/debug" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/dom-crawler" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/finder" />
@@ -116,8 +125,11 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/glob" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/path-util" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-diactoros" />
     </content>
     <orderEntry type="inheritedJdk" />

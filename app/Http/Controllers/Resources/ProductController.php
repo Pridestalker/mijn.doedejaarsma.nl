@@ -14,9 +14,9 @@ class ProductController extends Controller
      *
      * @var \App\User
      */
-    private $user;
+    private $_user;
     
-    private $producten = [];
+    private $_producten = [];
     
     /**
      * Display a listing of the resource.
@@ -29,7 +29,7 @@ class ProductController extends Controller
             ? $this->fetchAllProducts() : $this->fetchOwnedProducts();
         
         return \View::make('products.index')
-            ->with('products', $this->producten);
+            ->with('products', $this->_producten);
     }
 
     /**
@@ -66,6 +66,8 @@ class ProductController extends Controller
                     'attachment'  => $path?? '',
                 ]
             );
+            
+            $product->user_id = \Auth::user()->id;
         } catch (\Exception $e) {
             return back()
                 ->with('status', $e->getMessage());
@@ -93,10 +95,10 @@ class ProductController extends Controller
         return \View::make('products.show')
             ->with('product', $product);
     }
-	
-	public function showImage( Product $product )
-	{
-		return \Storage::download( $product->attachment);
+    
+    public function showImage(Product $product)
+    {
+        return \Storage::download($product->attachment);
     }
     /**
      * Show the form for editing the specified resource.
@@ -119,7 +121,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         //
-	    $product->update($request->all());
+        $product->update($request->all());
     }
 
     /**
@@ -136,13 +138,13 @@ class ProductController extends Controller
     private function isAnAdmin()
     {
         $this->setUser();
-        return $this->user->isAn('admin');
+        return $this->_user->isAn('admin');
     }
     
     private function isADesigner()
     {
         $this->setUser();
-        return $this->user->isA('designer');
+        return $this->_user->isA('designer');
     }
     
     private function fetchOwnedProducts()
@@ -152,13 +154,13 @@ class ProductController extends Controller
     
     private function fetchAllProducts()
     {
-        $this->producten = Product::all();
+        $this->_producten = Product::all();
     }
     
     private function setUser()
     {
-        if (!isset($this->user)) {
-            $this->user = \Auth::user();
+        if (!isset($this->_user)) {
+            $this->_user = \Auth::user();
         }
     }
 }
