@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Team;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -70,10 +71,13 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'username' => $data['username'],
+            'username' => $data['username']?? null,
             'current_team_id' => $data['team']?? null,
             'password' => Hash::make($data['password']),
         ]);
+        
+        
+        $user->bedrijf()->attach(Team::find($data['team']));
         
         \Bouncer::assign($data[ 'role' ])->to($user);
         
@@ -85,7 +89,8 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
         
 //        event(new Registered($user = $this->create($request->all())));
-        
+	    $user = $this->create($request->all());
+	    
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }
