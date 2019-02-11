@@ -1,7 +1,8 @@
 <template>
     <div class="form-group">
         <label for="description">Omschrijving</label>
-        <input type="text" class="form-control" id="description" name="description" aria-describedby="descriptionHelp" placeholder="Omschrijving van de opdracht..." v-model="omschrijving">
+        <textarea rows="3" class="form-control" id="description" name="description" aria-describedby="descriptionHelp" placeholder="Omschrijving van de opdracht..." v-model="omschrijving">
+        </textarea>
         <small id="descriptionHelp" class="form-text text-muted">Voer hier een duidelijke omschrijving van de opdracht in.</small>
     </div>
 </template>

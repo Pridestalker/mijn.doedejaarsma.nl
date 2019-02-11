@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('options')->comment('JSON via PHP')->nullable();
             $table->string('format')->comment('Like A4 or 21x25mm')->nullable();
             $table->string('attachment')->comment('Path to attachment')->nullable();

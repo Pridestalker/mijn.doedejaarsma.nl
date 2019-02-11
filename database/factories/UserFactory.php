@@ -20,7 +20,7 @@ $factory->define(
         return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'username' => $faker->userName,
+        'username' => $faker->unique()->userName,
         'email_verified_at' => now(),
         'password' => \Illuminate\Support\Facades\Hash::make('secret'),
         'remember_token' => Str::random(10),

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreationTest extends TeamTestCase
 {
-    public function testAuthenticatedUsersCanSeeCreate(): void
+    public function testAuthenticatedUsersCanNotSeeCreate(): void
     {
         $user = factory(User::class)
             ->create();

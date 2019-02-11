@@ -1946,6 +1946,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OmschrijvingComponent",
   data: function data() {
@@ -2146,6 +2147,38 @@ __webpack_require__.r(__webpack_exports__);
         this.step--;
       }
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ModifyProductFactuur.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ModifyProductFactuur.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ModifyProductFactuur",
+  data: function data() {
+    return {
+      isActive: false
+    };
   }
 });
 
@@ -37337,7 +37370,7 @@ var render = function() {
   return _c("div", { staticClass: "form-group" }, [
     _c("label", { attrs: { for: "description" } }, [_vm._v("Omschrijving")]),
     _vm._v(" "),
-    _c("input", {
+    _c("textarea", {
       directives: [
         {
           name: "model",
@@ -37348,7 +37381,7 @@ var render = function() {
       ],
       staticClass: "form-control",
       attrs: {
-        type: "text",
+        rows: "3",
         id: "description",
         name: "description",
         "aria-describedby": "descriptionHelp",
@@ -37781,6 +37814,76 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ModifyProductFactuur.vue?vue&type=template&id=c06c5f20&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ModifyProductFactuur.vue?vue&type=template&id=c06c5f20&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", [
+    _c(
+      "a",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: !_vm.isActive,
+            expression: "!isActive"
+          }
+        ],
+        staticClass: "text-primary",
+        attrs: { href: "#" },
+        on: {
+          click: function($event) {
+            _vm.isActive = !_vm.isActive
+          }
+        }
+      },
+      [_vm._v("Factuurnummer aanpassen")]
+    ),
+    _vm._v(" "),
+    _vm.isActive
+      ? _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "factuur" } }, [
+            _vm._v("Factuur nummer")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              name: "factuur",
+              id: "factuur",
+              placeholder: "Voer hier het factuur nummer van informer in..."
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary mt-2", attrs: { type: "submit" } },
+            [_vm._v("Aanpassen")]
+          )
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ModifyProductStatus.vue?vue&type=template&id=19d91a58&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ModifyProductStatus.vue?vue&type=template&id=19d91a58&scoped=true& ***!
@@ -37808,6 +37911,8 @@ var render = function() {
             expression: "!isActive"
           }
         ],
+        staticClass: "text-primary",
+        attrs: { href: "#" },
         on: {
           click: function($event) {
             _vm.isActive = !_vm.isActive
@@ -37823,7 +37928,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            { staticClass: "btn btn-primary mt-2", attrs: { type: "submit" } },
             [_vm._v("Aanpassen")]
           )
         ])
@@ -51478,6 +51583,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 var map = {
 	"./CreateProductView.vue": "./resources/js/views/CreateProductView.vue",
+	"./ModifyProductFactuur.vue": "./resources/js/views/ModifyProductFactuur.vue",
 	"./ModifyProductStatus.vue": "./resources/js/views/ModifyProductStatus.vue"
 };
 
@@ -51573,6 +51679,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/ModifyProductFactuur.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/views/ModifyProductFactuur.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ModifyProductFactuur_vue_vue_type_template_id_c06c5f20_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModifyProductFactuur.vue?vue&type=template&id=c06c5f20&scoped=true& */ "./resources/js/views/ModifyProductFactuur.vue?vue&type=template&id=c06c5f20&scoped=true&");
+/* harmony import */ var _ModifyProductFactuur_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModifyProductFactuur.vue?vue&type=script&lang=js& */ "./resources/js/views/ModifyProductFactuur.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ModifyProductFactuur_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ModifyProductFactuur_vue_vue_type_template_id_c06c5f20_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ModifyProductFactuur_vue_vue_type_template_id_c06c5f20_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "c06c5f20",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/ModifyProductFactuur.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/ModifyProductFactuur.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/views/ModifyProductFactuur.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModifyProductFactuur_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ModifyProductFactuur.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ModifyProductFactuur.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModifyProductFactuur_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/ModifyProductFactuur.vue?vue&type=template&id=c06c5f20&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/views/ModifyProductFactuur.vue?vue&type=template&id=c06c5f20&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModifyProductFactuur_vue_vue_type_template_id_c06c5f20_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ModifyProductFactuur.vue?vue&type=template&id=c06c5f20&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ModifyProductFactuur.vue?vue&type=template&id=c06c5f20&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModifyProductFactuur_vue_vue_type_template_id_c06c5f20_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModifyProductFactuur_vue_vue_type_template_id_c06c5f20_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/views/ModifyProductStatus.vue":
 /*!****************************************************!*\
   !*** ./resources/js/views/ModifyProductStatus.vue ***!
@@ -51660,8 +51835,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/mitch/Desktop/PHP/mijn.doedejaarsma.nl/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/mitch/Desktop/PHP/mijn.doedejaarsma.nl/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/mitch/Documents/Doede Jaarsma communicatie/Projecten/Doedejaarsma/mijn/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/mitch/Documents/Doede Jaarsma communicatie/Projecten/Doedejaarsma/mijn/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

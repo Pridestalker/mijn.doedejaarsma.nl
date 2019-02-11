@@ -126,7 +126,7 @@ class LoginTest extends TestCase
         $response = $this->post(
             $this->loginPostRoute(),
             [
-                'username' => $user->username,
+                'email' => $user->email,
                 'password' => $password,
             ]
         );
@@ -155,7 +155,7 @@ class LoginTest extends TestCase
         $response = $this->post(
             '/login',
             [
-                'username'  => $user->username,
+                'email'  => $user->email,
                 'password'  => $password,
                 'remember'  => 'on',
             ]
@@ -198,14 +198,14 @@ class LoginTest extends TestCase
         $response = $this->from($this->loginGetRoute())->post(
             $this->loginPostRoute(),
             [
-                'username' => $user->username,
+                'email' => $user->email,
                 'password' => '1234',
             ]
         );
         
         $response->assertRedirect($this->loginGetRoute());
-        $response->assertSessionHasErrors('username');
-        $this->assertTrue(session()->hasOldInput('username'));
+        $response->assertSessionHasErrors('email');
+        $this->assertTrue(session()->hasOldInput('email'));
         $this->assertFalse(session()->hasOldInput('password'));
         $this->assertGuest();
     }
@@ -220,14 +220,14 @@ class LoginTest extends TestCase
         $response = $this->from($this->loginGetRoute())->post(
             $this->loginPostRoute(),
             [
-                'username'  => 'Anonymouse',
+                'email'  => 'Anonymouse@example.com',
                 'password'  => 'Secret',
             ]
         );
         
         $response->assertRedirect($this->loginGetRoute());
-        $response->assertSessionHasErrors('username');
-        $this->assertTrue(session()->hasOldInput('username'));
+        $response->assertSessionHasErrors('email');
+        $this->assertTrue(session()->hasOldInput('email'));
         $this->assertFalse(session()->hasOldInput('password'));
         $this->assertGuest();
     }
@@ -304,14 +304,14 @@ class LoginTest extends TestCase
             $response = $this->from($this->loginGetRoute())->post(
                 $this->loginPostRoute(),
                 [
-                    'username'  => $user->username,
+                    'email'  => $user->email,
                     'password'  => 'invalid-password',
                 ]
             );
         }
         
         $response->assertRedirect($this->loginGetRoute());
-        $response->assertSessionHasErrors('username');
+        $response->assertSessionHasErrors('email');
         $this->assertContains(
             'Too many login attempts.',
             collect(
@@ -320,10 +320,10 @@ class LoginTest extends TestCase
                     ->getSession()
                     ->get('errors')
                     ->getBag('default')
-                    ->get('username')
+                    ->get('email')
             )->first()
         );
-        $this->assertTrue(session()->hasOldInput('username'));
+        $this->assertTrue(session()->hasOldInput('email'));
         $this->assertFalse(session()->hasOldInput('password'));
         $this->assertGuest();
     }

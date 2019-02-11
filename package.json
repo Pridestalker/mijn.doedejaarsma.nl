@@ -14,7 +14,6 @@
         "axios": "^0.18",
         "bootstrap": "^4.2.0",
         "cross-env": "^5.1",
-        "cypress": "^3.1.5",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
@@ -26,7 +25,5 @@
         "vue-template-compiler": "^2.6.2",
         "vuex": "^3.1.0"
     },
-    "dependencies": {
-        "faker": "^4.1.0"
-    }
+    "dependencies": {}
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Resources;
 
+use App\Events\Product\ProductCreatedEvent;
+use App\Events\Product\ProductFinished;
+use App\Events\Product\ProductStarted;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,12 +21,17 @@ class ProductController extends Controller
     
     private $_producten = [];
     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View
     {
         ($this->isAnAdmin() || $this->isADesigner())
             ? $this->fetchAllProducts() : $this->fetchOwnedProducts();
@@ -31,15 +39,21 @@ class ProductController extends Controller
         return \View::make('products.index')
             ->with('products', $this->_producten);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
         //
+        if ($this->isADesigner()) {
+            return redirect()
+                ->to('/')
+                ->with('status', 'Je bent niet bevoegd om deze pagina te bekijken');
+        }
+        
         return \View::make('products.create');
     }
 
@@ -53,6 +67,12 @@ class ProductController extends Controller
     {
         //
         
+        $validated = $request->validate([
+            'name'      => 'required|string',
+            'deadline'  => 'required',
+            'soort'     => 'required',
+        ]);
+        
         if ($request->hasFile('attachment')) {
             $path = $request->file('attachment')
                 ->storePublicly('voorbeelden');
@@ -62,18 +82,32 @@ class ProductController extends Controller
             $product = Product::create(
                 $request->except('attachment') +
                 [
-                    'status'    => 'aangevraagd',
-                    'attachment'  => $path?? '',
+                    'status'        => 'aangevraagd',
+                    'attachment'    => $path?? '',
+	                'user_id'       => \Auth::user()->id,
                 ]
             );
+    
+            if ($request->hasAny([ 'oplage', 'papier', 'gewicht', 'afleveradres' ])) {
+                $data = [
+                    'oplage' => $request->get('oplage')?? '',
+                    'papier' => $request->get('papier')?? '',
+                    'gewicht'=> $request->get('gewicht')?? '',
+                    'afleveradres' => $request->get('afleveradres')?? '',
+                ];
+                
+                $product->options = json_encode($data);
+            }
             
-            $product->user_id = \Auth::user()->id;
+            $product->save();
         } catch (\Exception $e) {
             return back()
                 ->with('status', $e->getMessage());
         }
         
         if ($product) {
+            event(new ProductCreatedEvent($product, \Auth::user()));
+            
             return redirect()
                 ->route('products.show', $product->id)
                 ->with('clearStorage', true);
@@ -106,22 +140,47 @@ class ProductController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
         //
+        return \View::make('products.edit')
+            ->with('product', $product);
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param Product                   $product
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
     {
         //
+        
+        if ($request->has('status')) {
+            if ($request->get('status') === 'opgepakt') {
+                try {
+                    event(new ProductStarted($product));
+                } catch (\Exception $exception) {
+                    return back()->with('status', $exception->getMessage());
+                }
+            }
+            
+            if ($request->get('status') === 'afgerond') {
+                try {
+                    event(new ProductFinished($product));
+                } catch (\Exception $exception) {
+                    return back()->with('status', $exception->getMessage());
+                }
+            }
+        }
+        
         $product->update($request->all());
+        
+        return back()
+            ->with('status', 'Product aangepast');
     }
 
     /**
@@ -150,11 +209,14 @@ class ProductController extends Controller
     private function fetchOwnedProducts()
     {
         $this->setUser();
+        $this->_producten = Product::byUser(\Auth::user())
+            ->orderByDesc('deadline')
+            ->get();
     }
     
     private function fetchAllProducts()
     {
-        $this->_producten = Product::all();
+        $this->_producten = Product::orderByDesc('deadline')->get();
     }
     
     private function setUser()

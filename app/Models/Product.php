@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -42,6 +44,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereFactuur($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereKostenplaats($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereReferentie($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product byUser(\App\User $user)
  */
 class Product extends Model
 {
@@ -64,6 +67,19 @@ class Product extends Model
         'updated_at',
     );
     
+    /*
+     * Scopes
+     */
+    
+    public function scopeByUser(Builder $query, User $user)
+    {
+        $userIds = $user->bedrijf->first()->users()->pluck('id');
+        return $query->whereIn('user_id', $userIds);
+    }
+    
+    /*
+     * Relationships
+     */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\User::class);

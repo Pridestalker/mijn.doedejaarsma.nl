@@ -14,8 +14,9 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Naam</th>
-                <th scope="col">Aangemaakt op</th>
-                <th scope="col">Laatste aanpassing op</th>
+                <th scope="col">Aanvraag door</th>
+                <th scope="col">Status</th>
+                <th scope="col">Deadline</th>
             </tr>
             </thead>
             <tbody>
@@ -31,13 +32,15 @@
                             {{ $product->name }}
                         </a>
                     </td>
-                    <td class="text-muted">
-                        {{ $product->created_at }}
+                    <td title="{{ $product->user->bedrijf()->first()->name }}">
+                        {{ $product->user->name }}
+                    </td>
+                    <td>
+                        {{ $product->status }}
                     </td>
                     <td class="text-muted">
-                        {{ $product->updated_at }}
+                        {{ $product->deadline }}
                     </td>
-
                 </tr>
             @endforeach
             </tbody>

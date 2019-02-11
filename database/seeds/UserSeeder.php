@@ -78,5 +78,12 @@ class UserSeeder extends Seeder
         ]);
         
         Bouncer::assign('customer')->to($doede);
+        
+        \DB::table('team_user')->insert(
+        	[
+        		'team_id'   => rand(1,2),
+		        'user_id'   => $doede->id,
+	        ]
+        );
     }
 }
