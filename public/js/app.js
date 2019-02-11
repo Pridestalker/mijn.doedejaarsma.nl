@@ -1770,6 +1770,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DeadlineComponent",
   data: function data() {
@@ -1798,6 +1799,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -37088,7 +37090,12 @@ var render = function() {
         }
       ],
       staticClass: "form-control",
-      attrs: { type: "date", id: "deadline", name: "deadline" },
+      attrs: {
+        type: "date",
+        id: "deadline",
+        name: "deadline",
+        "aria-describedby": "deadlineHelper"
+      },
       domProps: { value: _vm.deadline },
       on: {
         input: function($event) {
@@ -37137,8 +37144,23 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("input", {
         staticClass: "form-control-file",
-        attrs: { type: "file", id: "attachment", name: "attachment" }
-      })
+        attrs: {
+          type: "file",
+          id: "attachment",
+          name: "attachment",
+          "aria-describedby": "fileHelper"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "small",
+        { staticClass: "form-text text-muted", attrs: { id: "fileHelper" } },
+        [
+          _vm._v(
+            "Een (eerder gebruikt) bestand ter referentie. Gelieve foto's en ander materiaal te mailen als antwoord op deze product aanvraag."
+          )
+        ]
+      )
     ])
   }
 ]
@@ -37181,7 +37203,7 @@ var render = function() {
         id: "format",
         name: "format",
         "aria-describedby": "formatHelp",
-        placeholder: "Formaat van de opdracht..."
+        placeholder: "Bijvoorbeeld A5"
       },
       domProps: { value: _vm.format },
       on: {
@@ -37242,7 +37264,7 @@ var render = function() {
           id: "kostenplaats",
           name: "kostenplaats",
           "aria-describedby": "kostenplaatsHelp",
-          placeholder: "Kostenplaats van de opdracht..."
+          placeholder: "Voor vermelding op factuur"
         },
         domProps: { value: _vm.kostenplaats },
         on: {
@@ -37269,7 +37291,12 @@ var render = function() {
           }
         ],
         staticClass: "form-control",
-        attrs: { type: "text", name: "referentie", id: "referentie" },
+        attrs: {
+          type: "text",
+          name: "referentie",
+          id: "referentie",
+          placeholder: "Voor vermelding op factuur"
+        },
         domProps: { value: _vm.referentie },
         on: {
           input: function($event) {
@@ -37323,8 +37350,7 @@ var render = function() {
         id: "name",
         name: "name",
         "aria-describedby": "nameHelp",
-        placeholder: "Naam van de opdracht...",
-        required: "",
+        placeholder: "Bijvoorbeeld flyer open dag",
         autofocus: ""
       },
       domProps: { value: _vm.name },
@@ -37385,7 +37411,8 @@ var render = function() {
         id: "description",
         name: "description",
         "aria-describedby": "descriptionHelp",
-        placeholder: "Omschrijving van de opdracht..."
+        placeholder:
+          "Bijvoorbeeld: Een flyer ter promotie van de open dag op zaterdag 2 augustus om 16.00 uur. De locatie is ons hoofdkantoor. Graag onze huisstijl regels aanhouden."
       },
       domProps: { value: _vm.omschrijving },
       on: {
@@ -37536,7 +37563,12 @@ var render = function() {
             }
           ],
           staticClass: "form-control",
-          attrs: { type: "text", name: "oplage", id: "oplage" },
+          attrs: {
+            type: "text",
+            name: "oplage",
+            id: "oplage",
+            placeholder: "Bijvoorbeeld 1.000 stuks"
+          },
           domProps: { value: _vm.oplage },
           on: {
             input: function($event) {
@@ -37560,7 +37592,12 @@ var render = function() {
             }
           ],
           staticClass: "form-control",
-          attrs: { type: "text", name: "papier", id: "papier" },
+          attrs: {
+            type: "text",
+            name: "papier",
+            id: "papier",
+            placeholder: "Bijvoorbeeld mat mc"
+          },
           domProps: { value: _vm.papier },
           on: {
             input: function($event) {
@@ -37584,7 +37621,12 @@ var render = function() {
             }
           ],
           staticClass: "form-control",
-          attrs: { type: "text", name: "gewicht", id: "gewicht" },
+          attrs: {
+            type: "text",
+            name: "gewicht",
+            id: "gewicht",
+            placeholder: "Bijvoorbeeld 250 grams"
+          },
           domProps: { value: _vm.gewicht },
           on: {
             input: function($event) {

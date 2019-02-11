@@ -2,11 +2,11 @@
     <section>
         <div class="form-group">
             <label for="kostenplaats">Kostenplaats</label>
-            <input type="text" class="form-control" id="kostenplaats" name="kostenplaats" aria-describedby="kostenplaatsHelp" placeholder="Kostenplaats van de opdracht..." v-model="kostenplaats">
+            <input type="text" class="form-control" id="kostenplaats" name="kostenplaats" aria-describedby="kostenplaatsHelp" placeholder="Voor vermelding op factuur" v-model="kostenplaats">
         </div>
         <div class="form-group">
             <label for="referentie">Referentie</label>
-            <input type="text" name="referentie" id="referentie" class="form-control" v-model="referentie">
+            <input type="text" name="referentie" id="referentie" class="form-control" placeholder="Voor vermelding op factuur" v-model="referentie">
         </div>
     </section>
 </template>

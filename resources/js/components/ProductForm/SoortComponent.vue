@@ -14,11 +14,11 @@
         
         <div class="form-group" v-show="soort === 'drukwerk'">
             <label for="oplage">Oplage</label>
-            <input type="text" name="oplage" id="oplage" class="form-control" v-model="oplage">
+            <input type="text" name="oplage" id="oplage" placeholder="Bijvoorbeeld 1.000 stuks" class="form-control" v-model="oplage">
             <label for="papier">Soort papier</label>
-            <input type="text" name="papier" id="papier" class="form-control" v-model="papier">
+            <input type="text" name="papier" id="papier" placeholder="Bijvoorbeeld mat mc" class="form-control" v-model="papier">
             <label for="gewicht">Papier gewicht</label>
-            <input type="text" name="gewicht" id="gewicht" class="form-control" v-model="gewicht">
+            <input type="text" name="gewicht" id="gewicht" placeholder="Bijvoorbeeld 250 grams" class="form-control" v-model="gewicht">
             <label for="afleveradres">Afleveradres</label>
             <input type="text" name="afleveradres" id="afleveradres" class="form-control" v-model="afleveradres">
         </div>

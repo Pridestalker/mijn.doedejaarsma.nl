@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
         <label for="format">Formaat</label>
-        <input type="text" class="form-control" id="format" name="format" aria-describedby="formatHelp" placeholder="Formaat van de opdracht..." v-model="format">
+        <input type="text" class="form-control" id="format" name="format" aria-describedby="formatHelp" placeholder="Bijvoorbeeld A5" v-model="format">
         <small id="formatHelp" class="form-text text-muted">Voer hier het gewenste formaat in, zoals A4 of A5</small>
     </div>
 </template>

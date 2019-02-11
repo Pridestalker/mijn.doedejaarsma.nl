@@ -32,7 +32,7 @@ class OverviewTest extends TeamTestCase
         $user = factory(User::class)
             ->create();
         \Bouncer::assign('admin')->to($user);
-	    
+        
         $this->actingAs($user);
         $this->assertAuthenticated();
         
@@ -41,5 +41,4 @@ class OverviewTest extends TeamTestCase
         $re->assertViewIs('teams.index');
         $this->assertAuthenticatedAs($user);
     }
-    
 }

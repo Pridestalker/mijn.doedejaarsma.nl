@@ -1,7 +1,8 @@
 <template>
     <div class="form-group">
         <label for="deadline">Gewenste deadline</label>
-        <input type="date" class="form-control" id="deadline" name="deadline" v-model="deadline">
+        <input type="date" class="form-control" id="deadline" name="deadline" v-model="deadline" aria-describedby="deadlineHelper">
+        <!-- <small id="deadlineHelper" class="form-text text-muted"></small> -->
     </div>
 </template>
 
