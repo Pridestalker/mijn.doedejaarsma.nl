@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
+use Laravel\Passport\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 /**
@@ -53,6 +54,7 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable,
+        HasApiTokens,
         HasRolesAndAbilities;
 
     /**
