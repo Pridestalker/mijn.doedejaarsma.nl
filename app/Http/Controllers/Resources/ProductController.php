@@ -177,7 +177,7 @@ class ProductController extends Controller
             }
         }
         
-        $product->update($request->all());
+        $product->update($request->except('deadline'));
         
         return back()
             ->with('status', 'Product aangepast');
