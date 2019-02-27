@@ -79,14 +79,14 @@ class ProductController extends Controller
         }
         
         try {
-            $product = Product::create(
-                $request->except('attachment') +
-                [
-                    'status'        => 'aangevraagd',
-                    'attachment'    => $path?? '',
-	                'user_id'       => \Auth::user()->id,
-                ]
-            );
+            $atts = $request->except('attachment');
+            $atts['status'] = 'aangevraagd';
+            $atts['attachment'] = $path?? '';
+            $atts['user_id'] = $request->has('user_id') ?
+                $request->get('user_id') :
+                \Auth::user()->id;
+            
+            $product = Product::create($atts);
     
             if ($request->hasAny([ 'oplage', 'papier', 'gewicht', 'afleveradres' ])) {
                 $data = [

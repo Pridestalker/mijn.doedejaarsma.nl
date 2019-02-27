@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Product;
 
+use App;
 use App\Events\Product\ProductCreatedEvent;
 use App\Mail\Admin\NewProductMade;
 use Illuminate\Queue\InteractsWithQueue;
@@ -23,14 +24,19 @@ class ProductCreatedListener
     /**
      * Handle the event.
      *
-     * @param ProductCreatedEvent $event
+     * @param ProductCreatedEvent $event The event firing this listener
      *
      * @return void
      */
     public function handle(ProductCreatedEvent $event): void
     {
         //
-        \Mail::to('dtp@doedejaarsma.nl')
+        /* @noinspection PhpMethodParametersCountMismatchInspection */
+        if (App::environment('local')) {
+            return;
+        }
+        
+        \Mail::to($this->_email())
             ->send(new NewProductMade($event->product));
         
         \Mail::to($event->user->email)
@@ -40,5 +46,19 @@ class ProductCreatedListener
 
         \Mail::to($event->user->bedrijf()->first()->email)
             ->send(new \App\Mail\Team\NewProductMade($event->user, $event->product));
+    }
+    
+    /**
+     * Changes the email based on env.
+     *
+     * @noinspection PhpMethodMayBeStaticInspection
+     *
+     * @return string email address
+     */
+    private function _email(): string
+    {
+        /* @noinspection PhpMethodParametersCountMismatchInspection */
+        return App::environment('local')?
+            'mitch@doedejaarsma.nl' : 'dtp@doedejaarsma.nl';
     }
 }
