@@ -42,9 +42,9 @@ class PatchTest extends ProductTestCase
     public function testUserCannotModifyOtherProduct(): void
     {
     	$this->doesNotPerformAssertions();
-	    $this->markTestIncomplete('Test not implemented');
-	    
-	    \Event::fake();
+        $this->markTestIncomplete('Test not implemented');
+        
+        \Event::fake();
         
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
@@ -54,31 +54,35 @@ class PatchTest extends ProductTestCase
                 'user_id'   => $user1->id,
             ]
         );
+//
+//        $this->actingAs($user2);
+//
+//        $res = $this->from($this->editProductRoute($product))
+//            ->post(
+//                $this->updateProductRoute($product),
+//                [
+//                    '_method'   => 'put',
+//                    'name'      => 'andereNaam',
+//                ]
+//            );
     
-        $res = $this->from($this->editProductRoute($product))
-            ->post(
-                $this->updateProductRoute($product),
-                [
-                    '_method'   => 'put'
-                ]
-            );
     }
     
     public function testOnlyNameChangesWhenEdited(): void
     {
-    	$this->doesNotPerformAssertions();
+        $this->doesNotPerformAssertions();
         $this->markTestIncomplete('Test not implemented');
     }
-	
-	public function testOnlyDescriptionChangesWhenEdited(): void
-	{
-		$this->doesNotPerformAssertions();
-		$this->markTestIncomplete('Test not implemented');
+    
+    public function testOnlyDescriptionChangesWhenEdited(): void
+    {
+        $this->doesNotPerformAssertions();
+        $this->markTestIncomplete('Test not implemented');
     }
-	
-	public function testDeadlineDoesNotChangeWhenNotEdited(): void
-	{
-		$this->doesNotPerformAssertions();
-		$this->markTestIncomplete('Test not implemented');
+    
+    public function testDeadlineDoesNotChangeWhenNotEdited(): void
+    {
+        $this->doesNotPerformAssertions();
+        $this->markTestIncomplete('Test not implemented');
     }
 }
