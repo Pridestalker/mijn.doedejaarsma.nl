@@ -4,6 +4,8 @@
     <list default="true" id="164a0628-07e3-4799-ac29-30f1ff0f5379" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Resources/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Resources/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Auth/PatchPasswordTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Auth/PatchPasswordTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Products/CreationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Products/CreationTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +17,34 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/Feature/Products/CreationTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="110" column="50" selection-start-line="110" selection-start-column="50" selection-end-line="110" selection-end-column="50" />
+              <folding>
+                <element signature="e#238#581#0#PHP" />
+                <element signature="e#563#740#0#PHP" />
+                <element signature="e#749#1055#0#PHP" />
+                <element signature="e#1066#1408#0#PHP" />
+                <element signature="e#1418#1766#0#PHP" />
+                <element signature="e#1776#2412#0#PHP" />
+                <element signature="e#2422#2843#0#PHP" />
+                <element signature="e#2853#3515#0#PHP" />
+                <element signature="e#3548#3665#0#PHP" />
+                <element signature="e#3524#4272#0#PHP" />
+                <element signature="e#4142#4312#0#PHP" />
+                <element signature="e#4282#4364#0#PHP" />
+                <element signature="e#4389#4900#0#PHP" />
+                <element signature="e#5321#5428#0#PHP" />
+                <element signature="e#5424#6372#0#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,7 +81,6 @@
         <option value="$PROJECT_DIR$/tests/Feature/Auth/LoginTest.php" />
         <option value="$PROJECT_DIR$/.env.dusk.local" />
         <option value="$PROJECT_DIR$/tests/Feature/Auth/ResetPasswordTest.php" />
-        <option value="$PROJECT_DIR$/tests/Feature/Products/CreationTest.php" />
         <option value="$PROJECT_DIR$/tests/Feature/Teams/OverviewTest.php" />
         <option value="$PROJECT_DIR$/resources/docs/1.0/overview.md" />
         <option value="$PROJECT_DIR$/config/larecipe.php" />
@@ -80,7 +108,6 @@
         <option value="$PROJECT_DIR$/resources/views/products/create.blade.php" />
         <option value="$PROJECT_DIR$/app/Listeners/Product/ProductCreatedListener.php" />
         <option value="$PROJECT_DIR$/tests/Feature/Products/PatchTest.php" />
-        <option value="$PROJECT_DIR$/tests/Feature/Auth/PatchPasswordTest.php" />
         <option value="$PROJECT_DIR$/resources/views/users/partials/input.role.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/partials/forms/button.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/users/partials/input-password.blade.php" />
@@ -91,6 +118,8 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/ModifyPasswordController.php" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.log" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Resources/ProductController.php" />
+        <option value="$PROJECT_DIR$/tests/Feature/Auth/PatchPasswordTest.php" />
+        <option value="$PROJECT_DIR$/tests/Feature/Products/CreationTest.php" />
       </list>
     </option>
   </component>
@@ -252,12 +281,47 @@
             </path>
             <path>
               <item name="mijn" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="mijn" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mijn" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Scratches" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="mijn" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mijn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mijn" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mijn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mijn" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mijn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mijn" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mijn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mijn" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="Feature" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mijn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mijn" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="Feature" type="462c0819:PsiDirectoryNode" />
+              <item name="Auth" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -353,16 +417,18 @@
       <workItem from="1550215844622" duration="264000" />
       <workItem from="1551265894663" duration="10506000" />
       <workItem from="1551787970511" duration="930000" />
+      <workItem from="1551859102043" duration="4708000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106745000" />
+    <option name="totallyTimeSpent" value="111453000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="0" width="1920" height="1200" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1368477" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13791268" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -374,10 +440,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32944345" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" x="-1899" y="145" width="1878" height="309" id="Terminal" order="11" weight="0.3752244" />
+      <window_info active="true" anchor="bottom" x="-1899" y="145" width="1878" height="309" id="Terminal" order="11" visible="true" weight="0.3752244" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -386,7 +452,7 @@
       <window_info anchor="right" id="Database" order="5" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1368477" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13791268" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -398,10 +464,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32944345" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" x="-1899" y="145" width="1878" height="309" id="Terminal" order="11" weight="0.3752244" />
+      <window_info active="true" anchor="bottom" x="-1899" y="145" width="1878" height="309" id="Terminal" order="11" visible="true" weight="0.3752244" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -414,13 +480,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_02_06_143633_create_products_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="24" column="80" lean-forward="true" selection-start-line="24" selection-start-column="80" selection-end-line="24" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/factories/UserFactory.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -432,16 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
           <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/Feature/Products/ProductTestCase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-124">
-          <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
-          <folding>
-            <element signature="e#43#56#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -579,13 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/Feature/Products/CreationTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/Feature/Products/PatchTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1311">
@@ -593,13 +635,6 @@
           <folding>
             <element signature="e#42#65#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/Feature/Auth/PatchPasswordTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
@@ -667,23 +702,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Resources/ProductController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="109" column="65" selection-start-line="109" selection-start-column="65" selection-end-line="109" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Events/Product/ProductCreatedEvent.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-          <folding>
-            <element signature="e#38#61#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Listeners/Product/ProductCreatedListener.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
@@ -694,20 +712,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="133" column="10" lean-forward="true" selection-start-line="133" selection-start-column="10" selection-end-line="133" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.log" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.log" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -729,24 +735,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.sql">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.sql" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.sql" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.sql" />
+    <entry file="file://$PROJECT_DIR$/tests/Feature/Products/ProductTestCase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="708">
+          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+          <folding>
+            <element signature="e#43#56#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.sql">
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-03-06.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Events/Product/ProductCreatedEvent.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="-1">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding>
+            <element signature="e#38#61#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.sql">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Resources/ProductController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="-3251">
+          <caret line="125" column="101" lean-forward="true" selection-start-line="125" selection-start-column="101" selection-end-line="125" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Feature/Auth/PatchPasswordTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Feature/Products/CreationTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="110" column="50" selection-start-line="110" selection-start-column="50" selection-end-line="110" selection-end-column="50" />
+          <folding>
+            <element signature="e#238#581#0#PHP" />
+            <element signature="e#563#740#0#PHP" />
+            <element signature="e#749#1055#0#PHP" />
+            <element signature="e#1066#1408#0#PHP" />
+            <element signature="e#1418#1766#0#PHP" />
+            <element signature="e#1776#2412#0#PHP" />
+            <element signature="e#2422#2843#0#PHP" />
+            <element signature="e#2853#3515#0#PHP" />
+            <element signature="e#3548#3665#0#PHP" />
+            <element signature="e#3524#4272#0#PHP" />
+            <element signature="e#4142#4312#0#PHP" />
+            <element signature="e#4282#4364#0#PHP" />
+            <element signature="e#4389#4900#0#PHP" />
+            <element signature="e#5321#5428#0#PHP" />
+            <element signature="e#5424#6372#0#PHP" />
+          </folding>
         </state>
       </provider>
     </entry>
