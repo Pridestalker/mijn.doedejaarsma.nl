@@ -2,19 +2,75 @@
 
 namespace Tests\Feature\Products;
 
-use Tests\TestCase;
+use App\Models\Product;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class DeleteProductTest extends TestCase
+class DeleteProductTest extends ProductTestCase
 {
+    use WithFaker;
     /**
-     * A basic test example.
+     * A user can delete his/her own products.
+     *
+     * @test
      *
      * @return void
      */
-    public function testExample()
+    public function userCanDeleteOwnProduct(): void
     {
-        $this->assertTrue(true);
+        /* @var \App\User $user */
+        $user = $this->runWithActor('customer');
+        
+        $product = factory(Product::class)->create(
+            [
+                'user_id'   => $user->id
+            ]
+        );
+        
+        $res = $this->post(
+            $this->deleteProductRoute($product),
+            [
+                '_method'   => 'DELETE'
+            ]
+        );
+    
+        $res->assertRedirect();
+    
+        $this->assertFalse($product->exists());
+    }
+    
+    /**
+     * Admin can delete any product.
+     *
+     * @test
+     *
+     * @return void
+     */
+    public function adminCanDeleteAnyProduct(): void
+    {
+        /* @var \App\User $customer */
+        $customer = factory(User::class)->create();
+        
+        $admin = $this->runWithActor('admin');
+    
+        /* @var \App\Models\Product $product */
+        $product = factory(Product::class)->create(
+            [
+                'user_id'   => $customer->id
+            ]
+        );
+        
+        $res = $this->post(
+            $this->deleteProductRoute($product),
+            [
+                '_method'   => 'DELETE'
+            ]
+        );
+    
+        $res->assertRedirect();
+        
+        $this->assertFalse($product->exists());
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\User;
 use Auth;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -216,17 +217,28 @@ class ProductController extends Controller
         return back()
             ->with('status', 'Product aangepast');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param Product $product the product to be removed.
      *
-     * @return Response | void
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Product $product): ?Response
+    public function destroy(Product $product): RedirectResponse
     {
         //
+        try {
+            $product->delete();
+            return redirect()
+                ->route('products.index')
+                ->with('status', 'Product verwijderd!');
+        } catch (Exception $exception) {
+            return redirect()
+                ->route('products.index')
+                ->with('status', 'Er is iets fout gegaan met verwijderen.');
+        }
     }
     
     /**
