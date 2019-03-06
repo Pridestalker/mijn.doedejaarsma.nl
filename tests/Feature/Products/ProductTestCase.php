@@ -29,7 +29,7 @@ abstract class ProductTestCase extends TestCase
     
     protected function readProductRoute($product)
     {
-        return route('products.show',$product);
+        return route('products.show', $product);
     }
     
     protected function editProductRoute($product)
@@ -39,12 +39,12 @@ abstract class ProductTestCase extends TestCase
     
     protected function updateProductRoute($product)
     {
-        return route('products.update',$product);
+        return route('products.update', $product);
     }
     
     protected function deleteProductRoute($product)
     {
-        return route('products.destroy',$product);
+        return route('products.destroy', $product);
     }
     
     protected function runWithActor($role = 'customer')
