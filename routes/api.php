@@ -18,3 +18,27 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('login', 'Api\V1\Auth\LoginController@login')->name('api.login');
+
+Route::prefix('v1')->middleware('auth:api')->group(
+    function () {
+        Route::prefix('products')->group(
+            function () {
+                Route::get('/', 'Api\V1\Product\ProductController@index')
+                     ->name('api.products.index');
+                
+                Route::get('/{product}', 'Api\V1\Product\ProductController@show')
+                    ->name('api.products.show');
+                
+                
+                Route::post('/', 'Api\V1\Product\ProductController@store')
+                    ->name('api.products.store');
+                
+                Route::patch('/{product}/edit', 'Api\V1\Product\ProductController@update')
+                    ->name('api.products.patch');
+                
+                Route::delete('/{product}/destroy', 'Api\V1\Product\ProductController@destroy')
+	                ->name('api.products.destroy');
+            }
+        );
+    }
+);

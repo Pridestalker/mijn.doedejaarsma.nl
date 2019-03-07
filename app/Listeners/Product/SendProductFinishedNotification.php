@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Product;
 
+use App;
 use App\Mail\Customer\ProductFinished;
 use \App\Events\Product\ProductFinished as Event;
 
@@ -26,7 +27,10 @@ class SendProductFinishedNotification
 	 */
     public function handle(Event $event)
     {
-        //
+	    /* @noinspection PhpMethodParametersCountMismatchInspection */
+	    if (App::environment('local')) {
+		    return;
+	    }
         \Mail::to($event->product->user->email)
             ->send(new ProductFinished($event->product));
     }
