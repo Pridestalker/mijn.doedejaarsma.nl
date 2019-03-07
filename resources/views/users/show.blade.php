@@ -16,11 +16,11 @@
                 <p class="card-text"><small class="text-muted">Laatste aanpassing op: {{ $user->updated_at }}</small></p>
             </div>
         </div>
-        @can('update')
+        @if(\Auth::user()->id === $user->id || \Auth::user()->can('update', $user))
             <div class="card-footer">
                 <a href="{{ route('users.edit', $user) }}" class="card-link">Bewerken</a>
             </div>
-        @endcan
+        @endif
     </div>
 
     <div class="mt-3">
