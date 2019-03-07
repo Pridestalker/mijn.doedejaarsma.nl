@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div class="progress  mb-2">
+        <div class="progress mb-2">
             <div class="progress-bar progress-bar-striped" role="progressbar" :style="{ width: progress }" :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100">{{ progress }}</div>
         </div>
         <div v-show="step === 1">

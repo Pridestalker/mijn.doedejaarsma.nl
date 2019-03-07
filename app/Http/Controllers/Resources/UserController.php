@@ -91,9 +91,7 @@ class UserController extends Controller
                 );
         }
         
-        $user->update(
-            $request->all()
-        );
+        $user->update($request->all());
         
         return back()
             ->with('status', "$user->name aangepast!");

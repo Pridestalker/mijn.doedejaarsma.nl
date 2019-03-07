@@ -65,9 +65,17 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Aanpassen</button>
+            @if(\Auth::user()->isAn('admin'))
+                @includeIf('users.partials.input-role')
+            @endif
+
+            @include('layouts.partials.forms.button', ['type' => 'submit', 'text' => 'Aanpassen'])
         </form>
     </div>
 </div>
+
+@if((\Auth::user()->id === $user->id) || \Auth::user()->isAn('admin'))
+    @includeIf('users.partials.input-password')
+@endif
 
 @endsection

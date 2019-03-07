@@ -11,7 +11,7 @@
         <span>
             {{ $product->name }}
             @if($product->user->bedrijf()->exists())
-                | {{ $product->user->bedrijf()->first()->name }} - {{ $product->user->name }}
+                | <a href="{{ route('teams.show', $product->user->bedrijf()->first() ) }}">{{ $product->user->bedrijf()->first()->name }}</a> - <a href="{{ route('users.show', $product->user) }}">{{ $product->user->name }}</a>
             @endif
         </span>
     </div>
@@ -43,13 +43,13 @@
                 $_options = json_decode($product->options);
             @endphp
             <p class="card-text">
-                Oplage: {{ $_options->oplage }}
-            </p>
-            <p class="card-text">
                 Papier: {{ $_options->papier }}
             </p>
             <p class="card-text">
                 Gewicht: {{ $_options->gewicht }}
+            </p>
+            <p class="card-text">
+                Oplage: {{ $_options->oplage }}
             </p>
             <p class="card-text">
                 Afleveradres: {{ $_options->afleveradres }}
@@ -60,11 +60,22 @@
                 Factuurnummer: {{ $product->factuur }}
             </p>
         @endisset
+        @isset($product->attachment)
         <p class="card-text">
             <a href="{{ route('products.image', $product) }}" class="disabled" aria-disabled="true">Voorbeeld</a>
         </p>
+        @endisset
         <p class="card-text"><small class="text-muted">Laatste aanpassing op: {{ $product->updated_at }}</small></p>
     </div>
+    @can('delete', '\App\Models\Product')
+        <div class="card-footer">
+            <form action="{{ route('products.destroy', $product) }}" method="post">
+                @method('delete')
+                @csrf
+                <button type="submit" class="btn btn-primary">Verwijderen</button>
+            </form>
+        </div>
+    @endcan
     @can('update', '\App\Models\Product')
         <div class="card-footer">
             <a href="#" class="card-link disabled" aria-disabled="true">Bewerken</a>

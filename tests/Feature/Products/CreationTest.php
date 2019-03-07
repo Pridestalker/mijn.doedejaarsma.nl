@@ -3,6 +3,7 @@
 namespace Tests\Feature\Products;
 
 use App\Events\Product\ProductCreatedEvent;
+use App\Models\Product;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -106,7 +107,14 @@ class CreationTest extends ProductTestCase
         $re->assertRedirect($this->createProductRoute());
     }
     
-    public function testProductCanBeSubmittedWithOnlyANameSoortAndDeadline(): void
+    /**
+     * Product can be submitted with minimal info.
+     *
+     * @test
+     *
+     * @return void
+     */
+    public function productCanBeSubmittedWithOnlyANameSoortAndDeadline(): void
     {
         \Event::fake();
         $this->runWithActor();
@@ -128,7 +136,13 @@ class CreationTest extends ProductTestCase
         $re->assertRedirect('/products/1');
     }
     
-    public function testCustomerReceivesMailAfterCreation(): void
+    /**
+     * Does a customer receive an email after creating a product.
+     *
+     * @test
+     * @return void
+     */
+    public function customerReceivesMailAfterCreation(): void
     {
         \Event::fake();
         
@@ -148,8 +162,85 @@ class CreationTest extends ProductTestCase
         $re->assertRedirect('/products/1');
         $re->assertSessionHasNoErrors();
         
-        \Event::assertDispatched(ProductCreatedEvent::class, function ($e) use ($user) {
-            return $e->product->user->id === $user->id;
-        });
+        \Event::assertDispatched(
+            ProductCreatedEvent::class,
+            function ($e) use ($user) {
+                return $e->user->id === $user->id;
+            }
+        );
+    }
+    
+    /**
+     * Can an admin make a product for a customer?
+     *
+     * @test
+     * @return void
+     */
+    public function adminCanMakeProductForDifferentUser(): void
+    {
+        \Event::fake();
+        
+        /* @var User $customer */
+        $customer = factory(User::class)->create();
+        
+        $user = $this->runWithActor('admin');
+        $res = $this
+            ->from($this->createProductRoute())
+            ->post(
+                $this->storeProductRoute(),
+                [
+                    'name'      => $this->faker->name,
+                    'soort'     => 'drukwerk',
+                    'deadline'  => Carbon::now(),
+                    'user_id'   => $customer->id,
+                ]
+            );
+        
+        $res->assertStatus(302);
+        $res->assertSessionHas('clearStorage');
+        $res->assertSessionHasNoErrors();
+        $res->assertRedirect('/products/1');
+        $this->assertSame((int) Product::find(1)->user_id, (int) $customer->id);
+    }
+    
+    /**
+     * Does a user receive an email after admin makes their product.
+     *
+     * @test
+     *
+     * @return void
+     */
+    public function userGetsMailAfterAdminMakesProduct(): void
+    {
+        \Event::fake();
+    
+        /* @var User $customer */
+        $customer = factory(User::class)->create();
+    
+        $user = $this->runWithActor('admin');
+        $res = $this
+            ->from($this->createProductRoute())
+            ->post(
+                $this->storeProductRoute(),
+                [
+                    'name'      => $this->faker->name,
+                    'soort'     => 'drukwerk',
+                    'deadline'  => Carbon::now(),
+                    'user_id'   => $customer->id,
+                ]
+            );
+    
+        $res->assertStatus(302);
+        $res->assertSessionHas('clearStorage');
+        $res->assertSessionHasNoErrors();
+        $res->assertRedirect('/products/1');
+        $this->assertSame((int) Product::find(1)->user_id, (int) $customer->id);
+        
+        \Event::assertDispatched(
+            ProductCreatedEvent::class,
+            function ($e) use ($customer) {
+                return $e->user->id === $customer->id;
+            }
+        );
     }
 }

@@ -17,7 +17,7 @@ class NewProductMade extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param  Product $product The newly made product
+     * @param Product $product The newly made product
      *
      * @return void
      */

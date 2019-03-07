@@ -27,24 +27,24 @@ abstract class ProductTestCase extends TestCase
         return route('products.index');
     }
     
-    protected function readProductRoute()
+    protected function readProductRoute($product)
     {
-        return route('products.show');
+        return route('products.show', $product);
     }
     
-    protected function editProductRoute()
+    protected function editProductRoute($product)
     {
-        return route('products.edit');
+        return route('products.edit', $product);
     }
     
-    protected function updateProductRoute()
+    protected function updateProductRoute($product)
     {
-        return route('products.update');
+        return route('products.update', $product);
     }
     
-    protected function deleteProductRoute()
+    protected function deleteProductRoute($product)
     {
-        return route('products.destroy');
+        return route('products.destroy', $product);
     }
     
     protected function runWithActor($role = 'customer')

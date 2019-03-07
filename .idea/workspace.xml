@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="164a0628-07e3-4799-ac29-30f1ff0f5379" name="Default Changelist" comment="" />
+    <list default="true" id="164a0628-07e3-4799-ac29-30f1ff0f5379" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ModifyPasswordController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/ProductFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/partials/forms/button.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/users/partials/input-password.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/users/partials/input-role.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Feature/Auth/PatchPasswordTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Feature/Products/DeleteProductTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Feature/Products/PatchTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Resources/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Resources/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Resources/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Resources/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Listeners/Product/ProductCreatedListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Listeners/Product/ProductCreatedListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Mail/Admin/NewProductMade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/Admin/NewProductMade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/CreateProductView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/CreateProductView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Mail/Admin/NewProduct.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Mail/Admin/NewProduct.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/partials/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/partials/navbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/products/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/products/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/teams/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teams/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Products/CreationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Products/CreationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Products/ProductTestCase.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Products/ProductTestCase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +42,17 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -35,7 +75,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="AdminCreateRolesAndPermissions" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
@@ -80,7 +120,6 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/tests/Feature/Products/DeleteProductTest.php" />
         <option value="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" />
-        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/resources/views/users/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/users/partials/input-password.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/CheckIfOwner.php" />
@@ -93,6 +132,7 @@
         <option value="$PROJECT_DIR$/resources/views/teams/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/users/show.blade.php" />
         <option value="$PROJECT_DIR$/app/Models/Product.php" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
@@ -367,15 +407,16 @@
       <workItem from="1551859102043" duration="9556000" />
       <workItem from="1551874460050" duration="355000" />
       <workItem from="1551954725160" duration="1718000" />
-      <workItem from="1551958879976" duration="4002000" />
+      <workItem from="1551958879976" duration="4205000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122376000" />
+    <option name="totallyTimeSpent" value="122579000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="0" width="1920" height="1200" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14110756" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -670,13 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/Feature/Products/PatchTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
@@ -781,6 +815,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
           <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
         </state>
       </provider>
     </entry>
