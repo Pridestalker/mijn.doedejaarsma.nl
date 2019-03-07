@@ -17,7 +17,11 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('products/{product}/image', 'Resources\ProductController@showImage')->name( 'products.image');
+Route::patch('users/{user}/edit/password', 'Auth\ModifyPasswordController@patch')
+    ->name('user.edit.password');
+
+Route::get('products/{product}/image', 'Resources\ProductController@showImage')
+    ->name('products.image');
 Route::resource('products', 'Resources\ProductController');
 
 Route::resource('teams', 'Resources\TeamController');

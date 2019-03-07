@@ -7,20 +7,20 @@
         </div>
         <div class="card-body">
             <div class="card-text">
-                <p class="card-columns">
+                <p class="card-text">
                     Naam: {{ $user->name }}
                 </p>
-                <p class="card-columns">
+                <p class="card-text">
                     E-mail: {{ $user->email }}
                 </p>
                 <p class="card-text"><small class="text-muted">Laatste aanpassing op: {{ $user->updated_at }}</small></p>
             </div>
         </div>
-        @can('update')
+        @if(\Auth::user()->id === $user->id || \Auth::user()->can('update', $user))
             <div class="card-footer">
                 <a href="{{ route('users.edit', $user) }}" class="card-link">Bewerken</a>
             </div>
-        @endcan
+        @endif
     </div>
 
     <div class="mt-3">
