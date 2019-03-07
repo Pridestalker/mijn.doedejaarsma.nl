@@ -11,7 +11,7 @@
         <span>
             {{ $product->name }}
             @if($product->user->bedrijf()->exists())
-                | {{ $product->user->bedrijf()->first()->name }} - {{ $product->user->name }}
+                | <a href="{{ route('teams.show', $product->user->bedrijf()->first() ) }}">{{ $product->user->bedrijf()->first()->name }}</a> - <a href="{{ route('users.show', $product->user) }}">{{ $product->user->name }}</a>
             @endif
         </span>
     </div>
@@ -43,13 +43,13 @@
                 $_options = json_decode($product->options);
             @endphp
             <p class="card-text">
-                Oplage: {{ $_options->oplage }}
-            </p>
-            <p class="card-text">
                 Papier: {{ $_options->papier }}
             </p>
             <p class="card-text">
                 Gewicht: {{ $_options->gewicht }}
+            </p>
+            <p class="card-text">
+                Oplage: {{ $_options->oplage }}
             </p>
             <p class="card-text">
                 Afleveradres: {{ $_options->afleveradres }}

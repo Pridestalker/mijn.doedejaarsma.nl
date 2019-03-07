@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use App\User;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Product
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product query()
- * @mixin \Eloquent
+ * @method static Builder|\App\Product newModelQuery()
+ * @method static Builder|\App\Product newQuery()
+ * @method static Builder|\App\Product query()
+ * @mixin Eloquent
  * @property int $id
  * @property string $name
  * @property string $description
@@ -23,34 +26,34 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property string $soort
  * @property string $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereAttachment($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereDeadline($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereFormat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereOptions($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereSoort($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereUserId($value)
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|\App\Product whereAttachment($value)
+ * @method static Builder|\App\Product whereCreatedAt($value)
+ * @method static Builder|\App\Product whereDeadline($value)
+ * @method static Builder|\App\Product whereDescription($value)
+ * @method static Builder|\App\Product whereFormat($value)
+ * @method static Builder|\App\Product whereId($value)
+ * @method static Builder|\App\Product whereName($value)
+ * @method static Builder|\App\Product whereOptions($value)
+ * @method static Builder|\App\Product whereSoort($value)
+ * @method static Builder|\App\Product whereStatus($value)
+ * @method static Builder|\App\Product whereUpdatedAt($value)
+ * @method static Builder|\App\Product whereUserId($value)
  * @property string|null $factuur
  * @property string|null $kostenplaats
  * @property string|null $referentie
- * @property-read \App\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereFactuur($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereKostenplaats($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereReferentie($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product byUser(\App\User $user)
+ * @property-read User   $user
+ * @method static Builder|Product whereFactuur($value)
+ * @method static Builder|Product whereKostenplaats($value)
+ * @method static Builder|Product whereReferentie($value)
+ * @method static Builder|Product byUser( User $user)
  */
 class Product extends Model
 {
     //
     
-    protected $fillable = array(
+    protected $fillable = [
         'name',
         'description',
         'options',
@@ -65,12 +68,20 @@ class Product extends Model
         'deadline',
         'created_at',
         'updated_at',
-    );
+    ];
     
     /*
      * Scopes
      */
     
+    /**
+     * Query scope to fetch products per user.
+     *
+     * @param Builder $query the query.
+     * @param User    $user  the included user.
+     *
+     * @return Builder
+     */
     public function scopeByUser(Builder $query, User $user)
     {
         $userIds = $user->bedrijf->first()->users()->pluck('id');
@@ -80,8 +91,14 @@ class Product extends Model
     /*
      * Relationships
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    
+    /**
+     * Creates an Eloquent relation.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(User::class);
     }
 }
