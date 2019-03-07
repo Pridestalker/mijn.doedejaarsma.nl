@@ -98,7 +98,7 @@ class ProductController extends Controller
         try {
             $atts = $request->except('attachment');
             $atts['status'] = 'aangevraagd';
-            $atts['attachment'] = $path?? '';
+            $atts['attachment'] = $path?? null;
             $atts['user_id'] = $request->has('user_id') ?
                 $request->get('user_id') :
                 Auth::user()->id;
