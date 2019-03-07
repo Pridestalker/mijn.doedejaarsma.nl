@@ -65,6 +65,15 @@
         </p>
         <p class="card-text"><small class="text-muted">Laatste aanpassing op: {{ $product->updated_at }}</small></p>
     </div>
+    @can('delete', '\App\Models\Product')
+        <div class="card-footer">
+            <form action="{{ route('products.destroy', $product) }}" method="post">
+                @method('delete')
+                @csrf
+                <button type="submit" class="btn btn-primary">Verwijderen</button>
+            </form>
+        </div>
+    @endcan
     @can('update', '\App\Models\Product')
         <div class="card-footer">
             <a href="#" class="card-link disabled" aria-disabled="true">Bewerken</a>
