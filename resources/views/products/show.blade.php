@@ -60,9 +60,11 @@
                 Factuurnummer: {{ $product->factuur }}
             </p>
         @endisset
+        @isset($product->attachment)
         <p class="card-text">
             <a href="{{ route('products.image', $product) }}" class="disabled" aria-disabled="true">Voorbeeld</a>
         </p>
+        @endisset
         <p class="card-text"><small class="text-muted">Laatste aanpassing op: {{ $product->updated_at }}</small></p>
     </div>
     @can('delete', '\App\Models\Product')
