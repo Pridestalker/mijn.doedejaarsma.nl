@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Product;
 
+use App;
 use App\Events\Product\ProductStarted;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,7 +28,10 @@ class SendProductProgressingNotification
      */
     public function handle(ProductStarted $event): void
     {
-        //
+	    /* @noinspection PhpMethodParametersCountMismatchInspection */
+	    if (App::environment('local')) {
+		    return;
+	    }
         \Mail::to($event->product->user->email)
             ->send(new \App\Mail\Customer\ProductStarted($event->product));
     }
