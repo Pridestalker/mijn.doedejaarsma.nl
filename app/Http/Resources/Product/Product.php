@@ -35,6 +35,20 @@ class Product extends JsonResource
             
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
+            
+            'links'             => [
+                'self'  => [
+                    'web'       => route('products.show', $this->id),
+                    'api'       => route('api.products.show', $this->id),
+                ],
+                'overview'  =>  [
+                    'web'       => route('products.index'),
+                    'api'       => route('products.index')
+                ],
+                'owner'     =>  [
+                    'web'       => route('users.show', $this->user_id)
+                ]
+            ]
         ];
     }
 }

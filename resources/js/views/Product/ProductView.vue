@@ -1,13 +1,13 @@
 <template>
     <div>
-        <block-loader-component v-if="loading"></block-loader-component>
+        <block-loader-component size="xsmall" v-if="loading"></block-loader-component>
         <product-component :id="id" v-show="!loading" @product-loaded="stopLoading"></product-component>
     </div>
 </template>
 
 <script>
-    import BlockLoaderComponent from '../components/BlockLoaderComponent'
-    import ProductComponent from '../components/Product/ProductComponent'
+    import BlockLoaderComponent from '../../components/BlockLoaderComponent'
+    import ProductComponent from '../../components/Product/ProductComponent'
     export default {
         name: "ProductView",
         data() {
@@ -26,7 +26,7 @@
             stopLoading() {
                 setTimeout(() => {
                     this.loading = false
-                }, 800)
+                }, 587)
             },
         }
     }
