@@ -23,6 +23,7 @@ class InitialProductSeeder extends Seeder
 	            'status'    => 'aangevraagd',
 	            'soort'     => 'drukwerk',
 	            'deadline'  => \Carbon\Carbon::now(),
+	            'options'   => json_encode( ['papier' => '300mg', 'oplage' => 3000, 'afleveradres' => 'Lauriergracht 54 H', 'gewicht' => '300 grams'])
             ]
         );
         
