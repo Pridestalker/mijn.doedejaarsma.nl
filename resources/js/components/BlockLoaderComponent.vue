@@ -31,7 +31,7 @@
     animation-name: placeholderShimmer;
     animation-timing-function: linear;
     background: #f6f7f8;
-    background: linear-gradient(to right, #eeeeee 8%, #ef8716 18%, #eeeeee 33%);
+    background: linear-gradient(to right, #ef8716 8%, #422506 18%, #ef8716 33%);
     background-size: 800px 104px;
     position: relative;
 }
