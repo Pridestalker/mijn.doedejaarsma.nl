@@ -9,42 +9,43 @@
         @endcan
     </div>
     <div class="card-body">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Naam</th>
-                <th scope="col">Aanvraag door</th>
-                <th scope="col">Status</th>
-                <th scope="col">Deadline</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($products as $product)
-                <tr>
-                    <th scope="row">
-                        <a href="{{ route('products.show', $product) }}">
-                            {{ $product->id }}
-                        </a>
-                    </th>
-                    <td>
-                        <a href="{{ route('products.show', $product) }}">
-                            {{ $product->name }}
-                        </a>
-                    </td>
-                    <td title="{{ $product->user->bedrijf()->first()->name }}">
-                        {{ $product->user->name }}
-                    </td>
-                    <td>
-                        {{ $product->status }}
-                    </td>
-                    <td class="text-muted">
-                        {{ $product->deadline }}
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+        <products-over-view></products-over-view>
+{{--        <table class="table">--}}
+{{--            <thead>--}}
+{{--            <tr>--}}
+{{--                <th scope="col">#</th>--}}
+{{--                <th scope="col">Naam</th>--}}
+{{--                <th scope="col">Aanvraag door</th>--}}
+{{--                <th scope="col">Status</th>--}}
+{{--                <th scope="col">Deadline</th>--}}
+{{--            </tr>--}}
+{{--            </thead>--}}
+{{--            <tbody>--}}
+{{--            @foreach($products as $product)--}}
+{{--                <tr>--}}
+{{--                    <th scope="row">--}}
+{{--                        <a href="{{ route('products.show', $product) }}">--}}
+{{--                            {{ $product->id }}--}}
+{{--                        </a>--}}
+{{--                    </th>--}}
+{{--                    <td>--}}
+{{--                        <a href="{{ route('products.show', $product) }}">--}}
+{{--                            {{ $product->name }}--}}
+{{--                        </a>--}}
+{{--                    </td>--}}
+{{--                    <td title="{{ $product->user->bedrijf()->first()->name }}">--}}
+{{--                        {{ $product->user->name }}--}}
+{{--                    </td>--}}
+{{--                    <td>--}}
+{{--                        {{ $product->status }}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-muted">--}}
+{{--                        {{ $product->deadline }}--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
+{{--            @endforeach--}}
+{{--            </tbody>--}}
+{{--        </table>--}}
     </div>
 </div>
 @endsection
