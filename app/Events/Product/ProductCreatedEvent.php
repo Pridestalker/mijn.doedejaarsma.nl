@@ -23,7 +23,8 @@ class ProductCreatedEvent
     /**
      * Create a new event instance.
      *
-     * @param  Product $product The created product
+     * @param Product $product The created product.
+     * @param User    $user    The owning user.
      *
      * @return void
      */
