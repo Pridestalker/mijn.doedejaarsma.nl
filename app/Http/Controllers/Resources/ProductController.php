@@ -52,8 +52,7 @@ class ProductController extends Controller
         ($this->_isAnAdmin() || $this->_isADesigner())
             ? $this->_fetchAllProducts() : $this->_fetchOwnedProducts();
         
-        return View::make('products.index')
-            ->with('products', $this->_producten);
+        return View::make('products.index');
     }
     
     /**
