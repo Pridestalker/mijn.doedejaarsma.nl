@@ -4095,16 +4095,16 @@
     "packages-dev": [
         {
             "name": "ajthinking/tinx",
-            "version": "v2.1.7",
+            "version": "v2.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/furey/tinx.git",
-                "reference": "3126c2183764b262f7c929a4592383824445cd86"
+                "reference": "78ce2b2a588c8494dcb5a7f600f291a76843bb51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/furey/tinx/zipball/3126c2183764b262f7c929a4592383824445cd86",
-                "reference": "3126c2183764b262f7c929a4592383824445cd86",
+                "url": "https://api.github.com/repos/furey/tinx/zipball/78ce2b2a588c8494dcb5a7f600f291a76843bb51",
+                "reference": "78ce2b2a588c8494dcb5a7f600f291a76843bb51",
                 "shasum": ""
             },
             "require": {
@@ -4142,7 +4142,7 @@
                 }
             ],
             "description": "Reload your Laravel Tinker session from inside Tinker, plus magic shortcuts for first(), find(), where(), and more!",
-            "time": "2018-08-28T12:09:16+00:00"
+            "time": "2019-02-05T05:48:27+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
