@@ -48,7 +48,7 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return Resource
+     * @return \Illuminate\Http\RedirectResponse|\App\Http\Resources\Product\Product
      */
     public function store(Request $request)
     {
@@ -101,7 +101,7 @@ class ProductController extends Controller
                 ->with('status', $e->getMessage());
         }
     
-        if ($product) {
+        if ($product->exists) {
             if ($request->has('user_id')) {
                 event(new ProductCreatedEvent($product, User::findOrFail($request->get('user_id'))));
             } else {
@@ -138,7 +138,7 @@ class ProductController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Product                  $product
      *
-     * @return Resource
+     * @return \App\Http\Resources\Product\Product
      */
     public function update(Request $request, Product $product)
     {
@@ -152,7 +152,7 @@ class ProductController extends Controller
      *
      * @param Product $product
      *
-     * @return Resource
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
     public function destroy(Product $product)
     {
