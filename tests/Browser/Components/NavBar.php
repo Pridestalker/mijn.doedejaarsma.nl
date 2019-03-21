@@ -36,7 +36,7 @@ class NavBar extends BaseComponent
     public function elements()
     {
         return [
-            '@element' => '#selector',
+            '@logo' => '.navbar-brand',
         ];
     }
 }
