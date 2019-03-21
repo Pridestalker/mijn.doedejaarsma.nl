@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resources;
 use App\Events\Product\ProductCreatedEvent;
 use App\Events\Product\ProductFinished;
 use App\Events\Product\ProductStarted;
+use App\Exports\ProductExport;
 use App\Models\Product;
 use App\Notifications\NewProduct;
 use App\User;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use View;
 
@@ -241,6 +243,22 @@ class ProductController extends Controller
             return redirect()
                 ->route('products.index')
                 ->with('status', 'Er is iets fout gegaan met verwijderen.');
+        }
+    }
+    
+    public function download()
+    {
+        try {
+            return Excel::download(new ProductExport(), 'producten.xlsx');
+        } catch (\Exception $e) {
+            return response()
+                ->json(
+                    [
+                        'message'   => $e->getMessage(),
+                        'code'      => $e->getCode(),
+                        'trace'     => $e->getTraceAsString()
+                    ]
+                );
         }
     }
     
