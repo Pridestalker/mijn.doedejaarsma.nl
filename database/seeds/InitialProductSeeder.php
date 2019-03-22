@@ -15,6 +15,7 @@ class InitialProductSeeder extends Seeder
         
         $doede = \App\User::whereName('Doede Jaarsma')->first();
         
+        
         \App\Models\Product::create(
             [
                 'name'      => 'Jaarverslag 2019',
