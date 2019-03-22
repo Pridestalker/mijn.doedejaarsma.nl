@@ -8,7 +8,6 @@ Vue.config.productionTip = false;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
-
 if (token) {
     axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
@@ -28,6 +27,8 @@ Vue.prototype.$http = axios;
 const files = require.context('./views', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-const app = new Vue({
-    store,
-}).$mount('#app');
+const app = new Vue(
+    {
+        store,
+    }
+).$mount('#app');

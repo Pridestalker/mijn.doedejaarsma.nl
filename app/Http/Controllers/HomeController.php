@@ -25,4 +25,11 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    
+    public function removeNotification(\App\User $user, $notification)
+    {
+        $user->notifications->find($notification)->delete();
+        
+        return back();
+    }
 }

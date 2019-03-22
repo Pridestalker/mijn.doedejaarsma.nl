@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\User;
 use Auth;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -33,11 +34,11 @@ class ProductController extends Controller
      *
      * @return ProductCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         ($this->_isAnAdmin() || $this->_isADesigner())
-            ? $this->_fetchAllProducts() : $this->_fetchOwnedProducts();
+            ? $this->_fetchAllProducts($request) : $this->_fetchOwnedProducts($request);
         
         return new ProductCollection($this->_producten);
     }
@@ -190,24 +191,37 @@ class ProductController extends Controller
     /**
      * Sets the products in a private variable
      *
+     * @param Request $request the current request
+     *
      * @return void
      */
-    private function _fetchOwnedProducts(): void
+    private function _fetchOwnedProducts(Request $request): void
     {
         $this->_setUser();
-        $this->_producten = Product::byUser(Auth::user())
-                                   ->orderByDesc('deadline')
-                                   ->get();
+        $query = Product::query();
+        $query->byUser(Auth::user());
+        
+        $query = $this->addSearchParamsToQuery($request, $query);
+    
+        $this->_producten = $request->has('per_page')?
+            $query->paginate($request->get('per_page')) : $query->get();
     }
     
     /**
      * Sets all products in private variable
      *
+     * @param Request $request the current request
+     *
      * @return void
      */
-    private function _fetchAllProducts(): void
+    private function _fetchAllProducts(Request $request): void
     {
-        $this->_producten = Product::orderByDesc('deadline')->get();
+        $query = Product::query();
+        
+        $this->addSearchParamsToQuery($request, $query);
+        
+        $this->_producten = $request->has('per_page')?
+            $query->paginate($request->get('per_page')) : $query->get();
     }
     
     /**
@@ -220,5 +234,39 @@ class ProductController extends Controller
         if (!isset($this->_user)) {
             $this->_user = Auth::user();
         }
+    }
+    
+    protected function addSearchParamsToQuery(Request $request, Builder $query): Builder
+    {
+        $query->when(
+            $request->has('status'),
+            function ($q) use ($request) {
+                return $q->where('status', $request->get('status'));
+            }
+        );
+        
+        $query->when(
+            $request->has('product_name'),
+            function (Builder $q) use ($request) {
+                return $q->where(
+                    'name',
+                    'like',
+                    "%{$request->get('product_name')}%",
+                    'OR'
+                );
+            }
+        );
+        
+        $query->when(
+            $request->has('order_by'),
+            function (Builder $q) use ($request) {
+                return $q->orderBy(
+                    $request->get('order_by'),
+                    $request->get('order')?? 'ASC'
+                );
+            }
+        );
+        
+        return $query;
     }
 }
