@@ -31,7 +31,7 @@ class ProductExport extends TestCase
         
         $res = $this->get(route('download.product.all'));
         
-        Excel::assertDownloaded('products.xlsx');
+        Excel::assertDownloaded('producten.xlsx');
         
     }
 }
