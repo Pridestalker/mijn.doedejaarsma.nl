@@ -12,11 +12,11 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Naam</th>
-                            <th>Aanvraag door</th>
-                            <th>Status</th>
-                            <th>Deadline</th>
+                            <th @click="orderBy('id')" class="table-header">#</th>
+                            <th @click="orderBy('name')" class="table-header">Naam</th>
+                            <th @click="orderBy('user_id')" class="table-header">Aanvraag door</th>
+                            <th @click="orderBy('status')" class="table-header">Status</th>
+                            <th @click="orderBy('deadline')" class="table-header">Deadline</th>
                         </tr>
                     </thead>
                     <tr v-for="product in products" :key="product.id">
@@ -104,6 +104,12 @@
             },
             searchForMe() {
                 this.fetchData();
+            },
+            orderBy(param) {
+                this.params.order_by = param;
+                this.params.order = this.params.order === 'DESC'? 'ASC': 'DESC';
+
+                this.fetchData();
             }
         },
         mounted() {
@@ -113,4 +119,9 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    .table-header {
+        color: var(--primary);
+        cursor: pointer;
+    }
+</style>

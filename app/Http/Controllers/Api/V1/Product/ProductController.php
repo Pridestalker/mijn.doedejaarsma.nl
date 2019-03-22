@@ -48,7 +48,7 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return Resource
+     * @return \Illuminate\Http\RedirectResponse|\App\Http\Resources\Product\Product
      */
     public function store(Request $request)
     {
@@ -101,7 +101,7 @@ class ProductController extends Controller
                 ->with('status', $e->getMessage());
         }
     
-        if ($product) {
+        if ($product->exists) {
             if ($request->has('user_id')) {
                 event(new ProductCreatedEvent($product, User::findOrFail($request->get('user_id'))));
             } else {
@@ -138,7 +138,7 @@ class ProductController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Product                  $product
      *
-     * @return Resource
+     * @return \App\Http\Resources\Product\Product
      */
     public function update(Request $request, Product $product)
     {
@@ -152,7 +152,7 @@ class ProductController extends Controller
      *
      * @param Product $product
      *
-     * @return Resource
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
     public function destroy(Product $product)
     {
@@ -199,37 +199,9 @@ class ProductController extends Controller
     {
         $this->_setUser();
         $query = Product::query();
-        
         $query->byUser(Auth::user());
-    
-        $query->when(
-            $request->has('status'),
-            function ($q) use ($request) {
-                return $q->where('status', $request->get('status'));
-            }
-        );
-    
-        $query->when(
-            $request->has('product_name'),
-            function (Builder $q) use ($request) {
-                return $q->where(
-                    'name',
-                    'like',
-                    "%{$request->get('product_name')}%",
-                    'OR'
-                );
-            }
-        );
-    
-        $query->when(
-            $request->has('order_by'),
-            function (Builder $q) use ($request) {
-                return $q->orderBy(
-                    $request->get('order_by'),
-                    $request->get('order')?? 'ASC'
-                );
-            }
-        );
+        
+        $query = $this->addSearchParamsToQuery($request, $query);
     
         $this->_producten = $request->has('per_page')?
             $query->paginate($request->get('per_page')) : $query->get();
@@ -245,7 +217,27 @@ class ProductController extends Controller
     private function _fetchAllProducts(Request $request): void
     {
         $query = Product::query();
+        
+        $this->addSearchParamsToQuery($request, $query);
+        
+        $this->_producten = $request->has('per_page')?
+            $query->paginate($request->get('per_page')) : $query->get();
+    }
     
+    /**
+     * Sets the current user.
+     *
+     * @return void
+     */
+    private function _setUser(): void
+    {
+        if (!isset($this->_user)) {
+            $this->_user = Auth::user();
+        }
+    }
+    
+    protected function addSearchParamsToQuery(Request $request, Builder $query): Builder
+    {
         $query->when(
             $request->has('status'),
             function ($q) use ($request) {
@@ -275,20 +267,6 @@ class ProductController extends Controller
             }
         );
         
-        
-        $this->_producten = $request->has('per_page')?
-            $query->paginate($request->get('per_page')) : $query->get();
-    }
-    
-    /**
-     * Sets the current user.
-     *
-     * @return void
-     */
-    private function _setUser(): void
-    {
-        if (!isset($this->_user)) {
-            $this->_user = Auth::user();
-        }
+        return $query;
     }
 }

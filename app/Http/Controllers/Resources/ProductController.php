@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Resources;
 use App\Events\Product\ProductCreatedEvent;
 use App\Events\Product\ProductFinished;
 use App\Events\Product\ProductStarted;
+use App\Exports\ProductExport;
 use App\Models\Product;
+use App\Notifications\NewProduct;
 use App\User;
 use Auth;
 use Exception;
@@ -15,6 +17,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use View;
 
@@ -52,8 +55,7 @@ class ProductController extends Controller
         ($this->_isAnAdmin() || $this->_isADesigner())
             ? $this->_fetchAllProducts() : $this->_fetchOwnedProducts();
         
-        return View::make('products.index')
-            ->with('products', $this->_producten);
+        return View::make('products.index');
     }
     
     /**
@@ -115,6 +117,9 @@ class ProductController extends Controller
                 
                 $product->options = json_encode($data);
             }
+            
+            $users = \App\User::whereIsNot('customer')->get();
+            \Notification::send($users, new NewProduct($product));
             
             $product->save();
         } catch (Exception $e) {
@@ -238,6 +243,22 @@ class ProductController extends Controller
             return redirect()
                 ->route('products.index')
                 ->with('status', 'Er is iets fout gegaan met verwijderen.');
+        }
+    }
+    
+    public function download()
+    {
+        try {
+            return Excel::download(new ProductExport(), 'producten.xlsx');
+        } catch (\Exception $e) {
+            return response()
+                ->json(
+                    [
+                        'message'   => $e->getMessage(),
+                        'code'      => $e->getCode(),
+                        'trace'     => $e->getTraceAsString()
+                    ]
+                );
         }
     }
     
