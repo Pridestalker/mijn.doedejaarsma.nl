@@ -2,7 +2,7 @@
     <article>
         <section :data-name="product.name" data-title="Naam:">Naam: {{ product.name }}</section>
         
-        <section :data-name="product.description" data-title="Omschrijving:" v-if="product.omschrijving">Omschrijving: {{ product.description }}</section>
+        <section :data-name="product.description" data-title="Omschrijving:" v-if="product.description">Omschrijving: {{ product.description }}</section>
         
         <section :data-name="product.soort" data-title="Soort:">Soort: {{ product.soort }}</section>
         

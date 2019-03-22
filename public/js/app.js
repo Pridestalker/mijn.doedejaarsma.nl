@@ -38326,7 +38326,7 @@ var render = function() {
         [_vm._v("Naam: " + _vm._s(_vm.product.name))]
       ),
       _vm._v(" "),
-      _vm.product.omschrijving
+      _vm.product.description
         ? _c(
             "section",
             {
