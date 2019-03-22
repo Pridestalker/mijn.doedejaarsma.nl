@@ -9,7 +9,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PatchTest extends ProductTestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase,
+        WithFaker;
     
     /**
      * @covers \App\Http\Controllers\Resources\ProductController::edit
@@ -42,7 +43,7 @@ class PatchTest extends ProductTestCase
     public function testUserCannotModifyOtherProduct(): void
     {
     	$this->doesNotPerformAssertions();
-        $this->markTestIncomplete('Test not implemented');
+        $this->markTestIncomplete('Functionality not implemented');
         
         \Event::fake();
         
@@ -54,35 +55,102 @@ class PatchTest extends ProductTestCase
                 'user_id'   => $user1->id,
             ]
         );
-//
-//        $this->actingAs($user2);
-//
-//        $res = $this->from($this->editProductRoute($product))
-//            ->post(
-//                $this->updateProductRoute($product),
-//                [
-//                    '_method'   => 'put',
-//                    'name'      => 'andereNaam',
-//                ]
-//            );
+
+        $this->actingAs($user2);
+
+        $res = $this->from($this->editProductRoute($product))
+            ->post(
+                $this->updateProductRoute($product),
+                [
+                    '_method'   => 'put',
+                    'name'      => 'andereNaam',
+                ]
+            );
     
+        $res->assertRedirect($this->editProductRoute($product));
+        $res->assertSessionHasErrors();
     }
     
-    public function testOnlyNameChangesWhenEdited(): void
+    /**
+     * @test
+     */
+    public function nameChangesCorrectly(): void
     {
-        $this->doesNotPerformAssertions();
-        $this->markTestIncomplete('Test not implemented');
+        /* @var \App\Models\Product $product */
+        $product = factory(Product::class)->create(
+            [
+                'name'      => $this->faker->name,
+            ]
+        );
+        
+        $oldname = $product->name;
+        
+        $this->runWithActor();
+        
+        $res = $this->from($this->editProductRoute($product))
+            ->post(
+                $this->updateProductRoute($product),
+                [
+                    '_method'   => 'put',
+                    'name'      => $this->faker->name,
+                ]
+            );
+     
+        $res->assertRedirect($this->editProductRoute($product));
+        $this->assertSame($product->name, $oldname);
     }
     
-    public function testOnlyDescriptionChangesWhenEdited(): void
+    /**
+     * @test
+     */
+    public function descriptionChangesCorrectly(): void
     {
-        $this->doesNotPerformAssertions();
-        $this->markTestIncomplete('Test not implemented');
+        /* @var \App\Models\Product $product */
+        $product = factory(Product::class)->create(
+            [
+                'name'      => $this->faker->paragraph,
+            ]
+        );
+    
+        $old = $product->description;
+    
+        $this->runWithActor();
+    
+        $res = $this->from($this->editProductRoute($product))
+                    ->post(
+                        $this->updateProductRoute($product),
+                        [
+                            '_method'   => 'put',
+                            'description'      => $this->faker->paragraph,
+                        ]
+                    );
+    
+        $res->assertRedirect($this->editProductRoute($product));
+        $this->assertSame($product->description, $old);
     }
     
     public function testDeadlineDoesNotChangeWhenNotEdited(): void
     {
-        $this->doesNotPerformAssertions();
-        $this->markTestIncomplete('Test not implemented');
+        /* @var \App\Models\Product $product */
+        $product = factory(Product::class)->create(
+            [
+                'name'      => $this->faker->name,
+            ]
+        );
+    
+        $deadline = $product->deadline;
+        $this->runWithActor();
+    
+        $res = $this->from($this->editProductRoute($product))
+                    ->post(
+                        $this->updateProductRoute($product),
+                        [
+                            '_method'   => 'put',
+                            'name'      => $this->faker->name,
+                        ]
+                    );
+    
+        $res->assertRedirect($this->editProductRoute($product));
+        $this->assertSame($product->deadline, $deadline);
     }
 }
