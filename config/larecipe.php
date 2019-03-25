@@ -32,9 +32,10 @@ return [
     */
 
     'versions'      => [
-        'default'   => '1.0',
+        'default'   => '1.3',
         'published' => [
-            '1.0'
+            '1.0',
+            '1.3'
         ]
     ],
 
@@ -156,7 +157,7 @@ return [
             //'css/custom.css',
         ],
         'additional_js'  => [
-            //'js/custom.js',
+            'https://use.fontawesome.com/releases/v5.8.1/js/all.js',
         ],
     ],
 
