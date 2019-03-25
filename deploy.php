@@ -21,10 +21,9 @@ add('writable_dirs', []);
 
 
 // Hosts
-
 host('141.105.127.47')
-	->port('33')
-	->user('djc')
+    ->port('33')
+    ->user('djc')
     ->set('deploy_path', '~/domains/mijn.doedejaarsma.nl/public_html');
     
 // Tasks
@@ -39,4 +38,3 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 before('deploy:symlink', 'artisan:migrate');
-
