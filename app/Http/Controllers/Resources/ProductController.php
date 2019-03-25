@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Storage;
+use Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use View;
@@ -86,11 +87,13 @@ class ProductController extends Controller
     {
         //
         
-        $validated = $request->validate([
+        $validated = $request->validate(
+            [
             'name'      => 'required|string',
             'deadline'  => 'required',
             'soort'     => 'required',
-        ]);
+            ]
+        );
         
         if ($request->hasFile('attachment')) {
             $path = $request->file('attachment')
@@ -107,7 +110,8 @@ class ProductController extends Controller
             
             $product = Product::create($atts);
     
-            if ($request->hasAny([ 'oplage', 'papier', 'gewicht', 'afleveradres' ])) {
+            if ($request->hasAny([ 'oplage', 'papier', 'gewicht', 'afleveradres' ])
+            ) {
                 $data = [
                     'oplage' => $request->get('oplage')?? '',
                     'papier' => $request->get('papier')?? '',
@@ -120,13 +124,19 @@ class ProductController extends Controller
             
             $product->save();
         } catch (Exception $e) {
+            Log::error($e->getMessage(), $e->getTrace());
             return back()
                 ->with('status', $e->getMessage());
         }
         
         if ($product) {
             if ($request->has('user_id')) {
-                event(new ProductCreatedEvent($product, User::findOrFail($request->get('user_id'))));
+                event(
+                    new ProductCreatedEvent(
+                        $product,
+                        User::findOrFail($request->get('user_id'))
+                    )
+                );
             } else {
                 event(new ProductCreatedEvent($product, Auth::user()));
             }
@@ -201,6 +211,7 @@ class ProductController extends Controller
                 try {
                     event(new ProductStarted($product));
                 } catch (Exception $exception) {
+                    Log::error($exception->getMessage(), $exception->getTrace());
                     return back()->with('status', $exception->getMessage());
                 }
             }
@@ -209,6 +220,7 @@ class ProductController extends Controller
                 try {
                     event(new ProductFinished($product));
                 } catch (Exception $exception) {
+                    Log::error($exception->getMessage(), $exception->getTrace());
                     return back()->with('status', $exception->getMessage());
                 }
             }
@@ -237,6 +249,7 @@ class ProductController extends Controller
                 ->route('products.index')
                 ->with('status', 'Product verwijderd!');
         } catch (Exception $exception) {
+            Log::error($exception->getMessage(), $exception->getTrace());
             return redirect()
                 ->route('products.index')
                 ->with('status', 'Er is iets fout gegaan met verwijderen.');
@@ -247,7 +260,8 @@ class ProductController extends Controller
     {
         try {
             return Excel::download(new ProductExport(), 'producten.xlsx');
-        } catch (\Exception $e) {
+        } catch ( Exception $e) {
+            Log::error($e->getMessage(), $e->getTrace());
             return response()
                 ->json(
                     [
