@@ -64,6 +64,7 @@ class TeamController extends Controller
         try {
             Team::create($request->only('name', 'email'));
         } catch (\Exception $e) {
+        	\Log::error($e->getMessage(), $e->getTrace());
             return back()->with('status', $e->getMessage());
         }
         
