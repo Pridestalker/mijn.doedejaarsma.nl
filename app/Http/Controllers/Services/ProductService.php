@@ -25,6 +25,10 @@ class ProductService
     
     public function store()
     {
+        /*
+        * TODO: Fill the MessageBag with errors after wrong validation.
+         *      see: https://laravel.com/docs/5.8/validation
+        */
         $validated = $this->request->validate(
             [
                 'name'      => 'required|string',
@@ -32,6 +36,10 @@ class ProductService
                 'soort'     => 'required',
             ]
         );
+        
+        if (!$validated) {
+            throw new Error('Not all fields are filled');
+        }
         
         if ($this->hasFile()) {
             $path = $this->storeFile();
