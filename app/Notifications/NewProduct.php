@@ -22,6 +22,8 @@ class NewProduct extends Notification
     /**
      * Create a new notification instance.
      *
+     * @param Product $product the created product.
+     *
      * @return void
      */
     public function __construct(Product $product)
@@ -33,7 +35,8 @@ class NewProduct extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable the notification
+     *
      * @return array
      */
     public function via($notifiable)
@@ -44,7 +47,8 @@ class NewProduct extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable the notification
+     *
      * @return array
      */
     public function toArray($notifiable)
