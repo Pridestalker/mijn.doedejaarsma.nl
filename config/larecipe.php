@@ -54,7 +54,7 @@ return [
     */
 
     'settings' => [
-        'auth'  => false,
+        'auth'  => true,
         'auth_links' => [
             [
                 'name' => '',
