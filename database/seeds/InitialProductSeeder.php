@@ -1,5 +1,6 @@
 <?php
 
+use App\Notifications\NewProduct;
 use Illuminate\Database\Seeder;
 
 class InitialProductSeeder extends Seeder
@@ -16,7 +17,7 @@ class InitialProductSeeder extends Seeder
         $doede = \App\User::whereName('Doede Jaarsma')->first();
         
         
-        \App\Models\Product::create(
+        $product1 = \App\Models\Product::create(
             [
                 'name'      => 'Jaarverslag 2019',
                 'user_id'   => $doede->id,
@@ -46,5 +47,8 @@ class InitialProductSeeder extends Seeder
                 'deadline'  => \Carbon\Carbon::now(),
             ]
         );
+    
+        $users = \App\User::whereIsNot('customer')->get();
+        \Notification::send($users, new NewProduct($product1));
     }
 }
