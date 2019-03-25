@@ -161,6 +161,7 @@ class ProductController extends Controller
             return response()
                 ->json([], 204);
         } catch (Exception $exception) {
+            \Log::error($exception->getMessage(), $exception->getTrace());
             return response([], 400);
         }
     }

@@ -2736,7 +2736,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   },
   computed: {
     notificationBubbleClass: function notificationBubbleClass() {
-      console.log(this.notifications);
       return {
         'text-primary': _typeof(this.notifications[0]) == 'object',
         'text-muted': _typeof(this.notifications[0]) != 'object'

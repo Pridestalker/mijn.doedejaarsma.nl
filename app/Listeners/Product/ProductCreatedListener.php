@@ -5,10 +5,22 @@ namespace App\Listeners\Product;
 use App;
 use App\Events\Product\ProductCreatedEvent;
 use App\Mail\Admin\NewProductMade;
+use App\Notifications\NewProduct;
+use App\User;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
+use Notification;
 
+/**
+ * Class ProductCreatedListener
+ *
+ * @category Listener
+ * @package  App\Listeners\Product
+ * @author   Mitch Hijlkema <mitch@doedejaarsma.nl>
+ * @license  GNU AGPLv3 https://choosealicense.com/licenses/agpl-3.0/
+ * @link     null
+ */
 class ProductCreatedListener
 {
     /**
@@ -32,20 +44,14 @@ class ProductCreatedListener
     {
         //
         /* @noinspection PhpMethodParametersCountMismatchInspection */
+        $admins_developers = User::whereIsNot('customer')->get();
+        Notification::send($admins_developers, new NewProduct($event->product));
+        
         if (App::environment('local')) {
             return;
         }
         
-        \Mail::to($this->_email())
-            ->send(new NewProductMade($event->product));
-        
-        \Mail::to($event->user->email)
-            ->send(
-                new \App\Mail\Customer\NewProductMade($event->user, $event->product)
-            );
-
-        \Mail::to($event->user->bedrijf()->first()->email)
-            ->send(new \App\Mail\Team\NewProductMade($event->user, $event->product));
+        $this->emails($event);
     }
     
     /**
@@ -60,5 +66,29 @@ class ProductCreatedListener
         /* @noinspection PhpMethodParametersCountMismatchInspection */
         return App::environment('local')?
             'mitch@doedejaarsma.nl' : 'dtp@doedejaarsma.nl';
+    }
+    
+    
+    /**
+     * Sends the mails when a product is made.
+     *
+     * @param ProductCreatedEvent $event the current event
+     *
+     * @return void
+     */
+    public function emails(ProductCreatedEvent $event): void
+    {
+        \Mail::to($this->_email())
+            ->send(new NewProductMade($event->product));
+    
+        \Mail::to($event->user->email)
+            ->send(
+                new \App\Mail\Customer\NewProductMade($event->user, $event->product)
+            );
+    
+        \Mail::to($event->user->bedrijf()->first()->email)
+            ->send(
+                new \App\Mail\Team\NewProductMade($event->user, $event->product)
+            );
     }
 }

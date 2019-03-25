@@ -42,7 +42,6 @@
         },
         computed: {
             notificationBubbleClass() {
-                console.log(this.notifications);
                 return {
                     'text-primary': (typeof this.notifications[0] == 'object'),
                     'text-muted': (typeof this.notifications[0] != 'object')
