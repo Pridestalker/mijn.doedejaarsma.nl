@@ -49,7 +49,9 @@
 
 <footer class="container d-flex">
     <small class="text-muted ml-auto">
-        Versie: {{ config('app.version') }}
+        <a href='/docs/' class="text-muted">
+            Versie: {{ config('app.version') }}
+        </a>
     </small>
 </footer>
 @includeIf('layouts.scripts.resetLocalStorage')
