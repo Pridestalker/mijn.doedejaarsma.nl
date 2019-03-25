@@ -16,5 +16,20 @@ export default {
                     reject(err);
                 })
         });
+    },
+    async get_product({commit}, id) {
+        return new Promise((resolve, reject) => {
+            commit('fetch_product');
+            axios
+                .get('/api/v1/products', {product: id})
+                .then((res) => {
+                    commit('fetch_product_success', res.data.data)
+                    resolve(res);
+                })
+                .catch((err) => {
+                    commit('fetch_product_error', err);
+                    reject(err);
+                })
+        });
     }
 }

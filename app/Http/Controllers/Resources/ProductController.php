@@ -118,9 +118,6 @@ class ProductController extends Controller
                 $product->options = json_encode($data);
             }
             
-            $users = \App\User::whereIsNot('customer')->get();
-            \Notification::send($users, new NewProduct($product));
-            
             $product->save();
         } catch (Exception $e) {
             return back()
