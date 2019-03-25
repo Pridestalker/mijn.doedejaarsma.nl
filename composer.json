@@ -78,6 +78,7 @@
         ],
         "psalm": "psalm",
         "churn": "churn run ./app",
-        "larastan": "@php artisan code:analyse"
+        "larastan": "@php artisan code:analyse",
+        "phpunit": "phpunit"
     }
 }

@@ -103,7 +103,7 @@ class CreationTest extends ProductTestCase
             );
         
         $re->assertStatus(302);
-        $re->assertSessionHasErrors();
+        $re->assertSessionHas('errors');
         $re->assertRedirect($this->createProductRoute());
     }
     

@@ -8,6 +8,8 @@ use Auth;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Log;
 
 class ProductService
@@ -29,16 +31,18 @@ class ProductService
         * TODO: Fill the MessageBag with errors after wrong validation.
          *      see: https://laravel.com/docs/5.8/validation
         */
-        $validated = $this->request->validate(
-            [
-                'name'      => 'required|string',
-                'deadline'  => 'required',
-                'soort'     => 'required',
-            ]
+        $validated = Validator::make(
+        	$this->request->all(),
+	        [
+		        'name'      => 'required|string',
+		        'deadline'  => 'required',
+		        'soort'     => 'required',
+	        ]
         );
         
-        if (!$validated) {
-            throw new Error('Not all fields are filled');
+        if ($validated->fails()) {
+        	Session::flash('errors', $validated->errors());
+            throw new \Exception('Not all fields are filled');
         }
         
         if ($this->hasFile()) {
