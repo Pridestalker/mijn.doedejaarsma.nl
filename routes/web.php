@@ -27,12 +27,28 @@ Route::get(
 )
 ->name('user.remove.notification');
 
+Route::post('user/{user}/permissions/patch', 'Resources\PermissionController@patchUser')
+    ->name('admin.user.patch.permissions');
 
 Route::patch('users/{user}/edit/password', 'Auth\ModifyPasswordController@patch')
     ->name('user.edit.password');
 
 Route::get('products/{product}/image', 'Resources\ProductController@showImage')
     ->name('products.image');
+
+Route::get('permissions', 'Resources\PermissionController@index')
+    ->name('permissions.index');
+
+Route::get('permissions/create', 'Resources\PermissionController@create')
+    ->name('permissions.create');
+
+Route::post('permissions/store', 'Resources\PermissionController@store')
+    ->name('permissions.store');
+
+
+/*
+ * Resources
+ */
 Route::resource('products', 'Resources\ProductController');
 
 Route::resource('teams', 'Resources\TeamController');

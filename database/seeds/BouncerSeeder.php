@@ -24,6 +24,8 @@ class BouncerSeeder extends Seeder
         Bouncer::allow('designer')->to('read', Product::class);
         Bouncer::allow('designer')->to('update', Product::class);
         Bouncer::allow('designer')->to('update-status', Product::class);
+        
+        Bouncer::allow('designer')->to('set-product-user');
 
         Bouncer::forbid('banned')->everything();
     }

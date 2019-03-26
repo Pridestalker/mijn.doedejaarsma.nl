@@ -77,5 +77,7 @@
 @if((\Auth::user()->id === $user->id) || \Auth::user()->isAn('admin'))
     @includeIf('users.partials.input-password')
 @endif
-
+@if( !$user->isAn('admin') && \Auth::user()->isAn('admin'))
+    @includeIf('users.partials.permissions')
+@endif
 @endsection
