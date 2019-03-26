@@ -68,11 +68,11 @@ class ProductController extends Controller
     public function create()
     {
         //
-        if ($this->_isADesigner()) {
-            return redirect()
-                ->to('/')
-                ->with('status', 'Je bent niet bevoegd om deze pagina te bekijken');
-        }
+//        if ($this->_isADesigner()) {
+//            return redirect()
+//                ->to('/')
+//                ->with('status', 'Je bent niet bevoegd om deze pagina te bekijken');
+//        }
         
         return View::make('products.create');
     }
