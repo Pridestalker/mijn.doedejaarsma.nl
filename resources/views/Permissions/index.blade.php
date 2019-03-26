@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header d-flex align-items-center">
-            Gebruikers
+            Rechten
             @can('create-permissions')
                 <a class="btn ml-auto btn-outline-primary" href="{{ route('permissions.create') }}" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;">+</a>
             @endcan
