@@ -6,6 +6,7 @@ use App\Events\Product\ProductCreatedEvent;
 use App\Events\Product\ProductFinished;
 use App\Events\Product\ProductStarted;
 use App\Exports\ProductExport;
+use App\Http\Controllers\Services\ProductService;
 use App\Models\Product;
 use App\Notifications\NewProduct;
 use App\User;
@@ -86,65 +87,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        
-        $validated = $request->validate(
-            [
-            'name'      => 'required|string',
-            'deadline'  => 'required',
-            'soort'     => 'required',
-            ]
-        );
-        
-        if ($request->hasFile('attachment')) {
-            $path = $request->file('attachment')
-                ->storePublicly('voorbeelden');
-        }
-        
         try {
-            $atts = $request->except('attachment');
-            $atts['status'] = 'aangevraagd';
-            $atts['attachment'] = $path?? null;
-            $atts['user_id'] = $request->has('user_id') ?
-                $request->get('user_id') :
-                Auth::user()->id;
-            
-            $product = Product::create($atts);
+            $productService = new ProductService($request);
+            $product = $productService->store();
     
-            if ($request->hasAny([ 'oplage', 'papier', 'gewicht', 'afleveradres' ])
-            ) {
-                $data = [
-                    'oplage' => $request->get('oplage')?? '',
-                    'papier' => $request->get('papier')?? '',
-                    'gewicht'=> $request->get('gewicht')?? '',
-                    'afleveradres' => $request->get('afleveradres')?? '',
-                ];
-                
-                $product->options = json_encode($data);
-            }
-            
-            $product->save();
-        } catch (Exception $e) {
-            Log::error($e->getMessage(), $e->getTrace());
-            return back()
-                ->with('status', $e->getMessage());
-        }
-        
-        if ($product) {
-            if ($request->has('user_id')) {
-                event(
-                    new ProductCreatedEvent(
-                        $product,
-                        User::findOrFail($request->get('user_id'))
-                    )
-                );
-            } else {
-                event(new ProductCreatedEvent($product, Auth::user()));
-            }
-            
             return redirect()
                 ->route('products.show', $product->id)
                 ->with('clearStorage', true);
-        } else {
+        } catch (\Exception $exception) {
+            \Log::error($exception->getMessage(), $exception->getTrace());
+            
             return back()
                 ->with(
                     'status',
@@ -260,7 +212,7 @@ class ProductController extends Controller
     {
         try {
             return Excel::download(new ProductExport(), 'producten.xlsx');
-        } catch ( Exception $e) {
+        } catch (Exception $e) {
             Log::error($e->getMessage(), $e->getTrace());
             return response()
                 ->json(
