@@ -26,7 +26,7 @@
             @csrf
             <create-product-view></create-product-view>
         </div>
-        @if( Auth::user()->isAn('admin'))
+        @can('set-product-user')
             <div class="card-footer">
                 <div class="form-group">
                     <label for="user_id">Gebruiker</label>
@@ -40,7 +40,7 @@
             </div>
         @else
             <input type="hidden" name="user_id" value="{{ \Auth::user()->id }}">
-        @endif
+        @endcan
     </form>
 </div>
 @endsection
