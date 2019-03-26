@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Product;
 
 use App\Events\Product\ProductCreatedEvent;
+use App\Http\Controllers\Services\ProductService;
 use App\Http\Resources\Product\Product as Resource;
 use App\Http\Resources\Product\ProductCollection;
 use App\Models\Product;
@@ -46,75 +47,31 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\App\Http\Resources\Product\Product
      */
     public function store(Request $request)
     {
         //
-        $validated = $request->validate(
-            [
-                'name'      => 'required|string',
-                'deadline'  => 'required',
-                'soort'     => 'required',
-            ]
-        );
-    
-        if ($request->hasFile('attachment')) {
-            $path = $request->file('attachment')
-                ->storePublicly('voorbeelden');
-        }
-    
         try {
-            $atts = $request->except('attachment');
-            $atts['status'] = 'aangevraagd';
-            $atts['attachment'] = $path?? null;
-            $atts['user_id'] = $request->has('user_id') ?
-                $request->get('user_id') :
-                Auth::user()->id;
+            $productService = new ProductService($request);
+            $product = $productService->store();
         
-            $product = Product::create($atts);
-        
-            if ($request->hasAny(
-                [
-                    'oplage',
-                    'papier',
-                    'gewicht',
-                    'afleveradres'
-                ]
-            )
-            ) {
-                $data = [
-                    'oplage' => $request->get('oplage')?? null,
-                    'papier' => $request->get('papier')?? null,
-                    'gewicht'=> $request->get('gewicht')?? null,
-                    'afleveradres' => $request->get('afleveradres')?? null,
-                ];
+            return response()
+                ->json(
+                    new Resource($product),
+                    201
+                );
+        } catch (\Exception $exception) {
+            \Log::error($exception->getMessage(), $exception->getTrace());
             
-                $product->options = json_encode($data);
-            }
-        
-            $product->save();
-        } catch (Exception $e) {
-            return back()
-                ->with('status', $e->getMessage());
-        }
-    
-        if ($product->exists) {
-            if ($request->has('user_id')) {
-                event(new ProductCreatedEvent($product, User::findOrFail($request->get('user_id'))));
-            } else {
-                event(new ProductCreatedEvent($product, Auth::user()));
-            }
-        
-            return new Resource($product);
-        } else {
-            return back()
-                ->with(
-                    'status',
-                    'De aanvraag is niet doorgekomen.
-                    Als dit vaker voor komt neem dan contact met ons op'
+            return response()
+                ->json(
+                    [
+                        'error' => $exception->getMessage(),
+                    ],
+                    500
                 );
         }
     }

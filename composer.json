@@ -17,7 +17,8 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
         "nuwave/lighthouse": "^2.6",
-        "silber/bouncer": "v1.0.0-rc.4"
+        "silber/bouncer": "v1.0.0-rc.4",
+        "ext-json": "*"
     },
     "require-dev": {
         "ajthinking/tinx": "^2.1",
@@ -77,6 +78,7 @@
         ],
         "psalm": "psalm",
         "churn": "churn run ./app",
-        "larastan": "@php artisan code:analyse"
+        "larastan": "@php artisan code:analyse",
+        "phpunit": "phpunit"
     }
 }
