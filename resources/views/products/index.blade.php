@@ -7,9 +7,11 @@
 @section('content')
 <div class="card">
     <div class="card-header d-flex align-items-center">
-        Producten
+        <span class="mr-auto">
+            Producten
+        </span>
         @can('download')
-            <a class="btn ml-auto btn-outline-primary" href="{{ route('download.product.all') }}" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"><i class="fas fa-download"></i></a>
+            <a class="btn btn-outline-primary" href="{{ route('download.product.all') }}" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"><i class="fas fa-download"></i></a>
         @endcan
         @can('create', '\App\Models\Product')
             <a class="btn ml-2 btn-outline-primary" href="{{ route('products.create') }}" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"><i class="fas fa-plus"></i></a>
