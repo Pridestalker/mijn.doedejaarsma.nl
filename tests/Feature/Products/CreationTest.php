@@ -33,6 +33,8 @@ class CreationTest extends ProductTestCase
     
     public function testDesignerCanNotSeeCreate()
     {
+        $this->markTestSkipped('Functionality no longer exists');
+    
         $user = factory(User::class)
             ->create();
         
