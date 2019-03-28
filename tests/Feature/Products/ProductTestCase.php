@@ -49,6 +49,7 @@ abstract class ProductTestCase extends TestCase
     
     protected function runWithActor($role = 'customer')
     {
+        $this->seed('BouncerSeeder');
         $user = factory(User::class)
             ->create();
         

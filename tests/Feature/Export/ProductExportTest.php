@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ProductExport extends TestCase
+class ProductExportTest extends ExportTestCase
 {
 	use RefreshDatabase;
 	
@@ -23,11 +23,9 @@ class ProductExport extends TestCase
     public function exportsAreDownloadabe(): void
     {
         Excel::fake();
-        factory(Product::class)->create()->times(5);
+        factory(Product::class, 5)->create();
         
-        $user = factory(User::class)->create();
-        
-        $this->actingAs($user);
+        $user = $this->runWithActor('admin');
         
         $res = $this->get(route('download.product.all'));
         

@@ -45,6 +45,19 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    
+        $this->middleware('permission:read,\\App\\Models\\Product')
+            ->only(['index', 'show', 'showImage', 'download']);
+        
+        $this->middleware('permission:create,\\App\\Models\\Product')
+            ->only(['create', 'store']);
+        
+        $this->middleware('permission:update,\\App\\Models\\Product')
+            ->only(['edit', 'update']);
+        
+        $this->middleware('permission:delete,\\App\\Models\\Product')
+            ->only('destroy');
+    
     }
     
     /**
@@ -67,13 +80,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
-//        if ($this->_isADesigner()) {
-//            return redirect()
-//                ->to('/')
-//                ->with('status', 'Je bent niet bevoegd om deze pagina te bekijken');
-//        }
-        
         return View::make('products.create');
     }
 
