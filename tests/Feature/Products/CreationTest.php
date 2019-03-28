@@ -12,16 +12,15 @@ class CreationTest extends ProductTestCase
 {
     use WithFaker;
     
-    public function testAuthenticatedUserCanSeeCreate(): void
+    public function testAuthenticatedUserCanNotSeeCreate(): void
     {
         $user = factory(User::class)
             ->create();
         
         $this->actingAs($user);
         $re = $this->get($this->createProductRoute());
-        
-        $re->assertSuccessful();
-        $re->assertViewIs('products.create');
+	    $re->assertStatus(403);
+	    $re->assertForbidden();
     }
     
     public function testUnauthenticatedUserCanNotSeeCreate(): void
@@ -33,23 +32,17 @@ class CreationTest extends ProductTestCase
     
     public function testDesignerCanNotSeeCreate()
     {
-        $user = factory(User::class)
-            ->create();
-        
-        \Bouncer::assign('designer')->to($user);
-        $this->actingAs($user);
+        $user = $this->runWithActor('designer');
         
         $re = $this->get($this->createProductRoute());
-        $re->assertRedirect('/');
+        $re->assertStatus(403);
+	    $re->assertForbidden();
+	
     }
     
     public function testAdminCanSeeCreate()
     {
-        $user = factory(User::class)
-            ->create();
-        
-        \Bouncer::assign('admin')->to($user);
-        $this->actingAs($user);
+        $this->runWithActor('admin');
         
         $re = $this->get($this->createProductRoute());
         $re->assertSuccessful();
@@ -58,11 +51,7 @@ class CreationTest extends ProductTestCase
     
     public function testCustomerCanSeeCreate()
     {
-        $user = factory(User::class)
-            ->create();
-        
-        \Bouncer::assign('customer')->to($user);
-        $this->actingAs($user);
+        $this->runWithActor();
         
         $re = $this->get($this->createProductRoute());
         $re->assertSuccessful();
