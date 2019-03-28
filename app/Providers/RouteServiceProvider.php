@@ -51,9 +51,46 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
+        $this->mapWebBaseRoutes();
+        $this->mapWebUsersRoutes();
+        $this->mapWebProductsRoutes();
+        $this->mapWebTeamsRoutes();
+        $this->mapWebPermissionsRoutes();
+    }
+    
+    protected function mapWebBaseRoutes()
+    {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/base.php'));
+    }
+    
+    protected function mapWebUsersRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/users.php'));
+    }
+    
+    protected function mapWebProductsRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/products.php'));
+    }
+    
+    protected function mapWebTeamsRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/teams.php'));
+    }
+    
+    protected function mapWebPermissionsRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/permissions.php'));
     }
 
     /**
@@ -65,9 +102,47 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
+        $this->mapApiAuthRoutes();
+        $this->mapApiProductsRoutes();
+        $this->mapApiUserRoutes();
+    }
+    
+    /**
+     * Maps api authentication routes.
+     *
+     * @return void
+     */
+    protected function mapApiAuthRoutes(): void
+    {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/auth.php'));
+    }
+    
+    /**
+     * Maps api product routes.
+     *
+     * @return void
+     */
+    protected function mapApiProductsRoutes(): void
+    {
+        Route::prefix('api/v1/products')
+            ->middleware(['api', 'auth:api'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/v1/products.php'));
+    }
+    
+    /**
+     * Maps api user routes.
+     *
+     * @return void
+     */
+    protected function mapApiUserRoutes(): void
+    {
+        Route::prefix('api/v1/user')
+            ->middleware(['api', 'auth:api'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/v1/user.php'));
     }
 }
