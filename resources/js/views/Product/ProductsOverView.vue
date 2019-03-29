@@ -2,12 +2,12 @@
     <div>
         <block-loader-component size="xsmall" v-show="loading"></block-loader-component>
         <main v-show="!loading">
-            <aside>
-                <form @submit.prevent="searchForMe" class="text-right">
-                    <input type="text" v-model="params.product_name" />
-                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </aside>
+<!--            <aside>-->
+<!--                <form @submit.prevent="searchForMe" class="text-right">-->
+<!--                    <input type="text" v-model="params.product_name" />-->
+<!--                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>-->
+<!--                </form>-->
+<!--            </aside>-->
             <section>
                 <table class="table">
                     <thead>

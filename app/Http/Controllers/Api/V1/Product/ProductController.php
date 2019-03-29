@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -39,7 +40,8 @@ class ProductController extends Controller
     {
         //
         ($this->_isAnAdmin() || $this->_isADesigner())
-            ? $this->_fetchAllProducts($request) : $this->_fetchOwnedProducts($request);
+            ? $this->_fetchAllProducts($request)
+            : $this->_fetchOwnedProducts($request);
         
         return new ProductCollection($this->_producten);
     }
@@ -157,9 +159,9 @@ class ProductController extends Controller
     {
         $this->_setUser();
         $query = Product::query();
-        $query->byUser(Auth::user());
-        
         $query = $this->addSearchParamsToQuery($request, $query);
+        
+        $query = $query->where('user_id', '=', Auth::user()->id);
     
         $this->_producten = $request->has('per_page')?
             $query->paginate($request->get('per_page')) : $query->get();
@@ -176,7 +178,7 @@ class ProductController extends Controller
     {
         $query = Product::query();
         
-        $this->addSearchParamsToQuery($request, $query);
+        $query = $this->addSearchParamsToQuery($request, $query);
         
         $this->_producten = $request->has('per_page')?
             $query->paginate($request->get('per_page')) : $query->get();
@@ -190,15 +192,17 @@ class ProductController extends Controller
     private function _setUser(): void
     {
         if (!isset($this->_user)) {
-            $this->_user = Auth::user();
+            $this->_user = auth('api')->user();
         }
     }
     
-    protected function addSearchParamsToQuery(Request $request, Builder $query): Builder
-    {
+    protected function addSearchParamsToQuery(
+        Request $request,
+        Builder $query
+    ): Builder {
         $query->when(
             $request->has('status'),
-            function ($q) use ($request) {
+            function (Builder $q) use ($request) {
                 return $q->where('status', $request->get('status'));
             }
         );
@@ -209,8 +213,7 @@ class ProductController extends Controller
                 return $q->where(
                     'name',
                     'like',
-                    "%{$request->get('product_name')}%",
-                    'OR'
+                    "%{$request->get('product_name')}%"
                 );
             }
         );
@@ -223,13 +226,6 @@ class ProductController extends Controller
                     $request->get('order')?? 'ASC'
                 );
             }
-        );
-        
-        $query->when(
-        	!$request->user()->isA('customer'),
-	        function (Builder $q) use ($request) {
-        		return $q->where('user_id', $request->user()->id)
-	        }
         );
         
         return $query;

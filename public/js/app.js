@@ -40555,45 +40555,6 @@ var render = function() {
           ]
         },
         [
-          _c("aside", [
-            _c(
-              "form",
-              {
-                staticClass: "text-right",
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.searchForMe($event)
-                  }
-                }
-              },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.params.product_name,
-                      expression: "params.product_name"
-                    }
-                  ],
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.params.product_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.params, "product_name", $event.target.value)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm._m(0)
-              ]
-            )
-          ]),
-          _vm._v(" "),
           _c("section", [
             _c(
               "table",
@@ -40673,9 +40634,9 @@ var render = function() {
                     _c("td", [
                       _c("a", { attrs: { href: product.links.self.web } }, [
                         _vm._v(
-                          "\n                            " +
+                          "\n                                " +
                             _vm._s(product.id) +
-                            "\n                        "
+                            "\n                            "
                         )
                       ])
                     ]),
@@ -40683,34 +40644,34 @@ var render = function() {
                     _c("td", [
                       _c("a", { attrs: { href: product.links.self.web } }, [
                         _vm._v(
-                          "\n                            " +
+                          "\n                                " +
                             _vm._s(product.name) +
-                            "\n                        "
+                            "\n                            "
                         )
                       ])
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n                        " +
+                        "\n                            " +
                           _vm._s(product.owner.name) +
-                          "\n                    "
+                          "\n                        "
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n                        " +
+                        "\n                            " +
                           _vm._s(product.status) +
-                          "\n                    "
+                          "\n                        "
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n                        " +
+                        "\n                            " +
                           _vm._s(product.deadline) +
-                          "\n                    "
+                          "\n                        "
                       )
                     ])
                   ])
@@ -40775,16 +40736,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
-      _c("i", { staticClass: "fas fa-search" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
