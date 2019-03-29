@@ -225,6 +225,13 @@ class ProductController extends Controller
             }
         );
         
+        $query->when(
+        	!$request->user()->isA('customer'),
+	        function (Builder $q) use ($request) {
+        		return $q->where('user_id', $request->user()->id)
+	        }
+        );
+        
         return $query;
     }
 }
