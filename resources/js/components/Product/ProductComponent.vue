@@ -8,7 +8,7 @@
         
         <section :data-name="product.format" data-title="Formaat:" v-if="product.format">Formaat: {{ product.format }}</section>
         
-        <section :data-name="product.deadline" data-title="Deadline:">Deadline: {{ product.deadline }}</section>
+        <section :data-name="product.deadline" data-title="Deadline:">Deadline: {{ computedDeadline }}</section>
         
         <section :data-name="product.status" data-title="Status:">Status: {{ product.status }}</section>
         
@@ -25,50 +25,60 @@
 </template>
 
 <script>
-    import ProductOptionsComponent from './ProductOptionsComponent'
-    export default {
-        name: "ProductComponent",
-        components: { ProductOptionsComponent },
-        data() {
-            return {
-                error: false,
-                product: {},
-            }
-        },
-        props: {
-            id: {
-                type: Number,
-                default: undefined,
-            }
-        },
-        methods: {
-            fetchData() {
-                this.$emit('product-loading');
-                this
-                    .$http
-                    .get(`/api/v1/products/${this.id}`)
-                    .then((res) => {
-                        this.$emit('product-loaded');
-                        this.product = res.data.data;
-                    })
-                    .catch((err)=> {
-                        const id = this.id
-                        this.error = false;
-                        this.$emit('product-error', { err, id });
-                    })
-            },
-        },
-        mounted() {
-            if (!this.id) {
-                this.error = false
-                return;
-            }
-            
-            this.fetchData();
+import Component from 'vue-class-component';
+import Vue from 'vue';
+import ProductOptionsComponent from './ProductOptionsComponent'
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale'
+
+@Component({
+    props: {
+        id: {
+            type: Number,
+            default: undefined,
         }
+    },
+    components: {
+        ProductOptionsComponent
+    },
+    name: "ProductComponent"
+})
+export default class ProductComponent extends Vue {
+    error = false;
+    
+    product = {};
+    
+    mounted() {
+        if (!this.id) {
+            this.error = false;
+            return;
+        }
+        
+        this.fetchData();
     }
+    
+    fetchData() {
+        this.$emit('product-loading');
+        this
+            .$http
+            .get(`/api/v1/products/${this.id}`)
+            .then((res) => {
+                this.$emit('product-loaded');
+                this.product = res.data.data;
+            })
+            .catch((err)=> {
+                const id = this.id
+                this.error = false;
+                this.$emit('product-error', { err, id });
+            })
+    }
+    
+    get computedDeadline() {
+        if (!this.product.deadline) {
+            return '';
+        }
+        
+        return format(new Date(this.product.deadline), 'cccc dd MMMM YYYY', { awareOfUnicodeTokens: true, locale: nl })
+    }
+}
 </script>
-
-<style scoped>
-
-</style>
