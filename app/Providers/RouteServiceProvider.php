@@ -105,6 +105,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiAuthRoutes();
         $this->mapApiProductsRoutes();
         $this->mapApiUserRoutes();
+        $this->mapApiHoursRoutes();
     }
     
     /**
@@ -144,5 +145,18 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api', 'auth:api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v1/user.php'));
+    }
+    
+    /**
+     * Maps api hours routes.
+     *
+     * @return void
+     */
+    protected function mapApiHoursRoutes(): void
+    {
+        Route::prefix('api/v1/hours')
+            ->middleware('api', 'auth:api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/v1/hours.php'));
     }
 }

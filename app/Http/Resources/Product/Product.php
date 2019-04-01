@@ -10,7 +10,7 @@ class Product extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -35,6 +35,12 @@ class Product extends JsonResource
             
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
+            
+            'hours'             => [
+                'count'             => count($this->hours),
+                'total'             => $this->hours->sum('hours'),
+                'data'              => $this->hours,
+            ],
             
             'links'             => [
                 'self'  => [

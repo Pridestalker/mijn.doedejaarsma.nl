@@ -2,6 +2,8 @@ require('./bootstrap');
 import Vue from 'vue';
 import * as axios from 'axios';
 import store from './store/store';
+import * as _ from 'lodash';
+
 
 Vue.config.productionTip = false;
 
@@ -15,6 +17,8 @@ if (token) {
 }
 
 Vue.prototype.$http = axios;
+
+Vue.prototype.$_ = _;
 
 /**
  * The following block of code may be used to automatically register your

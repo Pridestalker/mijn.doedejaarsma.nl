@@ -51,5 +51,10 @@
                 </form>
             </div>
         @endcan
+        @can('insert-product-hours')
+            <div class="card-footer">
+                <add-hours-view :user_id="{{ \Auth::user()->id }}" :product_id="{{ $product->id }}"></add-hours-view>
+            </div>
+        @endcan
     </div>
 @endsection
