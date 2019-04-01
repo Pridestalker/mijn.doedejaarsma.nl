@@ -128,7 +128,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiProductsRoutes(): void
     {
         Route::prefix('api/v1/products')
-            ->middleware(['api', 'auth:api'])
+            ->middleware('api', 'auth:api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v1/products.php'));
     }
@@ -141,7 +141,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiUserRoutes(): void
     {
         Route::prefix('api/v1/user')
-            ->middleware(['api', 'auth:api'])
+            ->middleware('api', 'auth:api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v1/user.php'));
     }

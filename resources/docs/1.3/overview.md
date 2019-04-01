@@ -2,15 +2,10 @@
 
 ---
 
-- [Melding](#waarschuwing)
 - [Inloggen](#inloggen)
 - [Dashboard](#dashboard-1)
 - [Hoofdmenu](#dashboard-2)
 - [Secundair menu](#dashboard-3)
-
-
-<a name="waarschuwing"></a>
-> {warning} Momenteel is het niet mogelijk om te zoeken. Deze functionaliteit komt zsm terug.
 
 
 <a name="inloggen"></a>
