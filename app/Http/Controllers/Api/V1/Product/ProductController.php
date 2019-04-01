@@ -196,6 +196,14 @@ class ProductController extends Controller
         }
     }
     
+    /**
+     * Add search params to each request
+     *
+     * @param Request $request the current request.
+     * @param Builder $query   The current query.
+     *
+     * @return Builder
+     */
     protected function addSearchParamsToQuery(
         Request $request,
         Builder $query

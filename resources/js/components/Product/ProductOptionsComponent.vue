@@ -1,6 +1,6 @@
 <template>
     <aside>
-        <h5>Product opties</h5>
+        <h5 class="my-2">Product opties</h5>
         <section v-if="options.papier">
             papier: {{ options.papier }}
         </section>
@@ -17,18 +17,17 @@
 </template>
 
 <script>
-    export default {
-        name: "ProductOptionsComponent",
-        props: {
-            options: {
-                type: Object,
-                default: {},
-                required: false,
-            }
+import Component from 'vue-class-component';
+import Vue from 'vue';
+
+@Component({
+    props: {
+        options: {
+            type: Object,
+            default: {},
+            required: false
         }
     }
+})
+export default class ProductOptionsComponent extends Vue {}
 </script>
-
-<style scoped>
-
-</style>

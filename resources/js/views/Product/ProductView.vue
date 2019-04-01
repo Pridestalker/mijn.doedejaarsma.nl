@@ -6,30 +6,29 @@
 </template>
 
 <script>
-    import BlockLoaderComponent from '../../components/BlockLoaderComponent'
-    import ProductComponent from '../../components/Product/ProductComponent'
-    export default {
-        name: "ProductView",
-        data() {
-            return {
-                loading: true,
-            }
-        },
-        components: { ProductComponent, BlockLoaderComponent },
-        props: {
-            id: {
-                type: Number,
-                default: undefined
-            }
-        },
-        methods: {
-            stopLoading() {
-                setTimeout(() => {
-                    this.loading = false
-                }, 587)
-            },
+import Component from 'vue-class-component';
+import Vue from 'vue';
+import BlockLoaderComponent from '../../components/BlockLoaderComponent'
+import ProductComponent from '../../components/Product/ProductComponent'
+
+@Component({
+    components: { ProductComponent, BlockLoaderComponent },
+    props: {
+        id: {
+            type: Number,
+            default: undefined
         }
     }
+})
+export default class ProductView extends Vue {
+    loading = true;
+    
+    stopLoading() {
+        setTimeout(() => {
+            this.loading = false;
+        }, 587)
+    }
+}
 </script>
 
 <style scoped lang="scss">

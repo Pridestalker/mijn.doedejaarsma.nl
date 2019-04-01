@@ -15,3 +15,10 @@ mix.js('resources/js/app.js', 'public/js')
     .extract(['vue', 'vuex', 'jquery', 'popper.js', 'lodash', 'axios']);
 
 mix.sass('resources/sass/app.scss', 'public/css');
+
+mix.browserSync({
+    proxy: "localhost:8000",
+    ignore: [
+        "public/**/*.*"
+    ]
+})
