@@ -14,16 +14,11 @@
 </template>
 
 <script>
-    export default {
-        name: "ModifyProductStatus",
-        data() {
-            return {
-                isActive: false,
-            }
-        }
-    }
+import Component from 'vue-class-component';
+import Vue from 'vue';
+
+@Component
+export default class ModifyProductStatus extends Vue {
+    isActive = false;
+}
 </script>
-
-<style scoped>
-
-</style>

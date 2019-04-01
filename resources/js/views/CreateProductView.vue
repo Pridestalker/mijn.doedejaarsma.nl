@@ -29,6 +29,9 @@
 </template>
 
 <script>
+import Component from 'vue-class-component';
+import Vue from 'vue';
+
 import NaamComponent from '../components/ProductForm/NaamComponent'
 import OmschrijvingComponent from '../components/ProductForm/OmschrijvingComponent'
 import FormatComponent from '../components/ProductForm/FormatComponent'
@@ -37,32 +40,30 @@ import DeadlineComponent from '../components/ProductForm/DeadlineComponent'
 import SoortComponent from '../components/ProductForm/SoortComponent'
 import FileComponent from '../components/ProductForm/FileComponent'
 import SubmitComponent from '../components/ProductForm/SubmitComponent'
-export default {
-    name: "CreateProductView",
+
+@Component({
     components: { SubmitComponent, FileComponent, SoortComponent, DeadlineComponent, KostenplaatsComponent, FormatComponent, OmschrijvingComponent, NaamComponent },
-    data() {
-        return {
-            step: 1,
-            maxStep: 5,
-            minStep: 1,
+})
+export default class CreateProductView extends Vue {
+    step =1;
+    
+    maxStep = 5;
+    minStep = 1;
+    
+    get progress() {
+        let width = this.step*100/this.maxStep;
+        return `${width}%`;
+    }
+    
+    nextStep() {
+        if (this.step <= this.maxStep) {
+            this.step++;
         }
-    },
-    computed: {
-        progress()  {
-            let width = this.step*100/this.maxStep;
-            return `${width}%`;
-        }
-    },
-    methods: {
-        nextStep() {
-            if (this.step <= this.maxStep) {
-                this.step++
-            }
-        },
-        prevStep() {
-            if (this.step > this.minStep) {
-                this.step--
-            }
+    }
+    
+    prevStep() {
+        if (this.step > this.minStep) {
+            this.step --;
         }
     }
 }

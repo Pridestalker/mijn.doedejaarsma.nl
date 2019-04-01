@@ -8,7 +8,7 @@
                     <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </aside>
-            <section>
+            <section v-if="!error">
                 <table class="table">
                     <thead>
                         <tr>
@@ -50,73 +50,98 @@
                     </nav>
                 </aside>
             </section>
+            <section v-if="error">
+                <div class="alert alert-warning">
+                    {{ error }}
+                </div>
+            </section>
         </main>
     </div>
 </template>
 
 <script>
-    import BlockLoaderComponent from '../../components/BlockLoaderComponent'
-    export default {
-        name: "ProductsOverView",
-        components: { BlockLoaderComponent },
-        data() {
-            return {
-                loading: true,
-                products: [],
-                pagination: {},
-                meta: {},
-                params: {},
-            }
-        },
-        methods: {
-            stopLoading() {
-                setTimeout(() => {
-                    this.loading = false
-                }, 800)
-            },
-            fetchData() {
-                this.loading = true;
-                this.params.per_page = 15;
-                
-                this.$store.dispatch('get_products', this.params)
-                    .then((res) => {
-                        this.meta = res.data.meta;
-                        this.pagination = res.data.links;
-                        this.products = this.$store.getters.all_products;
-                        this.stopLoading();
-                    })
-            },
-            goToFirst() {
-                this.params.page = 1
-                this.fetchData();
-            },
-            goToPrev() {
-                this.params.page = (this.meta.current_page - 1);
-                this.fetchData();
-            },
-            goToNext() {
-                this.params.page = (this.meta.current_page + 1);
-                this.fetchData();
-            },
-            goToLast() {
-                this.params.page = this.meta.last_page;
-                this.fetchData();
-            },
-            searchForMe() {
-                this.fetchData();
-            },
-            orderBy(param) {
-                this.params.order_by = param;
-                this.params.order = this.params.order === 'DESC'? 'ASC': 'DESC';
+import Component from 'vue-class-component';
+import Vue from 'vue';
 
-                this.fetchData();
+import BlockLoaderComponent from '../../components/BlockLoaderComponent'
+
+@Component({
+    components: { BlockLoaderComponent },
+})
+export default class ProductsOverView extends Vue {
+    loading = true;
+    error = false;
+    
+    products = [];
+    pagination = {};
+    meta = {};
+    params = {
+        per_page: 15,
+        order_by: 'status',
+        order: 'ASC'
+    };
+    
+    mounted() {
+        this.params.page = 1;
+        this.fetchData();
+    }
+    
+    stopLoading() {
+        setTimeout(() => {
+            this.loading = false
+        }, 800)
+    }
+
+    async fetchData() {
+        this.loading = true;
+        try {
+            let res = await this.$store.dispatch('get_products', this.params);
+            this.meta = res.data.meta;
+            this.pagination = res.data.links;
+            this.products = this.$store.getters.all_products;
+            this.stopLoading();
+        } catch (e) {
+            this.stopLoading();
+            if (e.response.status === 429) {
+                this.error = 'Er zijn te veel aanvragen gedaan, probeer het nog een keer met een minuutje.'
+            } else {
+                this.error = e.message
+                console.warn(e)
             }
-        },
-        mounted() {
-            this.params.page = 1;
-            this.fetchData();
         }
     }
+    
+    goToFirst() {
+        this.params.page = 1;
+        this.fetchData();
+    }
+
+    goToPrev() {
+        this.params.page = (this.meta.current_page - 1);
+        this.fetchData();
+    }
+
+    goToNext() {
+        this.params.page = (this.meta.current_page + 1);
+        this.fetchData();
+    }
+
+    goToLast() {
+        this.params.page = this.meta.last_page;
+        this.fetchData();
+    }
+
+    searchForMe() {
+        this.fetchData();
+    }
+
+    orderBy(param) {
+        this.params.order_by = param;
+        this.params.order = this.params.order === 'DESC'? 'ASC': 'DESC';
+
+        this.fetchData();
+    }
+}
 </script>
 
 <style scoped>

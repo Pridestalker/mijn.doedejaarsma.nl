@@ -10,36 +10,32 @@
 </template>
 
 <script>
-    export default {
-        name: "NotificationComponent",
-        props: {
-            notification: {
-                type: Object,
-                default: {}
-            }
-        },
-        data() {
-          return {
-              product: null,
-              owner: this.notification.data.user,
-          }
-        },
-        beforeMount() {
-            this.loadNotification();
-        },
-        methods: {
-            async loadNotification() {
-                this.product = (await this.$http.get(`/api/v1/products/${this.notification.data.id}`)).data.data
-            },
-            async removeMe() {
-                await this.$http.get(`/api/v1/user/notifications/delete/${this.notification.id}`);
-                this.$emit('removed', { id: this.notification.id})
-            }
-        }
+import Component from 'vue-class-component';
+import Vue from 'vue';
 
+@Component({
+    props: {
+        notification: {
+            type: Object,
+            default: {},
+        },
+    },
+})
+export default class NotificationComponent extends Vue {
+    product = null;
+    owner = this.notification.data.user;
+    
+    beforeMount() {
+        this.loadNotification();
     }
+    
+    async loadNotification() {
+        this.product = (await this.$http.get(`/api/v1/products/${this.notification.data.id}`)).data.data;
+    }
+    
+    async removeMe() {
+        await this.$http.get(`/api/v1/user/notifications/delete/${this.notification.id}`);
+        this.$emit('removed', { id: this.notification.id})
+    }
+}
 </script>
-
-<style scoped>
-
-</style>
