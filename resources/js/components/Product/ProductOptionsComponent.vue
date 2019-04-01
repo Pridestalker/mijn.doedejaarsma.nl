@@ -2,7 +2,7 @@
     <aside>
         <h5 class="my-2">Product opties</h5>
         <section v-if="options.papier">
-            papier: {{ options.papier }}
+            Papier: {{ options.papier }}
         </section>
         <section v-if="options.gewicht">
             Gewicht: {{ options.gewicht }}
