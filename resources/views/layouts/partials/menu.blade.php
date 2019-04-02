@@ -9,3 +9,5 @@
 @if(Auth::user()->isA('designer'))
     @includeIf('layouts.partials.menu.designer')
 @endif
+
+@yield('rails-menu')

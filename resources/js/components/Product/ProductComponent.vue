@@ -21,6 +21,10 @@
                 Voorbeeld
             </a>
         </section>
+        
+        <aside v-if="product.hours">
+            Gemaakte uren: {{ formattedHours }}
+        </aside>
     </article>
 </template>
 
@@ -79,6 +83,21 @@ export default class ProductComponent extends Vue {
         }
         
         return format(new Date(this.product.deadline), 'cccc dd MMMM YYYY', { awareOfUnicodeTokens: true, locale: nl })
+    }
+    
+    get formattedHours() {
+        if (!this.product) {
+            return '';
+        }
+        if (!this.product.hours) {
+            return '';
+        }
+        let total = this.product.hours.total.toString().split('.')
+        let decimal = (this.product.hours.total - Math.floor(this.product.hours.total)).toPrecision(2) * 100;
+        if (!decimal) {
+            return Math.floor(this.product.hours.total)
+        }
+        return `${Math.floor(this.product.hours.total)}:${(decimal/100 * 60).toPrecision(2)}`
     }
 }
 </script>

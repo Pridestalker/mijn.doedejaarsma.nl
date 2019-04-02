@@ -7,6 +7,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -48,6 +49,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Product whereKostenplaats($value)
  * @method static Builder|Product whereReferentie($value)
  * @method static Builder|Product byUser( User $user)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Hour[] $hours
  */
 class Product extends Model
 {
@@ -100,5 +102,15 @@ class Product extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    
+    /**
+     * Creates an Eloquent relation.
+     *
+     * @return HasMany
+     */
+    public function hours(): HasMany
+    {
+        return $this->hasMany(Hour::class);
     }
 }

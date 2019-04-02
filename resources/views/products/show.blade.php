@@ -53,3 +53,16 @@
         @endcan
     </div>
 @endsection
+
+@section('rails-menu')
+    @can('insert-product-hours')
+        <div class="card my-2">
+            <div class="card-header">
+                Uren toevoegen
+            </div>
+            <div class="card-body">
+                <add-hours-view :user_id="{{ \Auth::user()->id }}" :product_id="{{ $product->id }}"></add-hours-view>
+            </div>
+        </div>
+    @endcan
+@endsection
