@@ -14,6 +14,9 @@ class HoursController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * TODO: Create query params.
+     *      https://github.com/Tucker-Eric/EloquentFilter
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
@@ -31,7 +34,6 @@ class HoursController extends Controller
     public function store(Request $request)
     {
         //
-	    \Log::error("Product id", [ 'product_id' => $request->get('product_id')]);
         $hour = Hour::create(
             [
             'user_id'       => app('auth')->user()->id,

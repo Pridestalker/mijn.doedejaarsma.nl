@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@php($hours = $team->hours())
 @section('content')
 <div class="card">
     <div class="card-header">
