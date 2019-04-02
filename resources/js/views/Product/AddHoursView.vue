@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="submitForm" v-if="user_id && product_id">
         <label for="hours">Aantal uren</label>
-        <div class="input-group w-50">
+        <div class="input-group w-100">
             <input type="number" step="1" min="0" v-model="hours" id="hours" name="hours" class="form-control" :class="inputStatus">
             <div class="input-group-prepend input-group-append">
                 <div class="input-group-text">:</div>
