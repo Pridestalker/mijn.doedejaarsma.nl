@@ -3,7 +3,7 @@
         <a @click="isActive = !isActive" class="text-primary" href="#" v-show="!isActive">Status aanpassen</a>
         
         <div class="form-group" v-if="isActive">
-            <select name="status" id="status">
+            <select name="status" id="status" class="custom-select">
                 <option value="aangevraagd">Aangevraagd</option>
                 <option value="opgepakt">Opgepakt</option>
                 <option value="afgerond">Afgerond</option>

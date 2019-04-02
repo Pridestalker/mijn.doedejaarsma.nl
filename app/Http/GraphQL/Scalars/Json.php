@@ -22,8 +22,6 @@ class Json extends ScalarType
     {
         // Assuming the internal representation of the value is always correct
         return json_decode($value);
-       
-        // TODO validate if it might be incorrect
     }
     
     /**

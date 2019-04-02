@@ -1,9 +1,14 @@
 <template>
     <form @submit.prevent="submitForm" v-if="user_id && product_id">
         <label for="hours">Aantal uren</label>
-        <input type="text" v-model="hours" id="hours" name="hours" class="form-control" :class="inputStatus">
+        <div class="input-group w-50">
+            <input type="number" step="1" min="0" v-model="hours" id="hours" name="hours" class="form-control" :class="inputStatus">
+            <div class="input-group-prepend input-group-append">
+                <div class="input-group-text">:</div>
+            </div>
+            <input type="number" step="15" min="0" id="minutes" name="minutes" class="form-control" v-model="minutes" :class="inputStatus">
+        </div>
         <button type="submit" class="btn btn-outline-primary my-2" :disabled="buttonStatus.disabled">Invoeren</button>
-        <small class="d-block text-muted">Let op: Gebruik een punt(.) in plaats van een komma(,)</small>
     </form>
 </template>
 
@@ -27,9 +32,10 @@ import Vue from 'vue';
     },
 })
 export default class AddHoursView extends Vue {
-    hours = '00.00';
+    hours = 0;
+    minutes = 0;
     
-    inputStatus = 'is-valid';
+    inputStatus = '';
     
     buttonStatus = {
         disabled: false
@@ -54,8 +60,7 @@ export default class AddHoursView extends Vue {
     }
     
     _turnTimeToFloat() {
-        const decimalInt = (this.hours - Math.floor(this.hours)).toPrecision(2) * 100
-        const decimal = 100 / (60/decimalInt);
+        const decimal = 100 / (60/this.minutes);
         return parseFloat(`${Math.floor(this.hours)}.${decimal}`);
     }
     
@@ -66,6 +71,19 @@ export default class AddHoursView extends Vue {
             this.inputStatus = 'is-invalid';
         } else {
             this.inputStatus = 'is-valid';
+        }
+    }
+    
+    @Watch('minutes')
+    minutesWatcher(minutes, oldMinutes) {
+        
+        if (!Number.isInteger(parseInt(minutes) / 15)) {
+            this.inputStatus = 'is-invalid'
+        }
+        
+        if (parseInt(minutes) >= 60) {
+            this.hours++;
+            this.minutes = 0;
         }
     }
 }

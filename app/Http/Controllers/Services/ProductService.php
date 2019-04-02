@@ -27,10 +27,6 @@ class ProductService
     
     public function store()
     {
-        /*
-        * TODO: Fill the MessageBag with errors after wrong validation.
-         *      see: https://laravel.com/docs/5.8/validation
-        */
         $validated = Validator::make(
         	$this->request->all(),
 	        [
