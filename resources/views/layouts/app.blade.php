@@ -58,8 +58,8 @@
     </small>
 </footer>
 @impersonating
-    <aside class="position-fixed" style="right: 2rem; bottom: 2rem;">
-        <a href="{{ route('impersonate.leave') }}"><i class="fas fa-user-alt-slash"></i> </a>
+    <aside class="position-fixed bg-primary rounded-circle p-2" style="right: 3rem; bottom: 3rem; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">
+        <a href="{{ route('impersonate.leave') }}"><i class="fas fa-user-alt-slash text-white"></i> </a>
     </aside>
 @endImpersonating
 @includeIf('layouts.scripts.resetLocalStorage')
