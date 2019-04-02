@@ -17,8 +17,5 @@ mix.js('resources/js/app.js', 'public/js')
 mix.sass('resources/sass/app.scss', 'public/css');
 
 mix.browserSync({
-    proxy: "localhost:8000",
-    ignore: [
-        "public/**/*.*"
-    ]
+    proxy: "localhost:8000"
 })
