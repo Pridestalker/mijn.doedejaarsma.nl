@@ -4,6 +4,10 @@
     <div class="card">
         <div class="card-header">
             {{ $user->name }}
+
+            @canImpersonate
+            <a href="{{ route('impersonate', $user->id) }}"><i class="fas fa-gamepad "></i></a>
+            @endCanImpersonate
         </div>
         <div class="card-body">
             <div class="card-text">
