@@ -9,3 +9,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/downloads/products', 'Resources\ProductController@download')
      ->middleware('auth')
      ->name('download.product.all');
+
+
+Route::impersonate();
