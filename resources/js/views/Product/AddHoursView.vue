@@ -51,11 +51,10 @@ export default class AddHoursView extends Vue {
         this.buttonStatus.disabled = 'disabled';
         
         try {
-            await this.$http.post('/api/v1/hours/', data);
+            await this.$http.post('/api/v1/hours', data);
         } catch (e) {
             console.warn(e)
         }
-        
         window.location.reload();
     }
     
@@ -79,6 +78,8 @@ export default class AddHoursView extends Vue {
         
         if (!Number.isInteger(parseInt(minutes) / 15)) {
             this.inputStatus = 'is-invalid'
+        } else {
+            this.inputStatus = 'is-valid'
         }
         
         if (parseInt(minutes) >= 60) {
