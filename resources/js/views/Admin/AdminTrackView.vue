@@ -1,55 +1,40 @@
 <template>
     <main>
-        <aside>
-            Hier komen enkele filters
-        </aside>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>name</th>
-                    <th>uren</th>
-                    <th>Opdrachtgever</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="product in products" :key="product.id">
-                    <td>
-                        {{ product.id }}
-                    </td>
-                    <td>
-                        {{ product.name }}
-                    </td>
-                    <td>
-                        {{ product.hours.total }}
-                    </td>
-                    <td :team="product.owner.team[0].id">
-                        {{ product.owner.team[0].name }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <router-link to="/">Terug naar overzicht</router-link>
+        <router-view></router-view>
     </main>
 </template>
 
 <script>
 import Component from 'vue-class-component';
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+import TableComponent from '../../components/Admin/tt/TableComponent';
+import SingleTrackView from './SingleTrackView';
+
+
+Vue.use(VueRouter);
+
+const routes = [
+    {
+        path: '/',
+        name: "home",
+        component: TableComponent,
+    },
+    {
+        path: '/single/:id',
+        name: 'single',
+        component: SingleTrackView,
+    }
+]
+
+const router = new VueRouter({
+    routes
+});
+
+const RoutedApp = Vue.extend({router});
 
 @Component
-export default class AdminTrackView extends Vue {
-    products = [];
-    
-    hours = [];
-    
-    async fetchData() {
-        this.products = (await this.$http.get('/api/v1/products')).data.data;
-        this.hours = (await this.$http.get('/api/v1/hours')).data.data;
-    }
-    
-    mounted() {
-        this.fetchData();
-    }
-}
+export default class AdminTrackView extends RoutedApp {}
 </script>
 

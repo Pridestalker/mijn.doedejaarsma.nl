@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\ModelFilters\HoursFilter\DefaultFilter;
 use App\User;
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Hour extends Model
 {
+    use Filterable;
+    
     protected $fillable = [
         'user_id',
         'remarks',
@@ -48,5 +52,10 @@ class Hour extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+    
+    public function modelFilter()
+    {
+    	return $this->provideFilter(DefaultFilter::class);
     }
 }
