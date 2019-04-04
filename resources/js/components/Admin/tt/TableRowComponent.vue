@@ -11,7 +11,7 @@
         <span class="d-table-cell">
             {{ product.hours.total }}
         </span>
-        <span class="d-table-cell">
+        <span class="d-table-cell" v-if="product.owner.team[0]">
             {{ product.owner.team[0].name }}
         </span>
     </section>
@@ -40,10 +40,6 @@ export default class TableRowComponent extends TableRowProps {
     }
     
     async fetchHours() {
-        const params = {
-            product: this.product.id
-        }
-        
         this.hours = (await this.$http.get('/api/v1/hours', { params: this.params })).data.data;
     }
     
