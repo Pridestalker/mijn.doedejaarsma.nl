@@ -56,6 +56,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebProductsRoutes();
         $this->mapWebTeamsRoutes();
         $this->mapWebPermissionsRoutes();
+        $this->mapWebAdminRoutes();
     }
     
     protected function mapWebBaseRoutes()
@@ -91,6 +92,14 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/permissions.php'));
+    }
+    
+    protected function mapWebAdminRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->prefix('admin')
+            ->group(base_path('routes/web/admin.php'));
     }
 
     /**

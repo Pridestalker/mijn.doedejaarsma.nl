@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Product;
 
 use App\Http\Resources\Hour\Hour as Resource;
+use App\ModelFilters\HoursFilter\DefaultFilter;
 use App\Models\Hour;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,11 +15,15 @@ class HoursController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request The current request.
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Resource::collection(Hour::all());
+        return Resource::collection(
+            Hour::filter($request->all(), DefaultFilter::class)->get()
+        );
     }
 
     /**
@@ -31,7 +36,6 @@ class HoursController extends Controller
     public function store(Request $request)
     {
         //
-	    \Log::error("Product id", [ 'product_id' => $request->get('product_id')]);
         $hour = Hour::create(
             [
             'user_id'       => app('auth')->user()->id,
