@@ -1,6 +1,5 @@
 <template>
-    <aside>
-        Hier komen enkele filters
+    <aside class="form-inline">
     </aside>
 </template>
 
@@ -11,7 +10,3 @@ import Vue from 'vue';
 @Component
 export default class FilterComponent extends Vue {}
 </script>
-
-<style scoped>
-
-</style>

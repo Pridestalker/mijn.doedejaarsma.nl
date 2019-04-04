@@ -35,12 +35,20 @@ const TableRowProps = Vue.extend({
 export default class TableRowComponent extends TableRowProps {
     hours = [];
     
+    params = {
+        product: this.product.id
+    }
+    
     async fetchHours() {
         const params = {
             product: this.product.id
         }
         
-        this.hours = (await this.$http.get('/api/v1/hours', { params })).data.data;
+        this.hours = (await this.$http.get('/api/v1/hours', { params: this.params })).data.data;
+    }
+    
+    mounted() {
+        this.fetchHours();
     }
 }
 </script>
