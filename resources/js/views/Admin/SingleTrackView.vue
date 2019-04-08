@@ -51,7 +51,6 @@ export default class SingleTrackView extends Vue {
     
     urenConverter(hour) {
         if (!hour) return;
-        console.log(hour);
         const time = String(hour).split('.');
         let decimal = `${((60 * parseInt(time[1]))/100)}`;
         decimal = decimal.length < 2 ? decimal + '0'  : decimal;

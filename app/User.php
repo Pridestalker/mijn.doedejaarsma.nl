@@ -104,6 +104,6 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function canImpersonate()
     {
-    	return in_array('admin', $this->getRoles()->toArray());
+        return in_array('admin', $this->getRoles()->toArray());
     }
 }

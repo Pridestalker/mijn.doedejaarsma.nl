@@ -1,0 +1,276 @@
+<template>
+    <section class="product-dashboard-container">
+        <title-component>Producten Overzicht</title-component>
+        <small class="text-muted" v-if="meta">{{ meta.from? meta.from : 0 }} - {{ meta.to? meta.to : 0 }} van de {{ meta.total ? meta.total : 0 }} <span>producten</span></small>
+        
+        <table class="product-dashboard-table">
+            <thead>
+                <tr>
+                    <th class="hide-mobile">#</th>
+                    <th>Naam</th>
+                    <th class="hide-mobile">Door</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="product in products" :key="product.id" class="product-table-row" @click.prevent="goToSingle(product.id)">
+                    <td class="hide-mobile">
+                        {{ product.id }}
+                    </td>
+                    <td>
+                        {{ product.name }}
+                    </td>
+                    <td :title="product.owner.team[0].name" class="hide-mobile">
+                        {{ product.owner.name }}
+                    </td>
+                    <td :class="getDeadlineClass(product.deadline)">
+                        {{ formattedDate(product.deadline) }}
+                    </td>
+                    <td>
+                        {{ product.status }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <aside>
+            <a href="#" @click.prevent="goToPage('first')">
+                <i class="fas fa-angle-double-left "></i>
+            </a>
+            <a href="#" @click.prevent="goToPage('prev')">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            <a href="#" @click.prevent="goToPage('next')">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            <a href="#" @click.prevent="goToPage('last')">
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+        </aside>
+        
+        <aside class="product-dashboard-fabcontainer">
+            <a href="#" class="product-dashboard-fab" @click.prevent="filter.open = !filter.open">
+                <i class="fas fa-sliders-h"></i>
+            </a>
+        </aside>
+        
+        <aside class="product-dashboard-faddcontainer">
+            <a href="/products/create" class="product-dashboard-fab">
+                <i class="fas fa-folder-plus"></i>
+            </a>
+        </aside>
+        
+        <aside class="product-dashboard-filter" v-if="filter.open">
+            <h2>Filter</h2>
+            <form class="form-filter">
+                <h5 class="my-2">Zoeken</h5>
+                <div>
+                    <input type="text" v-model="params.name" placeholder="Zoeken..." class="form-control" />
+                </div>
+                
+                <h5 class="my-2">Status</h5>
+                <div>
+                    <input type="checkbox" id="aangevraagd" v-model="params.status" :value="'aangevraagd'"/>
+                    <label for="aangevraagd">Aangevraagd</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="opgepakt" v-model="params.status" :value="'opgepakt'" />
+                    <label for="opgepakt">Opgepakt</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="afgerond" v-model="params.status" :value="'afgerond'" />
+                    <label for="afgerond">Afgerond</label>
+                </div>
+                
+                <h5 class="my-2">Team</h5>
+                <div>
+                    <input type="checkbox" v-model="params.team" id="wholeTeam">
+                    <label for="wholeTeam">Alles van team ophalen</label>
+                </div>
+            </form>
+        </aside>
+    </section>
+</template>
+
+<script>
+import Component from 'vue-class-component';
+import Vue from 'vue';
+import { Watch } from 'vue-property-decorator';
+import { productsModule } from '../store/products.module';
+import { format, isAfter, isBefore } from 'date-fns';
+import { nl } from 'date-fns/locale';
+import TitleComponent from '../components/TitleComponent'
+@Component( {
+    components: { TitleComponent },
+} )
+export default class OverviewModule extends Vue {
+    products = [];
+    meta = {};
+    params = {
+        page: 1,
+        per_page: 15,
+        status: ['aangevraagd', 'opgepakt'],
+        team: null,
+    };
+    
+    filter = {
+        open: false,
+    }
+    
+    async mounted() {
+        await this.fetchdata();
+        console.log(this.meta);
+    }
+    
+    async fetchdata() {
+        productsModule.setParams(this.params)
+        await productsModule.loadProducts()
+        this.products = productsModule.allProducts;
+        this.meta = productsModule.getMeta;
+    }
+    
+    formattedDate(date) {
+        return format(new Date(date), 'cccc dd MMMM YYYY', { awareOfUnicodeTokens: true, locale: nl })
+    }
+    
+    goToSingle(id) {
+        this.$router.push({ name: 'single', params: { id }});
+    }
+    
+    goToPage(page) {
+        console.log(this.params.page)
+        switch (page) {
+            case 'first':
+                this.params.page = 1;
+                break;
+            case 'last':
+                this.params.page = this.meta.last_page;
+                break;
+            case 'next':
+                (this.params.page < this.meta.last_page) ?
+                    this.params.page++ : console.warn('Je bent al op de laatste pagina.');
+                break;
+            case 'prev':
+                (this.params.page > 1) ?
+                    this.params.page-- : console.warn('Je bent al op de eerste pagina.');
+                break;
+        }
+        
+        this.fetchdata();
+    }
+    
+    getDeadlineClass(deadline) {
+        const Class = [];
+        if (isAfter(new Date(), new Date(deadline))) {
+            Class.push('is-past');
+        }
+        
+        if (isBefore(new Date(), new Date(deadline))) {
+            Class.push('is-future');
+        }
+        
+        return Class;
+    }
+    
+    @Watch('params', { immediate: true, deep: true })
+    propsWatcher(params, oldParams) {
+        this.fetchdata();
+    }
+    
+}
+</script>
+
+
+<style lang="scss">
+    .product-dashboard-container {
+        padding: 2rem 4rem;
+        border-radius: 14px;
+        -webkit-box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
+        -moz-box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
+        box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
+        background: #ffffff;
+        position:relative;
+        min-height: 500px;
+        @media screen and (max-width: 414px) {
+            padding: 2rem;
+        }
+    }
+    
+    .product-dashboard-table {
+        width: 100%;
+    }
+    .product-table-row {
+        border-bottom: 1px solid #333;
+        cursor: pointer;
+        > td {
+            padding: 8px 0;
+        }
+    }
+    
+    .product-dashboard-filter {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #1a174d;
+        color: #ffffff;
+        top: 0;
+        left: 0;
+        border-radius: inherit;
+        padding: inherit;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+    
+    .product-dashboard-fabcontainer {
+        position: absolute;
+        top: calc(100% - 1rem);
+        right: 4rem;
+        font-size: 1.125rem;
+        width: 3rem;
+        height: 3rem;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .product-dashboard-fab {
+        top: calc(100% - 1rem);
+        right: 4rem;
+        font-size: 1.125rem;
+        width: 3rem;
+        height: 3rem;
+        z-index: 1;
+        background: #0b2f4d;
+        color: #fff !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .product-dashboard-faddcontainer {
+        position: absolute;
+        left: 4rem;
+        top: calc(100% - 1rem);;
+    }
+    
+    .is-past {
+        color: #e0a800;
+    }
+    
+    .is-future {
+        color: #0a2315;
+    }
+    
+    @media screen and (max-width: 414px) {
+        .hide-mobile {
+            display: none;
+        }
+    }
+</style>

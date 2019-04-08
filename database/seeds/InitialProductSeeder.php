@@ -15,6 +15,7 @@ class InitialProductSeeder extends Seeder
         //
         
         $doede = \App\User::whereName('Doede Jaarsma')->first();
+        $veer = \App\User::whereName('Vera van den Booren')->first();
         
         
         $product1 = \App\Models\Product::create(
@@ -23,7 +24,7 @@ class InitialProductSeeder extends Seeder
                 'user_id'   => $doede->id,
                 'status'    => 'aangevraagd',
                 'soort'     => 'drukwerk',
-                'deadline'  => \Carbon\Carbon::now(),
+                'deadline'  => \Carbon\Carbon::tomorrow(),
                 'options'   => json_encode(['papier' => '300mg', 'oplage' => 3000, 'afleveradres' => 'Lauriergracht 54 H', 'gewicht' => '300 grams'])
             ]
         );
@@ -41,10 +42,19 @@ class InitialProductSeeder extends Seeder
         \App\Models\Product::create(
             [
                 'name'      => 'Jaarverslag 2019 EN',
-                'user_id'   => $doede->id,
+                'user_id'   => $veer->id,
                 'status'    => 'afgerond',
                 'soort'     => 'drukwerk',
-                'deadline'  => \Carbon\Carbon::now(),
+                'deadline'  => \Carbon\Carbon::yesterday(),
+            ]
+        );
+        \App\Models\Product::create(
+            [
+                'name'      => 'Jaarverslag 2019 DK',
+                'user_id'   => $veer->id,
+                'status'    => 'afgerond',
+                'soort'     => 'drukwerk',
+                'deadline'  => \Carbon\Carbon::now()->subWeek(2),
             ]
         );
     
