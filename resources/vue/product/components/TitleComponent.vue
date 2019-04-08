@@ -1,5 +1,5 @@
 <template>
-    <h1 class="is-highlight">
+    <h1>
         <slot></slot>
     </h1>
 </template>

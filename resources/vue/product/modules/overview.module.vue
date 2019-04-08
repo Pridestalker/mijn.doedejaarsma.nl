@@ -6,7 +6,6 @@
         <table class="product-dashboard-table">
             <thead>
                 <tr>
-                    <th class="hide-mobile">#</th>
                     <th>Naam</th>
                     <th class="hide-mobile">Door</th>
                     <th>Deadline</th>
@@ -15,9 +14,6 @@
             </thead>
             <tbody>
                 <tr v-for="product in products" :key="product.id" class="product-table-row" @click.prevent="goToSingle(product.id)">
-                    <td class="hide-mobile">
-                        {{ product.id }}
-                    </td>
                     <td>
                         {{ product.name }}
                     </td>
@@ -111,7 +107,7 @@ export default class OverviewModule extends Vue {
         page: 1,
         per_page: 15,
         status: ['aangevraagd', 'opgepakt'],
-        team: null,
+        team: true,
     };
     
     filter = {

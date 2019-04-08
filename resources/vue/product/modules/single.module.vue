@@ -10,7 +10,7 @@
             </p>
         </div>
         <div v-if="(userMod.hasRole('admin') || userMod.hasRole('designer'))">
-            {{ product.name }} is <span  class="underline hoverable" title="status" :class="product.status" @click="statusChange = !statusChange">{{ product.status }}</span>
+            De opdracht is <span  class="underline hoverable" title="status" :class="product.status" @click="statusChange = !statusChange">{{ product.status }}</span>
             <transition name="fade">
                 <form v-if="statusChange" class="d-flex" @submit.prevent="updateStatus">
                     <select class="custom-select" v-model="product.status">
@@ -26,7 +26,7 @@
             {{ product.name }} is <span class="underline" title="status" :class="product.status">{{ product.status }}</span>
         </p>
         <p v-if="product.deadline">
-            {{ product.name }} heeft de volgende deadline: <span class="underline date">{{ formattedDate(product.deadline) }}</span>
+            De opdracht heeft de volgende deadline: <span class="underline date">{{ formattedDate(product.deadline) }}</span>
         </p>
         <div v-if="product.soort = 'drukwerk'">
             <span>Het gaat om een <span class="underline" :class="product.soort">{{ product.soort }}</span> aanvraag</span>
@@ -46,7 +46,7 @@
             Gemaakte uren: <span class="underline date">{{ formattedTime(product.hours.total) }}</span>
         </p>
         <p v-if="product.attachment">
-            <a :href="product.attachment">
+            <a :href="product.attachment" @click="downloadAttachment(product.attachment)">
                 Download voorbeeld
             </a>
         </p>
@@ -109,6 +109,15 @@ export default class SingleModule extends Vue {
         this.statusChange = false;
     }
     
+    downloadAttachment(url) {
+        console.log(this.product.attachment)
+        browser.downloads.download({
+            url: url,
+            filename: `voorbeeld-${this.product.name}.${filename.split('.').pop()}`,
+            conflictAction : 'uniquify'
+        })
+    }
+    
     get formattedUpdate() {
         if (!this.product)
             return;
@@ -158,6 +167,8 @@ export default class SingleModule extends Vue {
         -ms-transition: all 0.4s;
         -o-transition: all 0.4s;
         transition: all 0.4s;
+    
+        font-weight: 600;
         
         &::after {
             position: absolute;
