@@ -17,7 +17,7 @@
                     <td>
                         {{ product.name }}
                     </td>
-                    <td :title="product.owner.team[0].name" class="hide-mobile">
+                    <td class="hide-mobile" v-if="product.owner">
                         {{ product.owner.name }}
                     </td>
                     <td :class="getDeadlineClass(product.deadline)">
@@ -223,7 +223,7 @@ export default class OverviewModule extends Vue {
     
     .product-dashboard-fabcontainer {
         position: absolute;
-        top: calc(100% - 1rem);
+        top: -1rem;
         right: 4rem;
         font-size: 1.125rem;
         width: 3rem;

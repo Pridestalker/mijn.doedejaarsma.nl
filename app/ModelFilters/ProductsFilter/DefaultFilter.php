@@ -40,6 +40,6 @@ class DefaultFilter extends ModelFilter
     
     public function ordered($order)
     {
-    	return $this->orderBy($order, 'DESC');
+    	return $this->orderBy($order, 'ASC');
     }
 }

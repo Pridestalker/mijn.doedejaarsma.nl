@@ -8,7 +8,7 @@ class ProductsModule extends VuexModule {
     products = [];
     params = {
         per_page: 15,
-        order_by: 'status',
+        ordered: 'status',
         order: 'ASC'
     };
     meta = {};
