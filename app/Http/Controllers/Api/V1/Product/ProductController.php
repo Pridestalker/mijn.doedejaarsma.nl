@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1\Product;
 
-use App\Events\Product\ProductCreatedEvent;
+use App\Events\Product\ProductFinished;
+use App\Events\Product\ProductStarted;
 use App\Http\Controllers\Services\ProductService;
 use App\Http\Resources\Product\Product as Resource;
 use App\Http\Resources\Product\ProductCollection;
+use App\ModelFilters\ProductsFilter\DefaultFilter;
 use App\Models\Product;
 use App\User;
 use Auth;
@@ -13,7 +15,6 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -39,11 +40,14 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         //
-        ($this->_isAnAdmin() || $this->_isADesigner())
-            ? $this->_fetchAllProducts($request)
-            : $this->_fetchOwnedProducts($request);
+        //        ($this->_isAnAdmin() || $this->_isADesigner())
+        //            ? $this->_fetchAllProducts($request)
+        //            : $this->_fetchOwnedProducts($request);
         
-        return new ProductCollection($this->_producten);
+        return new ProductCollection(
+            Product::filter($request->all(), DefaultFilter::class)
+                   ->paginate($request->get('per_page') ?? 15)
+        );
     }
 
     /**
@@ -101,7 +105,33 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        if ($request->has('status')) {
+            if ($request->get('status') === 'opgepakt') {
+                try {
+                    event(new ProductStarted($product));
+                } catch (Exception $exception) {
+                    \Log::error($exception->getMessage(), $exception->getTrace());
+                    return back()->with('status', $exception->getMessage());
+                }
+            }
+        
+            if ($request->get('status') === 'afgerond') {
+                try {
+                    event(new ProductFinished($product));
+                } catch (Exception $exception) {
+                    \Log::error($exception->getMessage(), $exception->getTrace());
+                    return back()->with('status', $exception->getMessage());
+                }
+            }
+        }
+        
         $product->update($request->except('deadline'));
+        
+        $product->update(
+        	[
+        		'updated_at'        => now(),
+	        ]
+        );
     
         return new Resource($product);
     }

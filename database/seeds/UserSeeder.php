@@ -76,13 +76,28 @@ class UserSeeder extends Seeder
             'created_at'=> \Carbon\Carbon::now(),
             'updated_at'=> \Carbon\Carbon::now(),
         ]);
+        $veer = User::create([
+            'name'      => 'Vera van den Booren',
+            'username'  => 'veravdbx',
+            'email'     => 'vera@hijlkema.nu',
+            'password'  => Hash::make('Werkplaats54'),
+            'created_at'=> \Carbon\Carbon::now(),
+            'updated_at'=> \Carbon\Carbon::now(),
+        ]);
         
         Bouncer::assign('customer')->to($doede);
+        Bouncer::assign('customer')->to($veer);
         
         \DB::table('team_user')->insert(
         	[
-        		'team_id'   => rand(1,2),
+        		'team_id'   => 2,
 		        'user_id'   => $doede->id,
+	        ]
+        );
+        \DB::table('team_user')->insert(
+        	[
+        		'team_id'   => 2,
+		        'user_id'   => $veer->id,
 	        ]
         );
     }

@@ -1,24 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.app-novue')
 
 @push('head')
     <script defer src="https://use.fontawesome.com/releases/v5.8.0/js/all.js" integrity="sha384-ukiibbYjFS/1dhODSWD+PrZ6+CGCgf8VbyUH7bQQNUulL+2r59uGYToovytTf4Xm" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/product.app.js') }}" defer></script>
 @endpush
 
 @section('content')
-<div class="card">
-    <div class="card-header d-flex align-items-center">
-        <span class="mr-auto">
-            Producten
-        </span>
-        @can('download')
-            <a class="btn btn-outline-primary" href="{{ route('download.product.all') }}" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"><i class="fas fa-download"></i></a>
-        @endcan
-        @can('create', '\App\Models\Product')
-            <a class="btn ml-2 btn-outline-primary" href="{{ route('products.create') }}" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"><i class="fas fa-plus"></i></a>
-        @endcan
-    </div>
-    <div class="card-body">
-        <products-over-view></products-over-view>
+<main id="product-app"></main>
+{{--<div class="card">--}}
+{{--    <div class="card-header d-flex align-items-center">--}}
+{{--        <span class="mr-auto">--}}
+{{--            Producten--}}
+{{--        </span>--}}
+{{--        @can('download')--}}
+{{--            <a class="btn btn-outline-primary" href="{{ route('download.product.all') }}" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"><i class="fas fa-download"></i></a>--}}
+{{--        @endcan--}}
+{{--        @can('create', '\App\Models\Product')--}}
+{{--            <a class="btn ml-2 btn-outline-primary" href="{{ route('products.create') }}" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"><i class="fas fa-plus"></i></a>--}}
+{{--        @endcan--}}
+{{--    </div>--}}
+{{--    <div class="card-body">--}}
+{{--        <products-over-view></products-over-view>--}}
 {{--        <table class="table">--}}
 {{--            <thead>--}}
 {{--            <tr>--}}
@@ -55,6 +57,6 @@
 {{--            @endforeach--}}
 {{--            </tbody>--}}
 {{--        </table>--}}
-    </div>
-</div>
+{{--    </div>--}}
+{{--</div>--}}
 @endsection

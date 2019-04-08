@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\User;
 use Eloquent;
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -50,10 +51,17 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Product whereReferentie($value)
  * @method static Builder|Product byUser( User $user)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Hour[] $hours
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product filter($input = array(), $filter = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product paginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product simplePaginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereBeginsWith($column, $value, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereEndsWith($column, $value, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereLike($column, $value, $boolean = 'and')
  */
 class Product extends Model
 {
     //
+	use Filterable;
     
     protected $fillable = [
         'name',
@@ -87,7 +95,7 @@ class Product extends Model
     public function scopeByUser(Builder $query, User $user)
     {
         $userIds = $user->bedrijf->first()->users()->pluck('id');
-        return $query->whereIn('user_id', $userIds);
+        return $query->where('user_id','IN', $userIds);
     }
     
     /*

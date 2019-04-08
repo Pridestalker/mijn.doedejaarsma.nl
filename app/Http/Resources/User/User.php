@@ -10,7 +10,7 @@ class User extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -19,7 +19,9 @@ class User extends JsonResource
             'id'        => $this->id,
             'name'      => $this->name,
             'team'      => $this->bedrijf,
-	        'requests'  => $this->products,
+            'requests'  => $this->products,
+            'role'      => $this->getRoles(),
+            'permission'=> $this->getAbilities()
         ];
     }
 }

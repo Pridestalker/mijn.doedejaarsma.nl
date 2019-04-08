@@ -1,0 +1,71 @@
+import { Action, Module, Mutation, VuexModule } from 'vuex-class-modules';
+import store from './product.store';
+import axios from '../axios.service';
+
+@Module
+class ProductsModule extends VuexModule {
+    // state
+    products = [];
+    params = {
+        per_page: 15,
+        order_by: 'status',
+        order: 'ASC'
+    };
+    meta = {};
+    links = {};
+
+    get allProducts() {
+        return this.products;
+    }
+
+    get getMeta() {
+        return this.meta;
+    }
+
+    get getLinks() {
+        return this.links;
+    }
+
+    @Mutation
+    setProducts(products) {
+        this.products = products;
+    }
+
+    @Mutation
+    setMeta(meta) {
+        this.meta = meta;
+    }
+
+    @Mutation
+    setLinks(links) {
+        this.links = links;
+    }
+
+    @Mutation
+    setParams({ ...params }) {
+        Object.assign(this.params, params);
+    }
+
+    @Action
+    async loadProducts() {
+        let products = await this.fetchProducts();
+        this.setProducts(products.data);
+        this.setMeta(products.meta);
+        this.setLinks(products.links);
+        return products.data;
+    }
+
+    async fetchProducts() {
+        return new Promise((resolve, reject) => {
+            axios.get('/api/v1/products', { params: this.params })
+                .then((res) => {
+                    resolve(res.data)
+                })
+                .catch((err) => {
+                    reject(err);
+                })
+        });
+    }
+}
+
+export const productsModule = new ProductsModule({ store, name: 'producten'});

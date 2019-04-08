@@ -1,5 +1,8 @@
 <?php
 
+Route::get('/whoami', 'Api\V1\User\UserController@whoami')
+    ->name('api.user.whoami');
+
 Route::prefix('notifications')->group(
     function () {
         Route::get('/', 'Api\V1\User\NotificationsController@index')
