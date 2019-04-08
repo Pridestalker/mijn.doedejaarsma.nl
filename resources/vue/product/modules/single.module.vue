@@ -2,7 +2,7 @@
     <main class="product-single-container">
         <router-link :to="{name: 'index'}">Terug naar het overzicht</router-link>
         <title-component>{{ product.name }}</title-component>
-        <small class="text-muted" v-if="product.owner">{{ product.owner.name }} van {{ product.owner.team[0].name }}</small>
+        <small class="text-muted" v-if="product.owner"><a >{{ product.owner.name }}</a> van {{ product.owner.team[0].name }}</small>
         <div v-if="product.description">
             <span>Voor {{ product.name }} is de volgende opmerking gegeven:</span>
             <p>
@@ -46,7 +46,7 @@
             Gemaakte uren: <span class="underline date">{{ formattedTime(product.hours.total) }}</span>
         </p>
         <p v-if="product.attachment">
-            <a :href="product.attachment" @click="downloadAttachment(product.attachment)">
+            <a :href="'/products/' + product.id + '/image'">
                 Download voorbeeld
             </a>
         </p>
@@ -99,6 +99,8 @@ export default class SingleModule extends Vue {
         productModule.setId(this.id);
         await productModule.loadProduct();
         this.product = productModule.product;
+        console.log(this.product.owner);
+
     }
     
     async updateStatus() {
@@ -110,7 +112,6 @@ export default class SingleModule extends Vue {
     }
     
     downloadAttachment(url) {
-        console.log(this.product.attachment)
         browser.downloads.download({
             url: url,
             filename: `voorbeeld-${this.product.name}.${filename.split('.').pop()}`,
