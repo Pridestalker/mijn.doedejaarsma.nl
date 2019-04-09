@@ -78,6 +78,31 @@
                     <input type="checkbox" id="afgerond" v-model="params.status" :value="'afgerond'" />
                     <label for="afgerond">Afgerond</label>
                 </div>
+    
+                <h5 class="my-2">Per pagina</h5>
+                <div>
+                    <label for="perPage">Aanvragen per pagina</label>
+                    <select class="custom-select" v-model="params.per_page" id="perPage">
+                        <option :value="15">15</option>
+                        <option :value="20">20</option>
+                        <option :value="35">35</option>
+                        <option :value="50">50</option>
+                    </select>
+                </div>
+                
+                <h5 class="my-2">Sorteren</h5>
+                <div>
+                    <input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'name'" id="order_naam">
+                    <label for="order_naam">Sorteer op naam</label>
+                </div>
+                <div>
+                    <input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'deadline'" id="order_deadline">
+                    <label for="order_deadline">Sorteer op deadline</label>
+                </div>
+                <div>
+                    <input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'status'" id="order_status">
+                    <label for="order_status">Sorteer op status</label>
+                </div>
                 
                 <h5 class="my-2">Team</h5>
                 <div>
@@ -106,6 +131,7 @@ export default class OverviewModule extends Vue {
     params = {
         page: 1,
         per_page: 15,
+        ordered: ['status', 'deadline'],
         status: ['aangevraagd', 'opgepakt'],
         team: true,
     };
@@ -206,12 +232,12 @@ export default class OverviewModule extends Vue {
     
     .product-dashboard-filter {
         position: absolute;
-        width: 100%;
+        width: 75%;
         height: 100%;
         background: #1a174d;
         color: #ffffff;
         top: 0;
-        left: 0;
+        left: 25%;
         border-radius: inherit;
         padding: inherit;
         -webkit-transition: all 0.3s;
@@ -219,6 +245,25 @@ export default class OverviewModule extends Vue {
         -ms-transition: all 0.3s;
         -o-transition: all 0.3s;
         transition: all 0.3s;
+        transform-origin: right;
+        
+        animation-name: appear;
+        animation-duration: 300ms;
+        animation-iteration-count: 1;
+    
+        overflow-y: scroll;
+    }
+    
+    @keyframes appear {
+        0% {
+            transform: scale(0, 1);
+        }
+        100% {
+            transform: scale(1,1);
+        }
+        0% {
+            transform: scale(0,1);
+        }
     }
     
     .product-dashboard-fabcontainer {

@@ -40,6 +40,14 @@ class DefaultFilter extends ModelFilter
     
     public function ordered($order)
     {
-    	return $this->orderBy($order, 'ASC');
+        if (is_array($order)) {
+            foreach ($order as $o) {
+            	$this->orderBy($o, $_REQUEST['order']?? 'ASC');
+            }
+        } else {
+        	$this->orderBy($order, $_REQUEST['order']?? 'ASC');
+        }
+        
+        return $this;
     }
 }
