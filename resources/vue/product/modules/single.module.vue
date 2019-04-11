@@ -2,7 +2,7 @@
     <main class="product-single-container">
         <router-link :to="{name: 'index'}">Terug naar het overzicht</router-link>
         <title-component>{{ product.name }}</title-component>
-        <small class="text-muted" v-if="product.owner"><a >{{ product.owner.name }}</a> van {{ product.owner.team[0].name }}</small>
+        <small class="text-muted" v-if="product.owner"><a :href="'mailto:' + this.product.owner.email + '?subject=Opmerkingen ' + this.product.name">{{ product.owner.name }}</a> van {{ product.owner.team[0].name }}</small>
         <div v-if="product.description">
             <span>Voor {{ product.name }} is de volgende opmerking gegeven:</span>
             <p>
