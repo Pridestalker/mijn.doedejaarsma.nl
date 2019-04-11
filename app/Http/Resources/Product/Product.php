@@ -35,6 +35,7 @@ class Product extends JsonResource
             
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
+            'updated_by'        => $this->when(isset($this->updated_by), \App\User::find($this->updated_by)),
             
             'hours'             => [
                 'count'             => count($this->hours),

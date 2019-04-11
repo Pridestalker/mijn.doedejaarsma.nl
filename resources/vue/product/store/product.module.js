@@ -21,6 +21,7 @@ class ProductModule extends VuexModule {
     factuur = null;
     kostenplaats = null;
     referentie = null;
+    updated_by = null;
 
     get product() {
         return {
@@ -41,6 +42,7 @@ class ProductModule extends VuexModule {
             links: this.links,
             created_at: this.created_at,
             updated_at: this.updated_at,
+            updated_by: this.updated_by,
         }
     }
 
@@ -119,6 +121,11 @@ class ProductModule extends VuexModule {
         this.created_at = date
     }
 
+    @Mutation
+    setUpdatedBy(user) {
+        this.updated_by = user;
+    }
+
     @Action
     async loadProduct() {
         return await this.fetchData();
@@ -157,6 +164,7 @@ class ProductModule extends VuexModule {
         this.setAttachment(product.attachment);
         this.setDescription(product.description);
         this.setKostenplaats(product.kostenplaats);
+        this.setUpdatedBy(product.updated_by);
         return product;
     }
 }

@@ -78,6 +78,7 @@ class Product extends Model
         'deadline',
         'created_at',
         'updated_at',
+	    'updated_by',
     ];
     
     /*

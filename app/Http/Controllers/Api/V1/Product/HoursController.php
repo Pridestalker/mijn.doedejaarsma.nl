@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Product;
 use App\Http\Resources\Hour\Hour as Resource;
 use App\ModelFilters\HoursFilter\DefaultFilter;
 use App\Models\Hour;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -44,6 +45,15 @@ class HoursController extends Controller
             'remarks'       => $request->get('remarks')?? '',
             'created_at'    => Carbon::now(),
             'updated_at'    => Carbon::now(),
+            ]
+        );
+        
+        $product = Product::find($request->get('product_id'));
+        
+        $product->update(
+            [
+                'updated_at'        => now(),
+                'updated_by'        => \Auth::user()->id,
             ]
         );
         
