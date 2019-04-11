@@ -142,7 +142,6 @@ export default class OverviewModule extends Vue {
     
     async mounted() {
         await this.fetchdata();
-        console.log(this.meta);
     }
     
     async fetchdata() {

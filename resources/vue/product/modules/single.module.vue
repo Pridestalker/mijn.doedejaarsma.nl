@@ -99,8 +99,6 @@ export default class SingleModule extends Vue {
         productModule.setId(this.id);
         await productModule.loadProduct();
         this.product = productModule.product;
-        console.log(this.product.owner);
-
     }
     
     async updateStatus() {
