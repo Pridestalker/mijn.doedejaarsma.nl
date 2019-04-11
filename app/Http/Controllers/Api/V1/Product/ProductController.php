@@ -127,10 +127,12 @@ class ProductController extends Controller
         
         $product->update($request->except('deadline'));
         
+        \Log::debug(\Auth::user()->id);
         $product->update(
-        	[
-        		'updated_at'        => now(),
-	        ]
+            [
+                'updated_at'        => now(),
+                'updated_by'        => \Auth::user()->id,
+            ]
         );
     
         return new Resource($product);

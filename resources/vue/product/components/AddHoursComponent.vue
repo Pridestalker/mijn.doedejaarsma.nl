@@ -37,7 +37,8 @@ export default class AddHoursComponent extends Vue {
     inputStatus = '';
     
     buttonStatus = {
-        disabled: false
+        disabled: false,
+        error: false
     };
     
     async submitForm() {
@@ -51,10 +52,11 @@ export default class AddHoursComponent extends Vue {
         
         try {
             await this.$http.post('/api/v1/hours', data);
+            this.$emit('updated');
         } catch (e) {
             console.warn(e)
         }
-        window.location.reload();
+        this.buttonStatus.disabled = false;
     }
     
     _turnTimeToFloat() {

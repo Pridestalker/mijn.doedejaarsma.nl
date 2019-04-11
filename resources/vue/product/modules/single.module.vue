@@ -51,12 +51,15 @@
             </a>
         </p>
         <footer>
-            <small class="text-muted pointer" v-if="product.updated_at" @click="fetchData" title="Gegevens updaten">Laatste update: {{ formattedUpdate }}</small>
+            <small class="text-muted pointer" v-if="product.updated_at" @click="fetchData" title="Gegevens updaten">
+                Laatste update: {{ formattedUpdate }}
+                door: {{ updatedBy }}
+            </small>
         </footer>
         
         <footer v-if="userMod.hasRole('admin') || userMod.hasRole('designer')" class="timeForm">
             <h5>Uren toevoegen:</h5>
-            <add-hours-component :user_id="user.id" :product_id="Number.parseInt(product.id)" v-if="user"></add-hours-component>
+            <add-hours-component :user_id="user.id" :product_id="Number.parseInt(product.id)" v-if="user" @updated="fetchData"></add-hours-component>
         </footer>
     </main>
 </template>
@@ -141,6 +144,13 @@ export default class SingleModule extends Vue {
         return `${Math.floor(this.product.hours.total)}:${(decimal/100 * 60).toPrecision(2)}`
     }
     
+    get updatedBy() {
+        if (this.product.status === 'aangevraagd' && !this.product.updated_by) {
+            return this.product.owner.name;
+        }
+        
+        return this.product.updated_by? this.product.updated_by.name : 'Onbekend';
+    }
 }
 </script>
 
