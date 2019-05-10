@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Product;
 
+use App\Http\Resources\Hour\ProductHour;
 use App\Http\Resources\User\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -40,7 +41,7 @@ class Product extends JsonResource
             'hours'             => [
                 'count'             => count($this->hours),
                 'total'             => $this->hours->sum('hours'),
-                'data'              => $this->hours,
+                'data'              => ProductHour::collection($this->hours),
             ],
             
             'links'             => [

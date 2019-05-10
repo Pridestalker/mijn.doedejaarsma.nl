@@ -11,8 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix
+    .js('resources/js/app.js', 'public/js')
     .js('resources/vue/product/product.app.js', 'public/js')
+    .js('resources/vue/admin/admin.app.js', 'public/js')
     .extract(['vue', 'vuex', 'jquery', 'popper.js', 'lodash', 'axios']);
 
 mix.sass('resources/sass/app.scss', 'public/css');
