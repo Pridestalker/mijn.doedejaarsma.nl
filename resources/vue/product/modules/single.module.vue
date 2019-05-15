@@ -67,12 +67,12 @@
 <script>
 import Component from 'vue-class-component';
 import Vue from 'vue';
-import { productModule } from '../store/product.module';
-import { userModule } from '../store/user.module';
+import { productModule } from '../../store/product.module';
+import { userModule } from '../../store/user.module';
 import { format, formatDistance } from 'date-fns';
 import { nl } from 'date-fns/locale';
 import AddHoursComponent from '../components/AddHoursComponent'
-import TitleComponent from '../components/TitleComponent'
+import TitleComponent from '../../components/TitleComponent'
 
 @Component( {
     components: { TitleComponent, AddHoursComponent },

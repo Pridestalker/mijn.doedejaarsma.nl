@@ -29,7 +29,7 @@ abstract class ProductTestCase extends TestCase
     
     protected function readProductRoute($product)
     {
-        return route('products.show', $product);
+        return route("/products#/single/$product->id");
     }
     
     protected function editProductRoute($product)

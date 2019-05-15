@@ -1,34 +1,32 @@
 <template>
-    <section class="product-dashboard-container">
+    <card-container >
         <title-component>Producten Overzicht</title-component>
         <small class="text-muted" v-if="meta">{{ meta.from? meta.from : 0 }} - {{ meta.to? meta.to : 0 }} van de {{ meta.total ? meta.total : 0 }} <span>producten</span></small>
         
-        <table class="product-dashboard-table">
-            <thead>
+        <table-component>
+            <template v-slot:thead>
                 <tr>
                     <th>Naam</th>
                     <th class="hide-mobile">Door</th>
                     <th>Deadline</th>
                     <th>Status</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr v-for="product in products" :key="product.id" class="product-table-row" @click.prevent="goToSingle(product.id)">
-                    <td>
-                        {{ product.name }}
-                    </td>
-                    <td class="hide-mobile" v-if="product.owner">
-                        {{ product.owner.name }}
-                    </td>
-                    <td :class="getDeadlineClass(product.deadline)">
-                        {{ formattedDate(product.deadline) }}
-                    </td>
-                    <td>
-                        {{ product.status }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            </template>
+            <tr v-for="product in products" :key="product.id" class="product-table-row" @click.prevent="goToSingle(product.id)">
+                <td>
+                    {{ product.name }}
+                </td>
+                <td class="hide-mobile" v-if="product.owner">
+                    {{ product.owner.name }}
+                </td>
+                <td :class="getDeadlineClass(product.deadline)">
+                    {{ formattedDate(product.deadline) }}
+                </td>
+                <td>
+                    {{ product.status }}
+                </td>
+            </tr>
+        </table-component>
         
         <aside>
             <a href="#" @click.prevent="goToPage('first')">
@@ -111,19 +109,21 @@
                 </div>
             </form>
         </aside>
-    </section>
+    </card-container>
 </template>
 
 <script>
 import Component from 'vue-class-component';
 import Vue from 'vue';
 import { Watch } from 'vue-property-decorator';
-import { productsModule } from '../store/products.module';
+import { productsModule } from '../../store/products.module';
 import { format, isAfter, isBefore } from 'date-fns';
 import { nl } from 'date-fns/locale';
-import TitleComponent from '../components/TitleComponent'
+import TitleComponent from '../../components/TitleComponent'
+import CardContainer from '../../components/CardContainer'
+import TableComponent from '../../components/TableComponent'
 @Component( {
-    components: { TitleComponent },
+    components: { TableComponent, CardContainer, TitleComponent },
 } )
 export default class OverviewModule extends Vue {
     products = [];
@@ -203,24 +203,7 @@ export default class OverviewModule extends Vue {
 </script>
 
 
-<style lang="scss">
-    .product-dashboard-container {
-        padding: 2rem 4rem;
-        border-radius: 14px;
-        -webkit-box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
-        -moz-box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
-        box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
-        background: #ffffff;
-        position:relative;
-        min-height: 500px;
-        @media screen and (max-width: 414px) {
-            padding: 2rem;
-        }
-    }
-    
-    .product-dashboard-table {
-        width: 100%;
-    }
+<style scoped lang="scss">
     .product-table-row {
         border-bottom: 1px solid #333;
         cursor: pointer;

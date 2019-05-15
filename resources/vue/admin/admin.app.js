@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import store from '../store/store';
 import router from './router';
-import App from './App';
+import Admin from './Admin';
 
 window.addEventListener('load', () => {
-    new Vue({ store, router, render: h => h(App) }).$mount('#product-app');
+    new Vue({store, router,render: h => h(Admin)}).$mount('#admin-app');
 })
