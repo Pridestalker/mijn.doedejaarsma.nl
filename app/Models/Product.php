@@ -99,6 +99,21 @@ class Product extends Model
         return $query->where('user_id', 'IN', $userIds);
     }
     
+    public function scopeFinished(Builder $query)
+    {
+        return $query->where('status', '=', 'afgerond');
+    }
+    
+    public function scopeInProgress(Builder $query)
+    {
+        return $query->where('status', '=', 'opgepakt');
+    }
+    
+    public function scopeRequested(Builder $query)
+    {
+        return $query->where('status', '=', 'aangevraagd');
+    }
+    
     /*
      * Relationships
      */

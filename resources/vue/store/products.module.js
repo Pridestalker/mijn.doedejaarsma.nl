@@ -1,5 +1,5 @@
-import { Action, Module, Mutation, VuexModule } from 'vuex-class-modules';
-import store from './admin.store';
+import { Action, Module, Mutation, VuexModule } from 'vuex-class-modules/lib/index';
+import store from './store';
 import axios from '../axios.service';
 
 @Module

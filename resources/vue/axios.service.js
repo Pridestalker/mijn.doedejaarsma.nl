@@ -1,4 +1,4 @@
-import * as axios from 'axios';
+import * as axios from 'axios/index';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

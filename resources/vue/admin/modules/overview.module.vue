@@ -51,7 +51,7 @@
 import Component from 'vue-class-component';
 import Vue from 'vue';
 import TitleComponent from '../../components/TitleComponent'
-import { productsModule } from '../store/products.module'
+import { productsModule } from '../../store/products.module'
 import { format } from 'date-fns';
 import { nl } from 'date-fns/locale';
 import CardContainer from '../../components/CardContainer'

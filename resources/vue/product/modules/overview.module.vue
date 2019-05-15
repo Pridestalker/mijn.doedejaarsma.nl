@@ -116,7 +116,7 @@
 import Component from 'vue-class-component';
 import Vue from 'vue';
 import { Watch } from 'vue-property-decorator';
-import { productsModule } from '../store/products.module';
+import { productsModule } from '../../store/products.module';
 import { format, isAfter, isBefore } from 'date-fns';
 import { nl } from 'date-fns/locale';
 import TitleComponent from '../../components/TitleComponent'

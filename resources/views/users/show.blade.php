@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
+@push('head')
+    @if(\Auth::user()->isA('designer'))
+        <script src="{{ asset('js/designer.dashboard.js') }}" defer></script>
+    @endif
+@endpush
+
 @section('content')
+    <div id="profile-dashboard"></div>
+    @if(!\Auth::user()->isA('designer'))
     <div class="card">
         <div class="card-header">
             {{ $user->name }}
@@ -39,4 +47,6 @@
             </div>
         @endforeach
     </div>
+
+    @endif
 @endsection

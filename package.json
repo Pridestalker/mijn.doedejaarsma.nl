@@ -40,6 +40,8 @@
     "resolve-url-loader": "^2.3.1",
     "sass": "^1.15.2",
     "sass-loader": "^7.1.0",
+    "ts-loader": "^6.0.0",
+    "typescript": "^3.4.5",
     "vue": "^2.6",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
@@ -48,7 +50,9 @@
     "vuex": "^3.1.0",
     "vuex-class-modules": "^1.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@babel/plugin-transform-typescript": "^7.4.4"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn prod && composer phpunit",

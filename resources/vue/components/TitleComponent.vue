@@ -1,18 +1,33 @@
 <template>
-    <h1>
+    <component :is="tag">
         <slot></slot>
-    </h1>
+    </component>
 </template>
 
-<script>
-import Component from 'vue-class-component';
-import Vue from 'vue';
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
-export default class TitleComponent extends Vue {}
+export default class TitleComponent extends Vue {
+    @Prop({ default: 'xlarge' })
+    size!: string;
+    
+    get tag(): string {
+        
+        switch (this.size) {
+            case 'xlarge':
+                return 'h1';
+            case 'large':
+                return 'h2';
+            default:
+                return 'h1';
+                
+        }
+    }
+}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .is-highlight {
         background: -webkit-linear-gradient(rgb(10, 10, 180), rgb(20, 189, 179));
         -webkit-background-clip: text;

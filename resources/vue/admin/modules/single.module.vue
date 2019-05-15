@@ -43,8 +43,8 @@
 <script>
 import Component from 'vue-class-component';
 import Vue from 'vue';
-import { productModule } from '../store/product.module';
-import { userModule } from '../store/user.module';
+import { productModule } from '../../store/product.module';
+import { userModule } from '../../store/user.module';
 import CardContainer from '../../components/CardContainer';
 import TitleComponent from '../../components/TitleComponent';
 import TableComponent from '../../components/TableComponent';
