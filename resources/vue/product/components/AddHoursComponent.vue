@@ -7,7 +7,7 @@
             </div>
             <input type="number" step="15" min="0" id="minutes" name="minutes" class="form-control" v-model="minutes" :class="inputStatus">
         </div>
-        <button type="submit" class="btn btn-outline-primary my-2" :disabled="buttonStatus.disabled">Invoeren</button>
+        <magic-button type="submit" background="blue" cool :style="{marginTop: '1rem'}" :disabled="buttonStatus.disabled">Invoeren</magic-button>
     </form>
 </template>
 
@@ -15,8 +15,10 @@
 import Component from 'vue-class-component/lib/index';
 import { Watch } from 'vue-property-decorator';
 import Vue from 'vue';
+import MagicButton from '../../components/MagicButton'
 
 @Component({
+    components: { MagicButton },
     props: {
         user_id: {
             type: Number,

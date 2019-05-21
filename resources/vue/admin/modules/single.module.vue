@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <section>
         <card-container v-if="product.hours">
             <router-link :to="{name: 'index'}">Terug naar het overzicht</router-link>
@@ -22,21 +22,37 @@
                     <td>{{ product.owner.name }}</td>
                 </tr>
             </table-component>
-        </card-container>
-        
-        <div class="row mt-4" v-if="product.hours">
-            <div v-for="hour in product.hours.data" :key="hour.id" class="col-md-6">
-                <card-container v-if="hour">
-                    <title-component>
+            
+            <title-component size="large">Uurtjes</title-component>
+            
+            <table-component v-if="product.hours">
+                <!--suppress HtmlUnknownBooleanAttribute -->
+                <template v-slot:thead>
+                    <tr>
+                        <th>
+                            Gebruiker
+                        </th>
+                        <th>
+                            Datum
+                        </th>
+                        <th>
+                            Uren
+                        </th>
+                    </tr>
+                </template>
+                <tr v-for="hour in product.hours.data" :key="hour.id">
+                    <td>
                         {{ hour.user.data.name }}
-                    </title-component>
-                    <small class="text-muted" v-if="hour.created_at">
-                        Ingevoerd op: {{ formattedDate(hour.created_at.date) }}
-                    </small>
-                    <p v-if="hour.hours">Aantal uren: {{ hour.hours }}</p>
-                </card-container>
-            </div>
-        </div>
+                    </td>
+                    <td>
+                        {{ formattedDate(hour.created_at.date) }}
+                    </td>
+                    <td v-if="hour.hours">
+                        {{ hour.hours }}
+                    </td>
+                </tr>
+            </table-component>
+        </card-container>
     </section>
 </template>
 

@@ -141,10 +141,10 @@ export default class OverviewModule extends Vue {
     }
     
     async mounted() {
-        await this.fetchdata();
+        await this.fetchData();
     }
     
-    async fetchdata() {
+    async fetchData() {
         productsModule.setParams(this.params)
         await productsModule.loadProducts()
         this.products = productsModule.allProducts;
@@ -178,7 +178,7 @@ export default class OverviewModule extends Vue {
                 break;
         }
         
-        this.fetchdata();
+        this.fetchData();
     }
     
     getDeadlineClass(deadline) {
@@ -196,7 +196,7 @@ export default class OverviewModule extends Vue {
     
     @Watch('params', { immediate: true, deep: true })
     propsWatcher(params, oldParams) {
-        this.fetchdata();
+        this.fetchData();
     }
     
 }
