@@ -1,16 +1,23 @@
 <template>
-    <main class="product-single-container">
+    <card-container class="product-single-container">
         <router-link :to="{name: 'index'}">Terug naar het overzicht</router-link>
         <title-component>{{ product.name }}</title-component>
         <small class="text-muted" v-if="product.owner"><a :href="'mailto:' + this.product.owner.email + '?subject=Opmerkingen ' + this.product.name">{{ product.owner.name }}</a> van {{ product.owner.team[0].name }}</small>
+        
         <div v-if="product.description">
             <span>Voor {{ product.name }} is de volgende opmerking gegeven:</span>
             <p>
                 {{ product.description }}
             </p>
         </div>
+        
         <div v-if="(userMod.hasRole('admin') || userMod.hasRole('designer'))">
-            De opdracht is <span  class="underline hoverable" title="status" :class="product.status" @click="statusChange = !statusChange">{{ product.status }}</span>
+            De opdracht is
+            <span @click="statusChange = !statusChange">
+                <span-underline hover :type="product.status">
+                    {{product.status}}
+                </span-underline>
+            </span>
             <transition name="fade">
                 <form v-if="statusChange" class="d-flex" @submit.prevent="updateStatus">
                     <select class="custom-select" v-model="product.status">
@@ -22,14 +29,18 @@
                 </form>
             </transition>
         </div>
+        
         <p v-else>
-            {{ product.name }} is <span class="underline" title="status" :class="product.status">{{ product.status }}</span>
+            {{ product.name }} is <span-underline title="status" :type="product.status">{{ product.status }}</span-underline>
         </p>
+        
+        
         <p v-if="product.deadline">
-            De opdracht heeft de volgende deadline: <span class="underline date">{{ formattedDate(product.deadline) }}</span>
+            De opdracht heeft de volgende deadline: <span-underline type="date">{{ formattedDate(product.deadline) }}</span-underline>
         </p>
+        
         <div v-if="product.soort = 'drukwerk'">
-            <span>Het gaat om een <span class="underline" :class="product.soort">{{ product.soort }}</span> aanvraag</span>
+            <span>Het gaat om een <span-underline :type="product.soort">{{ product.soort }}</span-underline> aanvraag</span>
             <ul v-if="product.options">
                 <li v-for="(value, option) in JSON.parse(product.options)" :key="option">
                     {{ option }}: {{ value }}
@@ -37,13 +48,13 @@
             </ul>
         </div>
         <div v-else-if="product.soort = 'digitaal'">
-            <span>Het gaat om een <span class="underline" :class="product.soort">{{ product.soort }}</span> aanvraag</span>
+            <span>Het gaat om een <span-underline :type="product.soort">{{ product.soort }}</span-underline> aanvraag</span>
         </div>
         <p v-if="product.format">
             "{{ product.format }}" is het gewenste formaat.
         </p>
         <p v-if="product.hours">
-            Gemaakte uren: <span class="underline date">{{ formattedTime(product.hours.total) }}</span>
+            Gemaakte uren: <span-underline :type="date">{{ formattedTime(product.hours.total) }}</span-underline>
         </p>
         <p v-if="product.attachment">
             <a :href="'/products/' + product.id + '/image'">
@@ -61,7 +72,7 @@
             <h5>Uren toevoegen:</h5>
             <add-hours-component :user_id="user.id" :product_id="Number.parseInt(product.id)" v-if="user" @updated="fetchData"></add-hours-component>
         </footer>
-    </main>
+    </card-container>
 </template>
 
 <script>
@@ -73,9 +84,12 @@ import { format, formatDistance } from 'date-fns';
 import { nl } from 'date-fns/locale';
 import AddHoursComponent from '../components/AddHoursComponent'
 import TitleComponent from '../../components/TitleComponent'
+import SpanUnderline from '../../components/SpanUnderline'
+import CardContainer from '../../components/CardContainer'
+import MagicButton from '../../components/MagicButton'
 
 @Component( {
-    components: { TitleComponent, AddHoursComponent },
+    components: { MagicButton, CardContainer, SpanUnderline, TitleComponent, AddHoursComponent },
 } )
 export default class SingleModule extends Vue {
     id = null;
@@ -154,90 +168,7 @@ export default class SingleModule extends Vue {
 }
 </script>
 
-<style lang="scss">
-    .product-single-container {
-        padding: 2rem 4rem;
-        border-radius: 14px;
-        -webkit-box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
-        -moz-box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
-        box-shadow: 0 3px 4px rgba(51, 51, 51, 0.2);
-        background: #ffffff;
-        position:relative;
-        min-height: 500px;
-        @media screen and (max-width: 414px) {
-            padding: 2rem;
-        }
-    }
-    
-    .underline {
-        position: relative;
-        -webkit-transition: all 0.4s;
-        -moz-transition: all 0.4s;
-        -ms-transition: all 0.4s;
-        -o-transition: all 0.4s;
-        transition: all 0.4s;
-    
-        font-weight: 600;
-        
-        &::after {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            content: ' ';
-            width: 100%;
-            height: 0.5rem;
-        }
-        
-        &.hoverable:hover {
-            cursor: pointer;
-            &::after {
-                height: 100%;
-                -webkit-transition: all 0.4s;
-                -moz-transition: all 0.4s;
-                -ms-transition: all 0.4s;
-                -o-transition: all 0.4s;
-                transition: all 0.4s;
-            }
-        }
-        
-        &.drukwerk {
-            &::after {
-                background: rgba(179, 39, 179, 0.2);
-            }
-        }
-        
-        &.digitaal {
-            &::after {
-                background: rgba(132, 51, 83, 0.2);
-            }
-        }
-        
-        &.opgepakt {
-            &::after {
-                background: linear-gradient(to left, rgba(39, 149, 179, 0.2), rgba(10, 10, 180, 0.2));
-            }
-        }
-        
-        &.aangevraagd {
-            &::after {
-                background: linear-gradient(to left, rgba(10, 10, 180, 0.2), rgba(20, 189, 179, 0.2));
-            }
-        }
-        
-        &.afgerond {
-            &::after {
-                height: 100%;
-                background: linear-gradient(rgba(79, 179, 58, 0.2), rgba(20, 189, 179, 0.2));
-            }
-        }
-        
-        &.date {
-            &::after {
-                background: rgba(49, 20, 158, 0.2);
-            }
-        }
-    }
-    
+<style lang="scss" scoped>
     .link {
         cursor: pointer;
         position: relative;

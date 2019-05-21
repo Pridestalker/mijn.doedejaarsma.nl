@@ -7,10 +7,10 @@
         
         <section v-if="user.projects">
             <p v-if="user.projects.aangevraagd.count > 5">
-                Het is vandaag druk met {{ user.projects.aangevraagd.count }} die nog niet zijn opgepakt.
+                Het is vandaag druk met {{ user.projects.aangevraagd.count }} aanvragen die nog niet zijn opgepakt.
             </p>
             <p v-else-if="user.projects.aangevraagd.count >= 2">
-                Het is vandaag redelijk druk met {{ user.projects.aangevraagd.count }} die nog niet zijn opgepakt.
+                Het is vandaag redelijk druk met {{ user.projects.aangevraagd.count }} aanvragen die nog niet zijn opgepakt.
             </p>
             <p v-else-if="user.projects.aangevraagd.count > 0">
                 Er is nog maar {{ user.projects.aangevraagd.count }} aanvraag.
