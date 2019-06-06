@@ -20,6 +20,6 @@ mix
 
 mix.sass('resources/sass/app.scss', 'public/css');
 
-mix.browserSync({
-    proxy: "localhost:8000"
-})
+// mix.browserSync({
+//     proxy: "localhost:8000"
+// })
