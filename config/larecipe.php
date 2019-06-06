@@ -35,7 +35,8 @@ return [
         'default'   => '1.3',
         'published' => [
             '1.0',
-            '1.3'
+            '1.3',
+            '1.6'
         ]
     ],
 
@@ -56,12 +57,6 @@ return [
 
     'settings' => [
         'auth'  => true,
-        'auth_links' => [
-            [
-                'name' => '',
-                'url' => '',
-            ],
-        ],
         'ga_id' => ''
     ],
 
@@ -141,23 +136,12 @@ return [
     */
 
     'ui'                 => [
-        'show_app_name'  => false,
-        'logo'           => '', // e.g.: /images/logo.svg
         'fav'            => '', // e.g.: /fav.png
-        'theme'          => 'light',
         'code'           => 'dark',
-        'back_to_top'    => true,
-        'show_side_bar'  => true,
         'colors'         => [
             'primary'    => '#ef8716',
-            'secondary'  => '#2b9cf2',
+            'secondary'  => '#0b2f4d',
             'selection'  => '#f4f5f7'
-        ],
-        'additional_css' => [
-            //'css/custom.css',
-        ],
-        'additional_js'  => [
-            'https://use.fontawesome.com/releases/v5.8.1/js/all.js',
         ],
     ],
 
@@ -186,20 +170,20 @@ return [
         ]
     ],
 
-   /*
-   |--------------------------------------------------------------------------
-   | Forum
-   |--------------------------------------------------------------------------
-   |
-   | Giving a chance to your users to post their questions or feedback
-   | directly on your docs, is pretty nice way to engage them more.
-   | However, you can also enable/disable the forum's visibility.
-   |
-   | Supported Services: 'disqus'
-   |
-   */
+    /*
+    |--------------------------------------------------------------------------
+    | Forum
+    |--------------------------------------------------------------------------
+    |
+    | Giving a chance to your users to post their questions or feedback
+    | directly on your docs, is pretty nice way to engage them more.
+    | However, you can also enable/disable the forum's visibility.
+    |
+    | Supported Services: 'disqus'
+    |
+    */
 
-  'forum'                 => [
+    'forum'                 => [
         'enabled'           => false,
         'default'           => 'disqus',
         'services'          => [
