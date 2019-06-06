@@ -9,17 +9,17 @@ const routes = [
     {
         path: '/',
         name: 'index',
-        component: OverviewModule
+        component: OverviewModule,
     },
     {
         path: '/single/:id',
         name: 'single',
-        component: SingleModule
+        component: SingleModule,
     }
 ]
 
 const router = new VueRouter({
-    routes
+    routes,
 });
 
 export default router;
