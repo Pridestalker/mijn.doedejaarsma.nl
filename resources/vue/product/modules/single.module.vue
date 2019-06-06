@@ -2,7 +2,7 @@
     <card-container class="product-single-container">
         <router-link :to="{name: 'index'}">Terug naar het overzicht</router-link>
         <title-component>{{ product.name }}</title-component>
-        <small class="text-muted" v-if="product.owner"><a :href="'mailto:' + this.product.owner.email + '?subject=Opmerkingen ' + this.product.name">{{ product.owner.name }}</a> van {{ product.owner.team[0].name }}</small>
+        <small class="text-muted" v-if="product.owner"><a :href="'mailto:' + this.product.owner.email + '?subject=Opmerkingen ' + this.product.name">{{ product.owner.name }}</a><span v-if="product.owner.team.length > 0"> van {{ product.owner.team[0].name }}</span></small>
         
         <div v-if="product.description">
             <span>Voor {{ product.name }} is de volgende opmerking gegeven:</span>
@@ -82,15 +82,21 @@ import { productModule } from '../../store/product.module';
 import { userModule } from '../../store/user.module';
 import { format, formatDistance } from 'date-fns';
 import { nl } from 'date-fns/locale';
+// @ts-ignore
 import AddHoursComponent from '../components/AddHoursComponent'
+// @ts-ignore
 import TitleComponent from '../../components/TitleComponent'
+// @ts-ignore
 import SpanUnderline from '../../components/SpanUnderline'
+// @ts-ignore
 import CardContainer from '../../components/CardContainer'
+// @ts-ignore
 import MagicButton from '../../components/MagicButton'
 
-@Component( {
+// @ts-ignore
+@Component({
     components: { MagicButton, CardContainer, SpanUnderline, TitleComponent, AddHoursComponent },
-} )
+})
 export default class SingleModule extends Vue {
     id = null;
     product = {};
@@ -99,10 +105,11 @@ export default class SingleModule extends Vue {
     statusChange = false;
     
     created() {
+        // @ts-ignore
         this.id = this.$route.params.id;
     }
     
-    mounted() {
+    async mounted() {
         this.fetchData();
         this.fetchUser();
     }

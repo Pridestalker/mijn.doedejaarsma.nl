@@ -4,3 +4,10 @@ config:
   webroot: public
   xdebug: true
   php: 7.3
+
+services:
+  mailhog:
+    type: mailhog
+    ## portforward: 1025
+    hogfrom:
+      - appserver

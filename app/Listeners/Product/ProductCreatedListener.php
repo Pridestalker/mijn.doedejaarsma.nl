@@ -15,11 +15,11 @@ use Notification;
 /**
  * Class ProductCreatedListener
  *
- * @category Listener
+ * @category Listeners
  * @package  App\Listeners\Product
- * @author   Mitch Hijlkema <mitch@doedejaarsma.nl>
- * @license  GNU AGPLv3 https://choosealicense.com/licenses/agpl-3.0/
- * @link     null
+ * @author   Mitch Hijlkema <mail@mitchhijlkema.nl>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     https://laravel.com/docs/5.8/events
  */
 class ProductCreatedListener
 {

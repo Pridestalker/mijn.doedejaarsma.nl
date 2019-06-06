@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
+// @ts-ignore
 @Component
 export default class TitleComponent extends Vue {
     @Prop({ default: 'xlarge' })
