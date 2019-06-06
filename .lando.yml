@@ -1,0 +1,6 @@
+name: mijn.doedejaarsma.nl
+recipe: laravel
+config:
+  webroot: public
+  xdebug: true
+  php: 7.3
