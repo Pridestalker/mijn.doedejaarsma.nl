@@ -1,5 +1,5 @@
 <template>
-    <card-container >
+    <card-container>
         <title-component>Producten Overzicht</title-component>
         <small class="text-muted" v-if="meta">{{ meta.from? meta.from : 0 }} - {{ meta.to? meta.to : 0 }} van de {{ meta.total ? meta.total : 0 }} <span>producten</span></small>
         
@@ -112,21 +112,26 @@
     </card-container>
 </template>
 
-<script>
+<script lang="ts">
 import Component from 'vue-class-component';
 import Vue from 'vue';
 import { Watch } from 'vue-property-decorator';
 import { productsModule } from '../../store/products.module';
 import { format, isAfter, isBefore } from 'date-fns';
 import { nl } from 'date-fns/locale';
+// @ts-ignore
 import TitleComponent from '../../components/TitleComponent'
+// @ts-ignore
 import CardContainer from '../../components/CardContainer'
+// @ts-ignore
 import TableComponent from '../../components/TableComponent'
+import { Product } from "../../constants/product.model"
+
 @Component( {
     components: { TableComponent, CardContainer, TitleComponent },
 } )
 export default class OverviewModule extends Vue {
-    products = [];
+    products?: Array<Product> = [];
     meta = {};
     params = {
         page: 1,
@@ -138,37 +143,40 @@ export default class OverviewModule extends Vue {
     
     filter = {
         open: false,
-    }
+    };
     
-    async mounted() {
+    async mounted(): Promise<void> {
         await this.fetchData();
     }
     
-    async fetchData() {
-        productsModule.setParams(this.params)
-        await productsModule.loadProducts()
+    async fetchData(): Promise<void> {
+        productsModule.setParams(this.params);
+        await productsModule.loadProducts();
         this.products = productsModule.allProducts;
         this.meta = productsModule.getMeta;
     }
     
-    formattedDate(date) {
-        return format(new Date(date), 'cccc dd MMMM YYYY', { awareOfUnicodeTokens: true, locale: nl })
+    // noinspection JSMethodCanBeStatic
+    formattedDate(date): string {
+        return format(new Date(date), 'cccc dd MMMM yyyy', { locale: nl })
     }
     
-    goToSingle(id) {
+    goToSingle(id: number): void {
+        // @ts-ignore
         this.$router.push({ name: 'single', params: { id }});
     }
     
-    goToPage(page) {
-        console.log(this.params.page)
+    goToPage(page: string): void {
         switch (page) {
             case 'first':
                 this.params.page = 1;
                 break;
             case 'last':
+                // @ts-ignore
                 this.params.page = this.meta.last_page;
                 break;
             case 'next':
+                // @ts-ignore
                 (this.params.page < this.meta.last_page) ?
                     this.params.page++ : console.warn('Je bent al op de laatste pagina.');
                 break;
@@ -181,8 +189,9 @@ export default class OverviewModule extends Vue {
         this.fetchData();
     }
     
-    getDeadlineClass(deadline) {
-        const Class = [];
+    // noinspection JSMethodCanBeStatic
+    getDeadlineClass(deadline): Array<string> {
+        const Class: string[] = [];
         if (isAfter(new Date(), new Date(deadline))) {
             Class.push('is-past');
         }
@@ -195,10 +204,9 @@ export default class OverviewModule extends Vue {
     }
     
     @Watch('params', { immediate: true, deep: true })
-    propsWatcher(params, oldParams) {
+    propsWatcher(params, oldParams): void {
         this.fetchData();
     }
-    
 }
 </script>
 

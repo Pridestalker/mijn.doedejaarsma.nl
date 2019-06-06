@@ -312,7 +312,7 @@ class LoginTest extends TestCase
         
         $response->assertRedirect($this->loginGetRoute());
         $response->assertSessionHasErrors('email');
-        $this->assertContains(
+        $this->assertStringContainsStringIgnoringCase(
             'Too many login attempts.',
             collect(
                 $response
