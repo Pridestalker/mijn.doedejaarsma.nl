@@ -55,8 +55,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn prod && composer phpunit",
-      "pre-push": "php artisan migrate:fresh --seed"
+      "pre-commit": "yarn prod && composer phpunit"
     }
   }
 }
