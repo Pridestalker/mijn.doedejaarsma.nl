@@ -8,6 +8,5 @@ config:
 services:
   mailhog:
     type: mailhog
-    ## portforward: 1025
     hogfrom:
       - appserver

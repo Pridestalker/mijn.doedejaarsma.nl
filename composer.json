@@ -23,11 +23,11 @@
         "tucker-eric/eloquentfilter": "^1.4"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
         "ajthinking/tinx": "^2.3",
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.6",
         "beyondcode/laravel-dump-server": "^1.2",
+        "beyondcode/laravel-query-detector": "^1.0",
         "bmitch/churn-php": "^1.0",
         "filp/whoops": "^2.3",
         "friendsofphp/php-cs-fixer": "^2.15",
@@ -38,6 +38,7 @@
         "nunomaduro/collision": "^3.0",
         "nunomaduro/larastan": "^0.3",
         "phpunit/phpunit": "^8",
+        "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "*",
         "sven/artisan-view": "^3.2",
         "vimeo/psalm": "^3.4"
