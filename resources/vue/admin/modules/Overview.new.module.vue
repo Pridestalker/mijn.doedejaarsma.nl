@@ -57,7 +57,7 @@
         
         params = {
             page: 1,
-            per_page: 15,
+            per_page: 5,
             hours_month_created: getMonth(new Date()) +1,
             hours_year_created: new Date().getFullYear()
         };
