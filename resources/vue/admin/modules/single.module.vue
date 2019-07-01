@@ -92,7 +92,7 @@ export default class SingleModule extends Vue {
     }
 
     formattedDate(date) {
-        return format(new Date(date), 'cccc dd MMMM YYYY', { awareOfUnicodeTokens: true, locale: nl})
+        return format(new Date(date), 'cccc dd MMMM yyyy', { awareOfUnicodeTokens: true, locale: nl})
     }
 }
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.modernized')
 
 @push('head')
     <script src="{{ asset('js/admin.app.js') }}" defer></script>
@@ -7,13 +7,4 @@
 @section('content')
 
 <main id="admin-app"></main>
-
-{{--    <div class="card">--}}
-{{--        <div class="card-header">--}}
-{{--            Trackthis--}}
-{{--        </div>--}}
-{{--        <div class="card-body">--}}
-{{--            <admin-track-view></admin-track-view>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 @endsection

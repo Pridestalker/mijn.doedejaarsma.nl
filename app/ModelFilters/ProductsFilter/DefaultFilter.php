@@ -1,11 +1,12 @@
 <?php
 namespace App\ModelFilters\ProductsFilter;
 
+use App\Models\Hour;
 use App\Models\Team;
-use App\User;
 use Auth;
 use DB;
 use EloquentFilter\ModelFilter;
+use Illuminate\Support\Facades\Log;
 
 class DefaultFilter extends ModelFilter
 {
@@ -21,7 +22,7 @@ class DefaultFilter extends ModelFilter
         return $this->whereLike('name', $name);
     }
     
-    public function setup()
+    public function setup(): void
     {
         if (Auth::user()->isA('customer')) {
             if ($_REQUEST['team'] && $_REQUEST['team'] === 'true') {
@@ -69,5 +70,37 @@ class DefaultFilter extends ModelFilter
         }
         
         return $this;
+    }
+    
+    public function monthCreated($month)
+    {
+        return $this->whereMonth(
+            'created_at',
+            str_pad($month, 2, '0', STR_PAD_LEFT)
+        );
+    }
+    
+    public function hoursMonthCreated($month)
+    {
+        $hours = Hour::whereMonth(
+            'created_at',
+            str_pad($month, 2, '0', STR_PAD_LEFT)
+        )
+                     ->select('product_id')
+                     ->distinct()->get();
+        
+        return $this->whereIn('id' , $hours->pluck('product_id')->toArray());
+    }
+    
+    public function hoursYearCreated($year)
+    {
+        $hours = Hour::whereYear(
+            'created_at',
+            str_pad($year, 2, '0', STR_PAD_LEFT)
+        )
+                     ->select('product_id')
+                     ->distinct()->get();
+    
+        return $this->whereIn('id' , $hours->pluck('product_id')->toArray());
     }
 }

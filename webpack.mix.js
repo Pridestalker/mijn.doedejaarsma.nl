@@ -24,7 +24,3 @@ mix.sass('resources/sass/app.scss', 'public/css');
 if (!mix.inProduction()) {
     mix.sourceMaps();
 }
-
-// mix.browserSync({
-//     proxy: "localhost:8000"
-// })

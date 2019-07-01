@@ -2,6 +2,10 @@ import Vue from 'vue';
 import store from '../store/store';
 import router from './router';
 import Admin from './Admin';
+import Buefy from 'buefy'
+// import 'buefy/dist/buefy.css'
+
+Vue.use(Buefy);
 
 window.addEventListener('load', () => {
     new Vue({store, router,render: h => h(Admin)}).$mount('#admin-app');

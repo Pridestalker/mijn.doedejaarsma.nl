@@ -110,10 +110,9 @@ export default class OverviewModule extends Vue {
     }
     
     formattedDate(date) {
-        return format(new Date(date), 'cccc dd MMMM YYYY', { awareOfUnicodeTokens: true, locale: nl})
+        return format(new Date(date), 'cccc dd MMMM yyyy', { awareOfUnicodeTokens: true, locale: nl})
     }
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

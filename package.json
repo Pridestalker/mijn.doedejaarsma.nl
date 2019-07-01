@@ -23,16 +23,17 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@babel/plugin-transform-typescript": "^7.4",
     "@babel/plugin-proposal-class-properties": "^7.4",
     "@babel/plugin-proposal-decorators": "^7.4",
+    "@babel/plugin-transform-typescript": "^7.4",
     "axios": "^0.19",
     "babel-jest": "^24.8",
     "bootstrap": "^4.3",
     "browser-sync": "^2.26",
     "browser-sync-webpack-plugin": "2.2",
+    "buefy": "^0.7.8",
     "cross-env": "^5.2",
-    "date-fns": "^2.0.0-alpha.31",
+    "date-fns": "^2.0.0-beta.2",
     "jquery": "^3.4",
     "laravel-mix": "^4.0",
     "lodash": "^4.17",
@@ -49,5 +50,7 @@
     "vue-template-compiler": "^2.6.10",
     "vuex": "^3.1",
     "vuex-class-modules": "^1.0"
+  },
+  "dependencies": {
   }
 }
