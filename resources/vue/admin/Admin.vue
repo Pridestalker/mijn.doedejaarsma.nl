@@ -1,6 +1,20 @@
 <template>
     <main>
-        <nav class="navbar"></nav>
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                        DJC DTP
+                    </a>
+        
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
         <div class="container">
             <div class="columns">
                 <div class="column is-one-quarter">

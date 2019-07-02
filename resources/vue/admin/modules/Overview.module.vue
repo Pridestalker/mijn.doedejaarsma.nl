@@ -52,7 +52,7 @@
     import { nl } from "date-fns/locale"
 
     @Component
-    export default class NewOverviewModule extends Vue {
+    export default class OverviewModule extends Vue {
         products: Array<Product> = [];
         
         params = {

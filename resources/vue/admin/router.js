@@ -1,26 +1,21 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
-import OverviewModule from './modules/overview.module';
-import SingleModule from './modules/single.module';
-import NewOverviewModule from './modules/Overview.new.module'
+import OverviewModule from './modules/Overview.module'
+import NotFoundComponent from './views/NotFoundComponent'
+
 
 Vue.use(VueRouter);
 
 const routes = [
     {
         path: '/',
-        name: 'index',
-        component: NewOverviewModule
-    },
-    {
-        path: '/old',
-        name: 'index_old',
+        name: 'administration',
         component: OverviewModule
     },
     {
-        path: '/single/:id',
-        name: 'single',
-        component: SingleModule
+        path: '*',
+        name: 'not_found',
+        component: NotFoundComponent
     }
 ];
 
