@@ -205,10 +205,10 @@ export default class OverviewModule extends Vue {
     
     getProductRowOpacity(date): number {
         const diff = differenceInDays(new Date(), new Date(date));
-        const { n, b } = { n: 48, b: 3.4 };
 
-
-        return 0.2 + (n / ( Math.pow(diff, (2 * b / Math.E) ) ) ) * Math.pow(b, (b / Math.E ));
+        if (diff >= 14) {
+            return 0.55
+        }
     }
 
     @Watch('params', { immediate: true, deep: true })
