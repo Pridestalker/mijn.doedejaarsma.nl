@@ -12,7 +12,7 @@
                     <th>Status</th>
                 </tr>
             </template>
-            <tr v-for="product in products" :key="product.id" class="product-table-row" @click.prevent="goToSingle(product.id)">
+            <tr v-for="product in products" :key="product.id" class="product-table-row" :style="{ 'opacity': getProductRowOpacity(product.updated_at) }" @click.prevent="goToSingle(product.id)">
                 <td>
                     {{ product.name }}
                 </td>
@@ -117,7 +117,7 @@ import Component from 'vue-class-component';
 import Vue from 'vue';
 import { Watch } from 'vue-property-decorator';
 import { productsModule } from '../../store/products.module';
-import { format, isAfter, isBefore } from 'date-fns';
+import { format, isAfter, isBefore, differenceInDays } from 'date-fns';
 import { nl } from 'date-fns/locale';
 // @ts-ignore
 import TitleComponent from '../../components/TitleComponent'
@@ -203,6 +203,14 @@ export default class OverviewModule extends Vue {
         return Class;
     }
     
+    getProductRowOpacity(date): number {
+        const diff = differenceInDays(new Date(), new Date(date));
+        const { n, b } = { n: 48, b: 3.4 };
+
+
+        return 0.2 + (n / ( Math.pow(diff, (2 * b / Math.E) ) ) ) * Math.pow(b, (b / Math.E ));
+    }
+
     @Watch('params', { immediate: true, deep: true })
     propsWatcher(params, oldParams): void {
         this.fetchData();
