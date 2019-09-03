@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Route;
+
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
 
@@ -33,13 +34,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function map()
+    public function map(): void
     {
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-
-        //
     }
 
     /**
@@ -49,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapWebRoutes(): void
     {
         $this->mapWebBaseRoutes();
         $this->mapWebUsersRoutes();
@@ -59,7 +58,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebAdminRoutes();
     }
     
-    protected function mapWebBaseRoutes()
+    protected function mapWebBaseRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
@@ -138,7 +137,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiProductsRoutes(): void
     {
         Route::prefix('api/v1/products')
-            ->middleware('api', 'auth:api')
+            ->middleware(['api', 'auth:api'])
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v1/products.php'));
     }
@@ -151,7 +150,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiUserRoutes(): void
     {
         Route::prefix('api/v1/user')
-            ->middleware('api', 'auth:api')
+            ->middleware(['api', 'auth:api'])
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v1/user.php'));
     }
@@ -164,7 +163,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiHoursRoutes(): void
     {
         Route::prefix('api/v1/hours')
-            ->middleware('api', 'auth:api')
+            ->middleware(['api', 'auth:api'])
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v1/hours.php'));
     }
