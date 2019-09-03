@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Product;
 use App\Notifications\NewProduct;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class InitialProductSeeder extends Seeder
@@ -10,55 +13,54 @@ class InitialProductSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        //
-        
-        $doede = \App\User::whereName('Doede Jaarsma')->first();
-        $veer = \App\User::whereName('Vera van den Booren')->first();
+        $doede = User::whereName('Doede Jaarsma')->first();
+        $veer = User::whereName('Vera van den Booren')->first();
         
         
-        $product1 = \App\Models\Product::create(
+        $product1 = Product::create(
             [
                 'name'      => 'Jaarverslag 2019',
                 'user_id'   => $doede->id,
                 'status'    => 'aangevraagd',
                 'soort'     => 'drukwerk',
-                'deadline'  => \Carbon\Carbon::tomorrow(),
+                'deadline'  => Carbon::tomorrow(),
                 'options'   => json_encode(['papier' => '300mg', 'oplage' => 3000, 'afleveradres' => 'Lauriergracht 54 H', 'gewicht' => '300 grams'])
             ]
         );
         
-        \App\Models\Product::create(
+        Product::create(
             [
                 'name'      => 'Jaarverslag 2019 ES',
                 'user_id'   => $doede->id,
                 'status'    => 'opgepakt',
                 'soort'     => 'drukwerk',
-                'deadline'  => \Carbon\Carbon::now(),
+                'deadline'  => Carbon::now(),
             ]
         );
         
-        \App\Models\Product::create(
+        Product::create(
             [
                 'name'      => 'Jaarverslag 2019 EN',
                 'user_id'   => $veer->id,
                 'status'    => 'afgerond',
                 'soort'     => 'drukwerk',
-                'deadline'  => \Carbon\Carbon::yesterday(),
+                'deadline'  => Carbon::yesterday(),
             ]
         );
-        \App\Models\Product::create(
+        
+        Product::create(
             [
                 'name'      => 'Jaarverslag 2019 DK',
                 'user_id'   => $veer->id,
                 'status'    => 'afgerond',
                 'soort'     => 'drukwerk',
-                'deadline'  => \Carbon\Carbon::now()->subWeek(2),
+                'deadline'  => Carbon::now()->subWeek(2),
             ]
         );
     
-        $users = \App\User::whereIsNot('customer')->get();
-        \Notification::send($users, new NewProduct($product1));
+        $users = User::whereIsNot('customer')->get();
+        Notification::send($users, new NewProduct($product1));
     }
 }

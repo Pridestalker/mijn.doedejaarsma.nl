@@ -3,8 +3,7 @@ recipe: laravel
 config:
   webroot: public
   xdebug: true
-  php: 7.3
-
+  php: 7.2
 services:
   mailhog:
     type: mailhog
@@ -12,3 +11,6 @@ services:
       - appserver
   PMA:
     type: phpmyadmin
+proxy:
+  appserver:
+    - mijn-doedejaarsma.lndo.site

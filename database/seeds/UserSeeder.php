@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use \App\User;
 
@@ -25,8 +26,8 @@ class UserSeeder extends Seeder
             'username'  => 'tomgovers',
             'email'     => 'tom@doedejaarsma.nl',
             'password'  => Hash::make('Werkplaats54'),
-            'created_at'=> \Carbon\Carbon::now(),
-            'updated_at'=> \Carbon\Carbon::now(),
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
         
         $mitch = User::create([
@@ -34,8 +35,8 @@ class UserSeeder extends Seeder
             'username'  => 'mitchhijlkema',
             'email'     => 'mitch@doedejaarsma.nl',
             'password'  => Hash::make('Werkplaats54'),
-            'created_at'=> \Carbon\Carbon::now(),
-            'updated_at'=> \Carbon\Carbon::now(),
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
         
         Bouncer::assign('admin')->to($tom);
@@ -49,8 +50,8 @@ class UserSeeder extends Seeder
             'username'  => 'keesjongboom',
             'email'     => 'kees@doedejaarsma.nl',
             'password'  => Hash::make('Werkplaats54'),
-            'created_at'=> \Carbon\Carbon::now(),
-            'updated_at'=> \Carbon\Carbon::now(),
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
     
         $lynn = User::create([
@@ -58,8 +59,8 @@ class UserSeeder extends Seeder
             'username'  => 'lynnvdberg',
             'email'     => 'lynn@doedejaarsma.nl',
             'password'  => Hash::make('Werkplaats54'),
-            'created_at'=> \Carbon\Carbon::now(),
-            'updated_at'=> \Carbon\Carbon::now(),
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
     
         Bouncer::assign('designer')->to($kees);
@@ -73,28 +74,28 @@ class UserSeeder extends Seeder
             'username'  => 'doedejaarsma',
             'email'     => 'doede@doedejaarsma.nl',
             'password'  => Hash::make('Werkplaats54'),
-            'created_at'=> \Carbon\Carbon::now(),
-            'updated_at'=> \Carbon\Carbon::now(),
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
         $veer = User::create([
             'name'      => 'Vera van den Booren',
             'username'  => 'veravdbx',
             'email'     => 'vera@hijlkema.nu',
             'password'  => Hash::make('Werkplaats54'),
-            'created_at'=> \Carbon\Carbon::now(),
-            'updated_at'=> \Carbon\Carbon::now(),
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
         
         Bouncer::assign('customer')->to($doede);
         Bouncer::assign('customer')->to($veer);
         
-        \DB::table('team_user')->insert(
+        DB::table('team_user')->insert(
         	[
         		'team_id'   => 2,
 		        'user_id'   => $doede->id,
 	        ]
         );
-        \DB::table('team_user')->insert(
+        DB::table('team_user')->insert(
         	[
         		'team_id'   => 2,
 		        'user_id'   => $veer->id,
