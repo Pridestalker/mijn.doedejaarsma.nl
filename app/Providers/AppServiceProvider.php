@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Product;
-use App\Observers\ProductObserver;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot() : void
     {
-        //
         Schema::defaultStringLength(191);
     }
 }

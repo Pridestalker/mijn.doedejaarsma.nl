@@ -6,9 +6,12 @@ use App\Http\Resources\Hour\Hour as Resource;
 use App\ModelFilters\HoursFilter\DefaultFilter;
 use App\Models\Hour;
 use App\Models\Product;
+use Auth;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class HoursController extends Controller
@@ -18,7 +21,7 @@ class HoursController extends Controller
      *
      * @param Request $request The current request.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function index(Request $request)
     {
@@ -34,17 +37,16 @@ class HoursController extends Controller
      *
      * @return Resource
      */
-    public function store(Request $request)
+    public function store(Request $request): \App\Http\Resources\Hour\Hour
     {
-        //
         $hour = Hour::create(
             [
-            'user_id'       => app('auth')->user()->id,
-            'product_id'    => $request->get('product_id'),
-            'hours'         => $request->get('hours'),
-            'remarks'       => $request->get('remarks')?? '',
-            'created_at'    => Carbon::now(),
-            'updated_at'    => Carbon::now(),
+                'user_id'       => app('auth')->user()->id,
+                'product_id'    => $request->get('product_id'),
+                'hours'         => $request->get('hours'),
+                'remarks'       => $request->get('remarks')?? '',
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
             ]
         );
         
@@ -53,7 +55,7 @@ class HoursController extends Controller
         $product->update(
             [
                 'updated_at'        => now(),
-                'updated_by'        => \Auth::user()->id,
+                'updated_by'        => Auth::user()->id,
             ]
         );
         
@@ -67,7 +69,7 @@ class HoursController extends Controller
      *
      * @return Resource
      */
-    public function show(Hour $hour)
+    public function show(Hour $hour): \App\Http\Resources\Hour\Hour
     {
         return new Resource($hour);
     }
@@ -80,9 +82,8 @@ class HoursController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, Hour $hour)
+    public function update(Request $request, Hour $hour): Response
     {
-        //
         return response()->json(['Not implemented'], 500);
     }
     
@@ -92,11 +93,10 @@ class HoursController extends Controller
      * @param Hour $hour The hour to be deleted.
      *
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(Hour $hour)
+    public function destroy(Hour $hour): Response
     {
-        //
         $hour->delete();
         return response()->json([], 204);
     }

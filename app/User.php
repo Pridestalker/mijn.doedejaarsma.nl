@@ -2,9 +2,13 @@
 
 namespace App;
 
+use App\Models\Hour;
 use App\Models\Product;
 use App\Models\Team;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -13,8 +17,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
 use Lab404\Impersonate\Models\Impersonate;
+use Laravel\Passport\Client;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Passport\Token;
+use Silber\Bouncer\Database\Ability;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Silber\Bouncer\Database\Role;
 
 /**
  * App\User
@@ -23,10 +31,10 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
- * @mixin \Eloquent
- * @property int                                                                                  $id
- * @property string                                                                               $name
- * @property string                                                                               $username
+ * @mixin Eloquent
+ * @property int                                                        $id
+ * @property string                                                     $name
+ * @property string                                                     $username
  * @property string                                                                               $email
  * @property Carbon|null                                                                          $email_verified_at
  * @property string                                                                               $password
@@ -44,15 +52,15 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
- * @property-read \Illuminate\Database\Eloquent\Collection|\Silber\Bouncer\Database\Ability[] $abilities
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $bedrijf
- * @property-read \Illuminate\Database\Eloquent\Collection|\Silber\Bouncer\Database\Role[] $roles
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIs($role)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsAll($role)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsNot($role)
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
+ * @property-read Collection|Ability[]                                  $abilities
+ * @property-read Collection|Product[]                                  $bedrijf
+ * @property-read Collection|Role[]                                     $roles
+ * @method static Builder|User whereIs($role)
+ * @method static Builder|User whereIsAll($role)
+ * @method static Builder|User whereIsNot($role)
+ * @property-read Collection|Product[]                                  $products
+ * @property-read Collection|Client[]                                   $clients
+ * @property-read Collection|Token[]                                    $tokens
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -88,22 +96,31 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
     
-    public function bedrijf(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function bedrijf(): BelongsToMany
     {
-        return $this->belongsToMany(Team::class);
+        return $this->teams();
     }
     
-    public function products()
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany( Team::class );
+    }
+    
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+    
+    public function hours(): HasMany
+    {
+        return $this->hasMany(Hour::class);
     }
     
     /*
      * Impersonation
      */
-    
-    public function canImpersonate()
+    public function canImpersonate(): bool
     {
-        return in_array('admin', $this->getRoles()->toArray());
+        return in_array( 'admin', $this->getRoles()->toArray(), true );
     }
 }

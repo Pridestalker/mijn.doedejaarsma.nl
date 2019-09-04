@@ -20,7 +20,7 @@ class ProductFinished
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Product $product
      */
     public function __construct(Product $product)
     {

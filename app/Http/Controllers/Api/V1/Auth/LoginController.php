@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\User;
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -12,7 +13,6 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 class LoginController extends Controller
 {
     use ThrottlesLogins;
-    //
     /**
      * Create a new controller instance.
      *
@@ -118,6 +118,6 @@ class LoginController extends Controller
             ->pluck('password')
             ->first();
         
-        return \Hash::check($credentials['password'], $pass);
+        return Hash::check($credentials['password'], $pass);
     }
 }

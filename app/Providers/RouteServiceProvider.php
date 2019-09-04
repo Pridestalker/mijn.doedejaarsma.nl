@@ -24,8 +24,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
-
         parent::boot();
     }
 
@@ -65,35 +63,35 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/web/base.php'));
     }
     
-    protected function mapWebUsersRoutes()
+    protected function mapWebUsersRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/users.php'));
     }
     
-    protected function mapWebProductsRoutes()
+    protected function mapWebProductsRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/products.php'));
     }
     
-    protected function mapWebTeamsRoutes()
+    protected function mapWebTeamsRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/teams.php'));
     }
     
-    protected function mapWebPermissionsRoutes()
+    protected function mapWebPermissionsRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/permissions.php'));
     }
     
-    protected function mapWebAdminRoutes()
+    protected function mapWebAdminRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
@@ -108,7 +106,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes(): void
     {
         $this->mapApiAuthRoutes();
         $this->mapApiProductsRoutes();

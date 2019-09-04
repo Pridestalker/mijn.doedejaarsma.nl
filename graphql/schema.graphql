@@ -1,0 +1,67 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query{
+    me: User @auth @middleware(checks: ["auth:api"])
+    users: [User!]! @paginate(type: "paginator" model: "App\\User") @middleware(checks: ["auth:api"])
+    teams: [Team!]! @paginate(type: "paginator" model: "App\\Models\\Team") @middleware(checks: ["auth:api"])
+
+    user(id: ID @eq): User @find(model: "App\\User") @middleware(checks: ["auth:api"])
+    team(id: ID @eq): Team @find(model: "App\\Models\\Team") @middleware(checks: ["auth:api"])
+}
+
+type User {
+    id: ID!
+    name: String!
+    username: String
+    email: String!
+    teams: [Team!]! @belongsToMany
+    products: [Product!] @hasMany
+    hours: [Hour!] @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+    email_verified_at: DateTime
+}
+
+type Team {
+    id: ID!
+    name: String!
+    email: String!
+    users: [User!]! @belongsToMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Product {
+    id: ID!
+    name: String!
+    deadline: DateTime!
+    soort: String!
+    status: String!
+
+    user: User! @belongsTo
+    hours: [Hour!] @hasMany
+
+    description: String
+    format: String
+    attachment: String
+    referentie: String
+
+    created_at: DateTime!
+    updated_at: DateTime!
+    updated_by: User
+}
+
+type Hour {
+    id: ID!
+    user: User! @belongsTo
+    product: Product! @belongsTo
+    hours: Float!
+    created_at: DateTime!
+    updated_at: DateTime!
+
+    remarks: String
+}

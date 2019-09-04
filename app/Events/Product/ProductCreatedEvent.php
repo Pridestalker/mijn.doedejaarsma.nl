@@ -25,12 +25,9 @@ class ProductCreatedEvent
      *
      * @param Product $product The created product.
      * @param User    $user    The owning user.
-     *
-     * @return void
      */
     public function __construct(Product $product, User $user)
     {
-        //
         $this->product = $product;
         $this->user = $user;
     }

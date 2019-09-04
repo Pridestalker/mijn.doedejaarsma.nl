@@ -28,7 +28,6 @@ class NewProduct extends Notification
      */
     public function __construct(Product $product)
     {
-        //
         $this->product = $product;
     }
 
@@ -39,7 +38,7 @@ class NewProduct extends Notification
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -51,7 +50,7 @@ class NewProduct extends Notification
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'id'    => $this->product->id,
