@@ -3,8 +3,12 @@
 namespace App\Models;
 
 use App\User;
+use DB;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -12,8 +16,8 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $name
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property Carbon|null                                          $created_at
+ * @property Carbon|null                                          $updated_at
  * @method static Builder|Team newModelQuery()
  * @method static Builder|Team newQuery()
  * @method static Builder|Team query()
@@ -21,15 +25,13 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Team whereId($value)
  * @method static Builder|Team whereName($value)
  * @method static Builder|Team whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property string $email
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team whereEmail($value)
+ * @mixin Eloquent
+ * @property string                                               $email
+ * @property-read Collection|User[] $users
+ * @method static Builder|Team whereEmail($value)
  */
 class Team extends Model
 {
-    //
-    
     protected $fillable = [
         'name', 'email'
     ];
@@ -37,23 +39,26 @@ class Team extends Model
     /**
      * Returns the users via pivot.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
     
     public function hours()
     {
-        return \DB::table('hours')->whereRaw(
-            'hours.user_id in (
-          SELECT id from users
-          WHERE users.id in (
-            SELECT user_id from team_user
-            where team_user.team_id = 2
-            )
-          )'
-        )->get();
+        if ($this->id) {
+            return DB::table('hours')
+                     ->whereRaw(
+                         'hours.user_id in (
+                     SELECT id from users
+                     WHERE users.id in (
+                        SELECT user_id from team_user
+                        where team_user.team_id = '. $this->id . '
+                        )
+                    )')
+                     ->get();
+        }
     }
 }

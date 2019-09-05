@@ -2,14 +2,33 @@
 
 namespace App\Http\Controllers\Api\V1\User;
 
+use Auth;
+use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class NotificationsController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
-        $user = \Auth::user();
+        $user = Auth::user();
+        
+        if (!$user) {
+            return response()->json(
+                [
+                    'error' => 'Unauthenticated'
+                ],
+                403
+            );
+        }
         
         if (!$user->notifications()->exists()) {
             return response()
@@ -25,9 +44,21 @@ class NotificationsController extends Controller
             ->json($user->notifications->toArray());
     }
     
-    public function unread()
+    /**
+     * @return JsonResponse
+     */
+    public function unread(): JsonResponse
     {
-        $user = \Auth::user();
+        $user = Auth::user();
+    
+        if (!$user) {
+            return response()->json(
+                [
+                    'error' => 'Unauthenticated'
+                ],
+                403
+            );
+        }
         
         if (!$user->unreadNotifications()->exists()) {
             return response()
@@ -43,9 +74,21 @@ class NotificationsController extends Controller
             ->json($user->unreadNotifications->toArray());
     }
     
-    public function read()
+    /**
+     * @return JsonResponse
+     */
+    public function read(): JsonResponse
     {
-        $user = \Auth::user();
+        $user = Auth::user();
+    
+        if (!$user) {
+            return response()->json(
+                [
+                    'error' => 'Unauthenticated'
+                ],
+                403
+            );
+        }
         
         if (!$user->readNotifications()->exists()) {
             return response()
@@ -61,11 +104,19 @@ class NotificationsController extends Controller
             ->json($user->readNotifications->toArray());
     }
     
+    /**
+     * @param $id
+     *
+     * @return ResponseFactory|JsonResponse|Response
+     */
     public function delete($id)
     {
         try {
-            \Auth::user()->notifications()->findOrFail($id)->delete();
-        } catch (\Exception $e) {
+            Auth::user()
+                ->notifications()
+                ->findOrFail($id)
+                ->delete();
+        } catch (Exception $e) {
             return response()
                 ->json($e->getMessage(), 500);
         }

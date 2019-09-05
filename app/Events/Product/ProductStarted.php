@@ -16,15 +16,14 @@ class ProductStarted
     use Dispatchable, SerializesModels;
     
     public $product;
-
+    
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Product $product
      */
     public function __construct(Product $product)
     {
-        //
         $this->product = $product;
     }
 }

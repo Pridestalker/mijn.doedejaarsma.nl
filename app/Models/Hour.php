@@ -4,38 +4,42 @@ namespace App\Models;
 
 use App\ModelFilters\HoursFilter\DefaultFilter;
 use App\User;
+use Eloquent;
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Hour
  *
- * @property int $id
- * @property int $product_id
- * @property int $user_id
- * @property string $remarks
- * @property float $hours
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Product $product
- * @property-read \App\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereHours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereRemarks($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereUserId($value)
- * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour filter($input = array(), $filter = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour paginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour simplePaginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereBeginsWith($column, $value, $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereEndsWith($column, $value, $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Hour whereLike($column, $value, $boolean = 'and')
+ * @property int                             $id
+ * @property int                             $product_id
+ * @property int                             $user_id
+ * @property string                          $remarks
+ * @property float                           $hours
+ * @property Carbon|null                     $created_at
+ * @property Carbon|null                     $updated_at
+ * @property-read Product                    $product
+ * @property-read User                       $user
+ * @method static Builder|Hour newModelQuery()
+ * @method static Builder|Hour newQuery()
+ * @method static Builder|Hour query()
+ * @method static Builder|Hour whereCreatedAt($value)
+ * @method static Builder|Hour whereHours($value)
+ * @method static Builder|Hour whereId($value)
+ * @method static Builder|Hour whereProductId($value)
+ * @method static Builder|Hour whereRemarks($value)
+ * @method static Builder|Hour whereUpdatedAt($value)
+ * @method static Builder|Hour whereUserId($value)
+ * @mixin Eloquent
+ * @method static Builder|Hour filter($input = array(), $filter = null)
+ * @method static Builder|Hour paginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
+ * @method static Builder|Hour simplePaginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
+ * @method static Builder|Hour whereBeginsWith($column, $value, $boolean = 'and')
+ * @method static Builder|Hour whereEndsWith($column, $value, $boolean = 'and')
+ * @method static Builder|Hour whereLike($column, $value, $boolean = 'and')
  */
 class Hour extends Model
 {
@@ -49,18 +53,20 @@ class Hour extends Model
         'created_at'
     ];
     
-    //
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
     
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
     
-    public function modelFilter()
+    /**
+     * @return string
+     */
+    public function modelFilter(): string
     {
     	return $this->provideFilter(DefaultFilter::class);
     }
