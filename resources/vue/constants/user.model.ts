@@ -10,6 +10,8 @@ export interface UserModule {
     role?: object;
     permission?: object;
 
+    notifications ?: Array<any>;
+
     projects?: Array<Product>;
     requests?: Array<Request>;
 }

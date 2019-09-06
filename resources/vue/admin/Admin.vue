@@ -1,55 +1,42 @@
 <template>
     <main>
-        <nav class="navbar">
+        <admin-header></admin-header>
+        <section class="section">
             <div class="container">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="/">
-                        DJC DTP
-                    </a>
-        
-                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
+                <div class="columns">
+                    <admin-menu></admin-menu>
+                    <div class="column">
+                        <router-view></router-view>
+                    </div>
                 </div>
             </div>
-        </nav>
-        <div class="container">
-            <div class="columns">
-                <div class="column is-one-quarter">
-                    <aside class="menu">
-                        <p class="menu-label">General</p>
-                        <ul class="menu-list">
-                            <li><a href="/products/">Producten</a></li>
-                            <li><a href="/users/">Gebruikers</a></li>
-                            <li><a href="/admin/">Administratie</a></li>
-                            <li><a href="/teams/">Bedrijven</a></li>
-                        </ul>
-                    </aside>
-                </div>
-                <div class="column">
-                    <router-view></router-view>
-                </div>
-            </div>
-        </div>
+        </section>
     </main>
 </template>
 
 <script>
 import Component from 'vue-class-component';
 import Vue from 'vue';
+import AdminHeader from './layout/AdminHeader'
+import AdminMenu from './layout/AdminMenu'
+import { userModule } from '../store/user.module'
 
-@Component
-export default class Admin extends Vue {}
+@Component({
+    components: { AdminHeader, AdminMenu }
+})
+export default class Admin extends Vue {
+    mounted() {
+        userModule.loadUser();
+    }
+}
 </script>
 
 <style lang="scss">
-    @import "~bulma/sass/utilities/_all";
+    @import "~bulma/sass/utilities/functions";
     
     $primary: #ef8716;
     $primary-invert: findColorInvert($primary);
-
+    
     // Links
     $link: $primary;
     $link-invert: $primary-invert;

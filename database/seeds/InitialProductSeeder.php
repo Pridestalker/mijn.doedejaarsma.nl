@@ -62,5 +62,12 @@ class InitialProductSeeder extends Seeder
     
         $users = User::whereIsNot('customer')->get();
         Notification::send($users, new NewProduct($product1));
+        
+        $product1->hours()->create([
+            'user_id'       => 3,
+            'remarks'       => '',
+            'hours'         => 1,
+            'created_at'    => now()
+        ]);
     }
 }

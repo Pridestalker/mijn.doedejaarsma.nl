@@ -6,14 +6,12 @@ on:
 
 jobs:
   stale:
-
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/stale@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'Stale issue message'
-        stale-pr-message: 'Stale pull request message'
+        stale-issue-message: 'This issue has not seen interaction in a long time. Marking as stale.'
+        stale-pr-message: 'This PR has not seen interaction in a long time. Marking as stale.'
         stale-issue-label: 'no-issue-activity'
         stale-pr-label: 'no-pr-activity'

@@ -3,7 +3,7 @@ import store from './store';
 import axios from '../axios.service';
 
 @Module
-class ProductsModule extends VuexModule {
+export class ProductsModule extends VuexModule {
     // state
     products = [];
     params = {

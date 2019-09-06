@@ -11,11 +11,11 @@ class AddUpdatedByRowToProducts extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table(
             'products',
-            function (Blueprint $table) {
+            static function (Blueprint $table) {
                 //
                 $table->unsignedInteger('updated_by')->nullable();
             }

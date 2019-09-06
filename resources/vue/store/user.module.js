@@ -3,7 +3,7 @@ import store from './store';
 import axios from '../axios.service';
 
 @Module
-class UserModule extends VuexModule {
+export class UserModule extends VuexModule {
     user = {};
     roles = [];
 
@@ -27,10 +27,12 @@ class UserModule extends VuexModule {
 
     @Action
     async loadUser() {
-        const user = await this.fetchData();
-        this.setUser(user);
-        this.setRoles(user.role);
-        return user;
+        if (!this.user.id) {
+            const user = await this.fetchData();
+            this.setUser(user);
+            this.setRoles(user.role);
+        }
+        return this.user;
     }
 
     async fetchData() {

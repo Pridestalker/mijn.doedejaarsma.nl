@@ -5,7 +5,7 @@ import { Hours, Product } from "../constants/product.model";
 import { UserModule } from "../constants/user.model";
 
 @Module
-class ProductModule extends VuexModule {
+export class ProductModule extends VuexModule {
     product?: Product = {};
 
     @Mutation
@@ -119,6 +119,11 @@ class ProductModule extends VuexModule {
         } catch (e) {
             return e;
         }
+    }
+
+    @Action
+    productSetter(product: Product) {
+        this.setProduct(product);
     }
 }
 

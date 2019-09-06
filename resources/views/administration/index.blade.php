@@ -5,6 +5,5 @@
 @endpush
 
 @section('content')
-
-<main id="admin-app"></main>
+    <main id="admin-app"></main>
 @endsection
