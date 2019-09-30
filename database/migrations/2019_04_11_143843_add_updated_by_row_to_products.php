@@ -16,7 +16,6 @@ class AddUpdatedByRowToProducts extends Migration
         Schema::table(
             'products',
             static function (Blueprint $table) {
-                //
                 $table->unsignedInteger('updated_by')->nullable();
             }
         );

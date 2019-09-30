@@ -9,8 +9,15 @@ services:
     type: mailhog
     hogfrom:
       - appserver
+    portforward: true
   PMA:
     type: phpmyadmin
+    portforward: true
 proxy:
   appserver:
     - mijn-doedejaarsma.lndo.site
+  mailhog:
+    - hog-mijn-doedejaarsma.lndo.site
+    - mailhog-mijn-doedejaarsma.lndo.site
+  PMA:
+    - pma-mijn-doedejaarsma.lndo.site

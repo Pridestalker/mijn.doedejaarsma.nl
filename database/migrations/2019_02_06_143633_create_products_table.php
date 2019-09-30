@@ -27,8 +27,8 @@ class CreateProductsTable extends Migration
             
             $table->unsignedInteger('user_id')->comment('Is the requestee');
             
-            $table->enum('soort', [ 'digitaal', 'drukwerk' ]);
-            $table->enum('status', [ 'aangevraagd', 'opgepakt', 'afgerond' ]);
+            $table->enum('soort', ['digitaal', 'drukwerk']);
+            $table->enum('status', ['aangevraagd', 'opgepakt', 'afgerond']);
             
             $table->timestamp('deadline')->comment('When should the product be finished');
             $table->timestamps();
@@ -45,7 +45,7 @@ class CreateProductsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('products');
     }
