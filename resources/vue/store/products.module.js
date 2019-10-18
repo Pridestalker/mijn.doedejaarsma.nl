@@ -43,6 +43,7 @@ export class ProductsModule extends VuexModule {
 
     @Mutation
     setParams({ ...params }) {
+        for(let i in this.params) delete this.params[i];
         Object.assign(this.params, params);
     }
 

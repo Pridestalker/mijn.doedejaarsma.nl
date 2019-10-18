@@ -97,6 +97,10 @@
         
         headers: string[] = ['id', 'name', 'deadline', 'requestee'];
         
+        async beforeRouteUpdate () {
+            this.fetchData();
+        }
+        
         async mounted() {
             this.fetchData();
         }
