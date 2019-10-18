@@ -1,16 +1,33 @@
 name: mijn.doedejaarsma.nl
 recipe: laravel
+
 config:
   webroot: public
   xdebug: true
   php: 7.2
+
 services:
   mailhog:
     type: mailhog
     hogfrom:
       - appserver
+    portforward: true
+
   PMA:
     type: phpmyadmin
+    portforward: true
+
+  appserver:
+    run:
+      - 'php artisan passport:install'
+
 proxy:
   appserver:
     - mijn-doedejaarsma.lndo.site
+
+  mailhog:
+    - hog-mijn-doedejaarsma.lndo.site
+    - mailhog-mijn-doedejaarsma.lndo.site
+
+  PMA:
+    - pma-mijn-doedejaarsma.lndo.site
