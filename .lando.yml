@@ -7,6 +7,9 @@ config:
   php: 7.2
 
 services:
+  node:
+    type: node
+
   mailhog:
     type: mailhog
     hogfrom:
@@ -33,3 +36,9 @@ proxy:
 
   PMA:
     - pma-mijn-doedejaarsma.lndo.site
+
+tooling:
+  yarn:
+    cmd: cd /app/ && yarn
+    command: cd /app/ && yarn
+    service: node

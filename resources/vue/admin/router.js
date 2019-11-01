@@ -6,14 +6,14 @@ import AdminHome from './pages/AdminHome'
 import AdminProducts from './pages/AdminProducts'
 import AdminProduct from './pages/AdminProduct'
 
-
 Vue.use(VueRouter);
 
 const routes = [
     { path: '/', name: 'home', component: AdminHome },
     { path: '/admin', name: 'administration', component: DateAdministration },
     { path: '/products', name: 'products', component: AdminProducts },
-    { path: '/products/:id', name: 'product', component: AdminProduct, props: { default: true, parent: 'products'} },
+    { path: '/products/:id', name: 'product', component: AdminProduct, props: { default: true, parent: 'products'}, meta: { editing: false } },
+    { path: '/products/:id/edit', name: 'product-edit', component: AdminProduct, meta: { editing: true }},
     { path: '*', name: 'not_found', component: NotFoundComponent }
 ];
 
