@@ -23,7 +23,9 @@
         >
             <template slot-scope="props">
                 <b-table-column field="id" label="ID" width="40" numeric>{{ props.row.id }}</b-table-column>
-                <b-table-column field="name" label="Naam product" @click="toggle(props.row)">{{ props.row.name }}</b-table-column>
+                <b-table-column field="name" label="Naam product" @click="toggle(props.row)">
+                    <router-link :to="{ name: 'product', params: { id: props.row.id } }">{{ props.row.name }}</router-link>
+                </b-table-column>
                 <b-table-column field="uren" label="Uren" width="40" numeric>{{ props.row.hours.total }}</b-table-column>
                 <b-table-column field="referentie" label="Referentie">{{ props.row.referentie }}</b-table-column>
                 <b-table-column field="kostenplaats" label="Kostenplaats">{{ props.row.kostenplaats }}</b-table-column>

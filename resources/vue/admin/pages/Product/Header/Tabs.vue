@@ -1,8 +1,8 @@
 <template>
-    <p>
+    <aside>
         <b-field grouped group-multiline>
             <div class="control">
-                <b-taglist attached v-if="productModule.product.status" @click="edits.status = $route.meta.editing">
+                <b-taglist attached v-if="productModule.product.status" @click="editStatus = $route.meta.editing">
                     <b-tag type="is-dark">Status</b-tag>
                     <b-tag :type="{
                             'is-warning': productModule.product.status === 'aangevraagd',
@@ -12,7 +12,7 @@
                 </b-taglist>
             </div>
             <div class="control">
-                <b-taglist attached v-if="productModule.product.status" @click="edits.kind = $route.meta.editing">
+                <b-taglist attached v-if="productModule.product.soort" @click="edits.kind = $route.meta.editing">
                     <b-tag type="is-dark">Soort</b-tag>
                     <b-tag :type="{
                             'is-primary': productModule.product.soort === 'drukwerk',
@@ -31,16 +31,23 @@
         </b-field>
     
         <!-- Hier de modals om deze aan te passen -->
-    </p>
+        <b-modal :active.sync="editStatus" has-modal-card><status-modal></status-modal></b-modal>
+    </aside>
 </template>
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator'
     import { productModule, ProductModule } from '../../../../store/product.module'
+    import {
+        StatusModal
+    } from '../edits';
 
-    @Component
+    @Component({
+        components: { StatusModal }
+    })
     export default class ProductHeaderTabs extends Vue {
         productModule: ProductModule = productModule;
+        editStatus: boolean = false;
         
         edits: any = {
             // @ts-ignore $route does exist
