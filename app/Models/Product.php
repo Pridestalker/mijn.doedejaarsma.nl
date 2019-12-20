@@ -63,6 +63,8 @@ use App\Models\Order;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product inProgress()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product requested()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereUpdatedBy($value)
+ * @property-read int|null $hours_count
+ * @property-read \App\Models\Order $order
  */
 class Product extends Model
 {
@@ -148,11 +150,6 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Creates an Eloquent relation.
-     *
-     * @return HasMany
-     */
     public function hours(): HasMany
     {
         return $this->hasMany(Hour::class);

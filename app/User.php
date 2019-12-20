@@ -61,6 +61,17 @@ use Silber\Bouncer\Database\Role;
  * @property-read Collection|Product[]                                  $products
  * @property-read Collection|Client[]                                   $clients
  * @property-read Collection|Token[]                                    $tokens
+ * @property-read int|null $abilities_count
+ * @property-read int|null $bedrijf_count
+ * @property-read int|null $clients_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Hour[] $hours
+ * @property-read int|null $hours_count
+ * @property-read int|null $notifications_count
+ * @property-read int|null $products_count
+ * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $teams
+ * @property-read int|null $teams_count
+ * @property-read int|null $tokens_count
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
