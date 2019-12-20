@@ -19,14 +19,16 @@ import Component from 'vue-class-component';
 import Vue from 'vue';
 import AdminHeader from './layout/AdminHeader'
 import AdminMenu from './layout/AdminMenu'
-import { userModule } from '../store/user.module'
+import { UserModule, userModule } from '../store/user.module'
 
 @Component({
     components: { AdminHeader, AdminMenu }
 })
 export default class Admin extends Vue {
+    userModule = userModule;
+    
     mounted() {
-        userModule.loadUser();
+        this.userModule.loadUser();
     }
 }
 </script>

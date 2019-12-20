@@ -9,6 +9,15 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    public function __invoke(Request $request)
+    {
+        $user = $this->whoami($request);
+     
+        if ($user->isAn('admin')) {
+            return User::all();
+        }
+    }
+    
     /**
      * @param Request $request
      *
@@ -16,6 +25,6 @@ class UserController extends Controller
      */
     public function whoami(Request $request)
     {
-        return new User( Auth::user());
+        return new User(Auth::user());
     }
 }

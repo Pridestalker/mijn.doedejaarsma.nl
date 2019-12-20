@@ -4,7 +4,6 @@ import axios from '../axios.service';
 
 @Module
 export class ProductsModule extends VuexModule {
-    // state
     products = [];
     params = {
         per_page: 15,

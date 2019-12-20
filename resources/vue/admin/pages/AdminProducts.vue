@@ -67,10 +67,6 @@
                 </section>
             </template>
         </b-table>
-        
-        <pre>
-    {{ productsModule.allProducts }}
-        </pre>
     </main>
 </template>
 
@@ -79,11 +75,13 @@
     import { productsModule, ProductsModule } from '../../store/products.module'
     import { format } from "date-fns"
     import { nl } from "date-fns/locale"
-    import { productModule } from '../../store/product.module'
+    import { ProductModule, productModule } from '../../store/product.module'
     
     @Component
     export default class AdminProducts extends Vue {
         productsModule: ProductsModule = productsModule;
+        productModule: ProductModule = productModule;
+        
         products = [];
         
         params = {
@@ -110,7 +108,6 @@
             this.productsModule.setParams(this.params);
             await this.productsModule.loadProducts();
             this.products = this.productsModule.allProducts;
-            productModule.setProduct(this.products[0]);
         }
 
         onPageChange(page) {
