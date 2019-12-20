@@ -12,5 +12,6 @@ class StandardProductSeeder extends Seeder
     public function run()
     {
         //
+        $team = \App\Models\Team::find(1);
     }
 }

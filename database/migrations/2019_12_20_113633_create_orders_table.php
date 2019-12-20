@@ -64,6 +64,10 @@ class CreateOrdersTable extends Migration
                   ->references('id')->on('cost_centres')
                   ->onDelete('cascade');
         });
+
+        Schema::table('products', static function (Blueprint $table) {
+            $table->timestamp('deadline')->nullable()->change();
+        });
     }
 
     /**

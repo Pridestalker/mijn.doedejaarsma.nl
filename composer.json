@@ -11,7 +11,7 @@
         "php": "^7.2",
         "ext-json": "*",
         "binarytorch/larecipe": "^2.1",
-        "doctrine/dbal": "^2.9",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "lab404/laravel-impersonate": "^1.4",
         "laravel/framework": "5.8.*",
