@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use App\Models\Order;
 
 /**
  * App\Product
@@ -66,7 +67,7 @@ use Illuminate\Support\Carbon;
 class Product extends Model
 {
     use Filterable;
-    
+
     protected $fillable = [
         'name',
         'description',
@@ -84,11 +85,11 @@ class Product extends Model
         'updated_at',
         'updated_by',
     ];
-    
+
     /*
      * Scopes
      */
-    
+
     /**
      * Query scope to fetch products per user.
      *
@@ -102,7 +103,7 @@ class Product extends Model
         $userIds = $user->bedrijf->first()->users()->pluck('id');
         return $query->where('user_id', 'IN', $userIds);
     }
-    
+
     /**
      * @param Builder $query
      *
@@ -112,7 +113,7 @@ class Product extends Model
     {
         return $query->where('status', '=', 'afgerond');
     }
-    
+
     /**
      * @param Builder $query
      *
@@ -122,7 +123,7 @@ class Product extends Model
     {
         return $query->where('status', '=', 'opgepakt');
     }
-    
+
     /**
      * @param Builder $query
      *
@@ -132,11 +133,11 @@ class Product extends Model
     {
         return $query->where('status', '=', 'aangevraagd');
     }
-    
+
     /*
      * Relationships
      */
-    
+
     /**
      * Creates an Eloquent relation.
      *
@@ -146,7 +147,7 @@ class Product extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     /**
      * Creates an Eloquent relation.
      *
@@ -155,5 +156,10 @@ class Product extends Model
     public function hours(): HasMany
     {
         return $this->hasMany(Hour::class);
+    }
+
+    public function order()
+    {
+        return $this->morphOne(Order::class, 'orderable');
     }
 }
