@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Product;
-use App\Notifications\NewProduct;
 use App\User;
 use Carbon\Carbon;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
+use App\Notifications\NewProduct;
 
 class InitialProductSeeder extends Seeder
 {
@@ -16,9 +16,8 @@ class InitialProductSeeder extends Seeder
     public function run(): void
     {
         $doede = User::whereName('Doede Jaarsma')->first();
-        $veer = User::whereName('Vera van den Booren')->first();
-        
-        
+        $veer = User::whereName('Rob Steijger')->first();
+
         $product1 = Product::create(
             [
                 'name'      => 'Jaarverslag 2019',
@@ -26,10 +25,15 @@ class InitialProductSeeder extends Seeder
                 'status'    => 'aangevraagd',
                 'soort'     => 'drukwerk',
                 'deadline'  => Carbon::tomorrow(),
-                'options'   => json_encode(['papier' => '300mg', 'oplage' => 3000, 'afleveradres' => 'Lauriergracht 54 H', 'gewicht' => '300 grams'])
+                'options'   => json_encode([
+                    'papier'       => '300mg',
+                    'oplage'       => 3000,
+                    'afleveradres' => 'Lauriergracht 54 H',
+                    'gewicht'      => '300 grams',
+                ])
             ]
         );
-        
+
         Product::create(
             [
                 'name'      => 'Jaarverslag 2019 ES',
@@ -39,7 +43,7 @@ class InitialProductSeeder extends Seeder
                 'deadline'  => Carbon::now(),
             ]
         );
-        
+
         Product::create(
             [
                 'name'      => 'Jaarverslag 2019 EN',
@@ -49,7 +53,7 @@ class InitialProductSeeder extends Seeder
                 'deadline'  => Carbon::yesterday(),
             ]
         );
-        
+
         Product::create(
             [
                 'name'      => 'Jaarverslag 2019 DK',
@@ -59,10 +63,10 @@ class InitialProductSeeder extends Seeder
                 'deadline'  => Carbon::now()->subWeek(2),
             ]
         );
-    
+
         $users = User::whereIsNot('customer')->get();
         Notification::send($users, new NewProduct($product1));
-        
+
         $product1->hours()->create([
             'user_id'       => 3,
             'remarks'       => '',

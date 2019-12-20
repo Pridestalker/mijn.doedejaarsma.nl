@@ -17,9 +17,9 @@ class CreateOrdersTable extends Migration
                 $table->unsignedInteger('user_id');
                 $table->string('orderable_type');
                 $table->unsignedBigInteger('orderable_id');
-                $table->enum('status', ['aangevraagd', 'opgepakt', 'afgerond']);
-                $table->timestamp('deadline');
-                $table->unsignedBigInteger('updated_by');
+                $table->enum('status', ['aangevraagd', 'opgepakt', 'afgerond'])->nullable();
+                $table->timestamp('deadline')->nullable();
+                $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -30,7 +30,7 @@ class CreateOrdersTable extends Migration
         Schema::create('standard_products', static function (Blueprint $table) {
             $table->bigIncrements('id');
                 $table->string('name');
-                $table->unsignedInteger('team_id');
+                $table->unsignedInteger('team_id')->nullable();
             $table->timestamps();
 
             $table->foreign('team_id')
@@ -41,7 +41,7 @@ class CreateOrdersTable extends Migration
         Schema::create('cost_centres', static function (Blueprint $table) {
             $table->bigIncrements('id');
                 $table->string('name');
-                $table->unsignedInteger('team_id');
+                $table->unsignedInteger('team_id')->nullable();
             $table->timestamps();
 
             $table->foreign('team_id')
