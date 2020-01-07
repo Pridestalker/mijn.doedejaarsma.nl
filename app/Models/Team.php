@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read Collection|User[] $users
  * @method static Builder|Team whereEmail($value)
  * @property-read int|null $users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CostCentre[] $cost_centres
+ * @property-read int|null $cost_centres_count
  */
 class Team extends Model
 {
