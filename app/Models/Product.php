@@ -149,7 +149,11 @@ class Product extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->order->user();
+        if ($this->order) {
+            return $this->order->user();
+        }
+
+        return $this->belongsTo(User::class);
     }
 
     public function hours(): HasMany
