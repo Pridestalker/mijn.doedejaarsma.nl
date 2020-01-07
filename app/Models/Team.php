@@ -29,6 +29,7 @@ use Illuminate\Support\Carbon;
  * @property string                                               $email
  * @property-read Collection|User[] $users
  * @method static Builder|Team whereEmail($value)
+ * @property-read int|null $users_count
  */
 class Team extends Model
 {

@@ -32,7 +32,7 @@ class ProductCreatedListener
     {
         //
     }
-    
+
     /**
      * Handle the event.
      *
@@ -42,18 +42,17 @@ class ProductCreatedListener
      */
     public function handle(ProductCreatedEvent $event): void
     {
-        //
         /* @noinspection PhpMethodParametersCountMismatchInspection */
         $admins_developers = User::whereIsNot('customer')->get();
         Notification::send($admins_developers, new NewProduct($event->product));
-        
+
         if (App::environment('local')) {
             return;
         }
-        
+
         $this->emails($event);
     }
-    
+
     /**
      * Changes the email based on env.
      *
@@ -64,11 +63,11 @@ class ProductCreatedListener
     private function _email(): string
     {
         /* @noinspection PhpMethodParametersCountMismatchInspection */
-        return App::environment('local')?
+        return App::environment('local') ?
             'mitch@doedejaarsma.nl' : 'dtp@doedejaarsma.nl';
     }
-    
-    
+
+
     /**
      * Sends the mails when a product is made.
      *
@@ -80,12 +79,12 @@ class ProductCreatedListener
     {
         \Mail::to($this->_email())
             ->send(new NewProductMade($event->product));
-    
+
         \Mail::to($event->user->email)
             ->send(
                 new \App\Mail\Customer\NewProductMade($event->user, $event->product)
             );
-    
+
         \Mail::to($event->user->bedrijf()->first()->email)
             ->send(
                 new \App\Mail\Team\NewProductMade($event->user, $event->product)
