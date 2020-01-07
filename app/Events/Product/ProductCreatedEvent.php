@@ -14,7 +14,8 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ProductCreatedEvent
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
 
     public $product;
     

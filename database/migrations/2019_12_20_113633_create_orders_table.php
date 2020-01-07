@@ -17,9 +17,10 @@ class CreateOrdersTable extends Migration
                 $table->unsignedInteger('user_id');
                 $table->string('orderable_type');
                 $table->unsignedBigInteger('orderable_id');
-                $table->enum('status', ['aangevraagd', 'opgepakt', 'afgerond'])->nullable();
+                $table->string('status');
                 $table->timestamp('deadline')->nullable();
                 $table->unsignedBigInteger('updated_by')->nullable();
+                $table->string('factuur')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -57,16 +58,14 @@ class CreateOrdersTable extends Migration
                 $table->string('options')->nullable();
                 $table->string('format')->nullable();
                 $table->string('attachment')->nullable();
+                $table->string('type')->nullable();
                 $table->unsignedBigInteger('cost_centre')->nullable();
+                $table->string('reference')->nullable();
             $table->timestamps();
 
             $table->foreign('cost_centre')
                   ->references('id')->on('cost_centres')
                   ->onDelete('cascade');
-        });
-
-        Schema::table('products', static function (Blueprint $table) {
-            $table->timestamp('deadline')->nullable()->change();
         });
     }
 

@@ -19,7 +19,7 @@
 
 <div class="card">
     <div class="card-header">
-        Product aanvragen
+        Aanvraag doen
     </div>
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         <div class="card-body">
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label for="user_id">Gebruiker</label>
                     <select name="user_id" id="user_id" class="custom-select">
-                        <option value="{{ Auth::user()->id }}" placeholder>{{ Auth::user()->name }}</option>
+                        <option value="{{ Auth::user()->id }}">{{ Auth::user()->name }}</option>
                         @foreach( \App\User::whereIs('customer')->get() as $customer)
                             <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                         @endforeach

@@ -45,6 +45,11 @@ class InitialProductSeeder extends Seeder
             'deadline'      => Carbon::tomorrow(),
         ]);
 
+        $product->info()->create([
+            'description'   => 'Lipsum dolor sit amet. Lorem ',
+            'type'          => 'digitaal'
+        ]);
+
         return $product;
     }
 

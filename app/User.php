@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Hour;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Team;
 use Eloquent;
@@ -72,6 +73,8 @@ use Silber\Bouncer\Database\Role;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $teams
  * @property-read int|null $teams_count
  * @property-read int|null $tokens_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -106,27 +109,32 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function bedrijf(): BelongsToMany
     {
         return $this->teams();
     }
-    
+
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany( Team::class );
     }
-    
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
-    
+
     public function hours(): HasMany
     {
         return $this->hasMany(Hour::class);
     }
-    
+
     /*
      * Impersonation
      */

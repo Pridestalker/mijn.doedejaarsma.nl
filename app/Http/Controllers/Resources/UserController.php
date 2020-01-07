@@ -16,9 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
         $users = User::all();
-        
+
         return \View::make('users.index')
             ->with('users', $users);
     }
@@ -90,9 +89,9 @@ class UserController extends Controller
                     'Je hebt geen toestemming om andere accounts aan te passen'
                 );
         }
-        
+
         $user->update($request->all());
-        
+
         return back()
             ->with('status', "$user->name aangepast!");
     }
