@@ -132,6 +132,11 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['api', 'auth:api'])
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v2/teams.php'));
+
+        Route::prefix('api/v2/cost_centres')
+            ->middleware(['api', 'auth:api'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/v2/cost_centre.php'));
     }
 
     /**

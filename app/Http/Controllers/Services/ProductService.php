@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Services;
 
-use App\Events\Product\ProductCreatedEvent;
-use App\Models\Product;
-use App\User;
-use Auth;
-use Exception;
-use Illuminate\Http\Request;
 use Log;
+use Auth;
+use App\User;
+use Exception;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Events\Product\ProductCreatedEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ProductService
@@ -71,7 +71,7 @@ class ProductService
                 'attachment'    => $path,
                 'options'       => $this->getPrintOptions(),
                 'format'        => $attributes->get('format'),
-                'cost_centre'   => $attributes->get('cost_centre')
+                'cost_centre'   => $attributes->get('kostenplaats')
             ]);
         } catch (Exception $e) {
             Log::error($e->getMessage(), $e->getTrace());

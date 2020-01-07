@@ -2,7 +2,11 @@
     <section>
         <div class="form-group">
             <label for="kostenplaats">Kostenplaats</label>
-            <input type="text" class="form-control" id="kostenplaats" name="kostenplaats" aria-describedby="kostenplaatsHelp" placeholder="Voor vermelding op factuur" v-model="kostenplaats">
+            <select class="custom-select" id="kostenplaats" name="kostenplaats" aria-describedby="kostenplaatsHelp" v-model="kostenplaats">
+                <option v-for="location in locations" :key="location.id" :value="location.id">
+                    {{ location.name }}
+                </option>
+            </select>
         </div>
         <div class="form-group">
             <label for="referentie">Referentie</label>
@@ -18,14 +22,18 @@
             return {
                 kostenplaats: '',
                 referentie: '',
+                locations: () => ([]),
             }
         },
         mounted() {
+            this.getCostCentres();
+
             if (localStorage.getItem('product_kostenplaats'))
                 this.kostenplaats = localStorage.getItem('product_kostenplaats')
-            
+
             if (localStorage.getItem('product_referentie'))
                 this.kostenplaats = localStorage.getItem('product_referentie')
+
         },
         watch: {
             kostenplaats() {
@@ -35,9 +43,10 @@
                 localStorage.setItem('product_referentie', this.referentie);
             }
         },
+        methods: {
+            async getCostCentres() {
+                this.locations = (await this.$http.get('/api/v2/cost_centres')).data.data
+            }
+        }
     }
 </script>
-
-<style scoped>
-
-</style>
