@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use App\User;
 use DB;
+use App\User;
 use Eloquent;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Team
@@ -36,7 +37,7 @@ class Team extends Model
     protected $fillable = [
         'name', 'email'
     ];
-    
+
     /**
      * Returns the users via pivot.
      *
@@ -46,7 +47,12 @@ class Team extends Model
     {
         return $this->belongsToMany(User::class);
     }
-    
+
+    public function cost_centres(): HasMany
+    {
+        return $this->hasMany(\App\Models\CostCentre::class);
+    }
+
     public function hours()
     {
         if ($this->id) {
@@ -56,9 +62,10 @@ class Team extends Model
                      SELECT id from users
                      WHERE users.id in (
                         SELECT user_id from team_user
-                        where team_user.team_id = '. $this->id . '
+                        where team_user.team_id = ' . $this->id . '
                         )
-                    )')
+                    )'
+                     )
                      ->get();
         }
     }
