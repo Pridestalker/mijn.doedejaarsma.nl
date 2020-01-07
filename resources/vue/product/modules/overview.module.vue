@@ -1,6 +1,6 @@
 <template>
     <card-container>
-        <title-component>Producten Overzicht</title-component>
+        <title-component>Aanvragen Overzicht</title-component>
         <small class="text-muted" v-if="meta">{{ meta.from? meta.from : 0 }} - {{ meta.to? meta.to : 0 }} van de {{ meta.total ? meta.total : 0 }} <span>producten</span></small>
 
         <table-component>

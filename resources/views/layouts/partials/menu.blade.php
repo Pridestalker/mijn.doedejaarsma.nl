@@ -10,4 +10,17 @@
     @includeIf('layouts.partials.menu.designer')
 @endif
 
+<div class="card">
+    <div class="card-header">
+        Contact
+    </div>
+    <div class="card-body">
+        <p>
+            Liever telefonisch contact?
+        </p>
+
+
+    </div>
+</div>
+
 @yield('rails-menu')
