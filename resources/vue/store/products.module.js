@@ -57,7 +57,7 @@ export class ProductsModule extends VuexModule {
 
     async fetchProducts() {
         return new Promise((resolve, reject) => {
-            axios.get('/api/v1/products', { params: this.params })
+            axios.get('/api/v2/products', { params: this.params })
                 .then((res) => {
                     resolve(res.data)
                 })

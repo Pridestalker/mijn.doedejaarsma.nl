@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Route;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 
 class RouteServiceProvider extends ServiceProvider
@@ -55,42 +55,42 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebPermissionsRoutes();
         $this->mapWebAdminRoutes();
     }
-    
+
     protected function mapWebBaseRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/base.php'));
     }
-    
+
     protected function mapWebUsersRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/users.php'));
     }
-    
+
     protected function mapWebProductsRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/products.php'));
     }
-    
+
     protected function mapWebTeamsRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/teams.php'));
     }
-    
+
     protected function mapWebPermissionsRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/permissions.php'));
     }
-    
+
     protected function mapWebAdminRoutes(): void
     {
         Route::middleware('web')
@@ -112,8 +112,33 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiProductsRoutes();
         $this->mapApiUserRoutes();
         $this->mapApiHoursRoutes();
+
+        $this->mapApiVersionTwoRoutes();
     }
-    
+
+    /**
+     * Maps the routes for version 2 of the API
+     *
+     * @return void
+     */
+    protected function mapApiVersionTwoRoutes(): void
+    {
+        Route::prefix('api/v2/products')
+            ->middleware(['api', 'auth:api'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/v2/products.php'));
+
+        Route::prefix('api/v2/teams')
+            ->middleware(['api', 'auth:api'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/v2/teams.php'));
+
+        Route::prefix('api/v2/cost_centres')
+            ->middleware(['api', 'auth:api'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/v2/cost_centre.php'));
+    }
+
     /**
      * Maps api authentication routes.
      *
@@ -126,7 +151,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api/auth.php'));
     }
-    
+
     /**
      * Maps api product routes.
      *
@@ -139,7 +164,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v1/products.php'));
     }
-    
+
     /**
      * Maps api user routes.
      *
@@ -152,7 +177,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v1/user.php'));
     }
-    
+
     /**
      * Maps api hours routes.
      *
