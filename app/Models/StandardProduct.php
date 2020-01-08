@@ -34,4 +34,9 @@ class StandardProduct extends Model
     {
         return $this->morphOne(Order::class, 'orderable');
     }
+
+	public function info()
+	{
+		return $this->morphOne(InfoProduct::class, 'infoable');
+	}
 }
