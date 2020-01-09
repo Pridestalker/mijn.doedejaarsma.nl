@@ -32,4 +32,9 @@ class HomeController extends Controller
 
         return back();
     }
+
+    public function customerApp()
+	{
+		return view('frontend.app');
+	}
 }
