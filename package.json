@@ -25,6 +25,7 @@
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
     "buefy": "^0.8.9",
+    "core-js": "^3.6.2",
     "cross-env": "^6.0.3",
     "date-fns": "^2.8.1",
     "jquery": "^3.4.1",

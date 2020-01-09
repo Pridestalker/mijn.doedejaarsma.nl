@@ -44,4 +44,15 @@
         </div>
     </div>
 </div>
+
+<div class="mt-3 card">
+	<div class="card-header">Toevoegen standaard product</div>
+	<div class="card-body">
+		<form action="{{ route('products-standard.store') }}" method="POST" enctype="multipart/form-data">
+			@csrf
+			<create-std-product-for-team-view></create-std-product-for-team-view>
+			<input type="hidden" name="team_id" id="team_id" value="{{$team->id}}">
+		</form>
+	</div>
+</div>
 @endsection

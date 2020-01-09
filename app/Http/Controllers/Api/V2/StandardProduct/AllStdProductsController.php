@@ -8,26 +8,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use function App\is_admin;
 
 class AllStdProductsController extends Controller
 {
     /**
      * @param Request $request
-     * @return AnonymousResourceCollection
+     * @return JsonResource
      */
     public function __invoke(Request $request)
     {
         if (is_admin()) {
-            return AnonymousResourceCollection::collection(StandardProduct::all());
+            return JsonResource::collection(StandardProduct::all());
         }
 
         try {
-            $team_id = \Auth::user()->team()->firstOrFail()->id;
+            $team_id = \Auth::user()->teams()->firstOrFail()->id;
         } catch (ModelNotFoundException $exception) {
             throw $exception;
         }
 
-        return AnonymousResourceCollection::collection(StandardProduct::where('team_id', '=', $team_id)->get());
+        return JsonResource::collection(StandardProduct::where('team_id', '=', $team_id)->get());
     }
 }

@@ -158,7 +158,11 @@ export default class OverviewModule extends Vue {
 
     // noinspection JSMethodCanBeStatic
     formattedDate(date): string {
-        return format(new Date(date), 'EEEE dd MMMM yyyy', { locale: nl })
+    	try {
+ 	       return format(new Date(date), 'EEEE dd MMMM yyyy', { locale: nl })
+		} catch {
+    		return date;
+		}
     }
 
     goToSingle(id: number): void {

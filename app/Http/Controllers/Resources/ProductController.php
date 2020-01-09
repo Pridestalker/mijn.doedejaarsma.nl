@@ -96,7 +96,7 @@ class ProductController extends Controller
             $product = $productService->store();
 
             return redirect()
-                ->route('products.show', $product->id)
+                ->route('products.index', $product->id)
                 ->with('clearStorage', true);
         } catch (\Exception $exception) {
             \Log::error($exception->getMessage(), $exception->getTrace());
@@ -105,7 +105,7 @@ class ProductController extends Controller
                 ->with(
                     'status',
                     'De aanvraag is niet doorgekomen.
-                    Neem contact met ons op als dit vaker voortkomt'
+                    Neem contact met ons op als dit vaker voorkomt'
                 );
         }
     }
@@ -132,7 +132,7 @@ class ProductController extends Controller
      */
     public function showImage(Product $product): StreamedResponse
     {
-        return \Storage::download($product->attachment);
+        return \Storage::download($product->info->attachment);
     }
 
     /**

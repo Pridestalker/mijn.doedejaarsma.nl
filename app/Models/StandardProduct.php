@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StandardProduct whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StandardProduct whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read InfoProduct                                     $info
  */
 class StandardProduct extends Model
 {

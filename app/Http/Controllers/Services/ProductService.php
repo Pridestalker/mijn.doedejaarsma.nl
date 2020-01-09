@@ -71,7 +71,8 @@ class ProductService
                 'attachment'    => $path,
                 'options'       => $this->getPrintOptions(),
                 'format'        => $attributes->get('format'),
-                'cost_centre'   => $attributes->get('kostenplaats')
+                'cost_centre'   => $attributes->get('kostenplaats'),
+				'reference'		=> $attributes->get('referentie')
             ]);
         } catch (Exception $e) {
             Log::error($e->getMessage(), $e->getTrace());

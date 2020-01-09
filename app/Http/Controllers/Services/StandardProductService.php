@@ -55,7 +55,7 @@ class StandardProductService
             $this->product->info()->create([
                 'options'    => $this->getPrintOptions(),
                 'format'     => $attributes->get('format'),
-                'type'       => $attributes->get('type'),
+                'type'       => $attributes->get('soort'),
                 'attachment' => $path
             ]);
         } catch (\Exception $exception) {

@@ -21,6 +21,7 @@
         watch: {
             deadline() {
                 localStorage.setItem('product_deadline', this.deadline)
+				this.$emit('updated', this.deadline);
             }
         },
     }

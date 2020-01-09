@@ -7,6 +7,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('products.create') }}">Nieuwe aanvraag</a>
             </li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ route('products-standard.create') }}">Standaard aanvraag</a>
+			</li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('products.index') }}">Aanvragen</a>
             </li>
