@@ -50,21 +50,31 @@ class AllProductsController extends Controller
      */
     protected function createUserCollection($request): AnonymousResourceCollection
     {
+        $orders = \App\Models\Order::query();
+
         if ($this->wantsAllFromTeam($request)) {
-            $orders = collect();
-            /** @var Team $team */
-            $team = Auth::user()->teams()->firstOrFail();
-
-            foreach ($team->users as $user) {
-                foreach ($user->orders as $order) {
-                    $orders->push($order);
-                }
-            }
-
-            return Order::collection($orders);
+            /** @noinspection StaticInvocationViaThisInspection */
+            $orders->whereIn('user_id', Auth::user()->bedrijf->first()->users()->pluck('id')->toArray());
+        } else {
+            $orders->where('user_id', '=', Auth::user()->id);
         }
 
-        return Order::collection(Auth::user()->orders);
+        /** @noinspection StaticInvocationViaThisInspection */
+        $orders->whereIn('status', $this->getAllStatus($request));
+
+        if ($this->wantsOrderBy($request, 'deadline')) {
+            $orders->orderByDesc('deadline');
+        }
+
+        if ($this->wantsOrderBy($request, 'name')) {
+            $orders->orderByDesc('name');
+        }
+
+        if ($this->wantsOrderBy($request, 'status')) {
+        	$orders->orderByDesc('status');
+		}
+
+        return Order::collection($orders->paginate($this->getPerPage($request)));
     }
 
     /**
@@ -105,4 +115,24 @@ class AllProductsController extends Controller
 
         return 15;
     }
+
+    private function getAllStatus(Request $request)
+    {
+        return $request->input('status');
+    }
+
+    /**
+     * @param Request $request
+     * @param String $field
+     * @return bool
+     */
+    private function wantsOrderBy(Request $request, $field)
+    {
+        return $request->has('ordered') && $request->input('ordered') === $field;
+    }
+
+    private function isSearching(Request $request)
+	{
+		return $request->has('name');
+	}
 }

@@ -45,7 +45,8 @@ class InfoProduct extends Model
         'format',
         'attachment',
         'cost_centre',
-        'type'
+        'type',
+        'reference'
     ];
 
     public function infoable()

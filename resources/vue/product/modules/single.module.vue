@@ -42,7 +42,7 @@
         <div v-if="product.soort = 'drukwerk'">
             <span>Het gaat om een <span-underline :type="product.soort">{{ product.soort }}</span-underline> aanvraag</span>
             <ul v-if="product.options">
-                <li v-for="(value, option) in JSON.parse(product.options)" :key="option">
+                <li v-for="(value, option) in getOptions(product.options)" :key="option">
                     {{ option }}: {{ value }}
                 </li>
             </ul>
@@ -70,7 +70,7 @@
 
         <footer v-if="userMod.hasRole('admin') || userMod.hasRole('designer')" class="timeForm">
             <h5>Uren toevoegen:</h5>
-            <add-hours-component :user_id="user.id" :product_id="Number.parseInt(product.id)" v-if="user" @updated="fetchData"></add-hours-component>
+            <add-hours-component :user_id="user.id" :product_id="Number.parseInt(product.id)" v-if="user" @updated="fetchData" />
         </footer>
     </card-container>
 </template>
@@ -158,6 +158,14 @@ export default class SingleModule extends Vue {
 		}
     }
 
+    getOptions(options) {
+    	try {
+			JSON.parse(options);
+		} catch	{
+    		return [];
+		}
+	}
+
     formattedTime(time) {
         if (!this.product) {
             return '';
@@ -186,57 +194,4 @@ export default class SingleModule extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-    .link {
-        cursor: pointer;
-        position: relative;
-        &:hover {
-            &::after {
-                position: absolute;
-                content: ' ';
-                top: 0;
-                left: 0;
-                border-radius: 4px;
-                width: 100%;
-                height: 100%;
-                background-size: 400% 400%;
-                padding: 1rem;
-                background-image: linear-gradient(to left, rgba(39, 149, 179, 0.2), rgba(10, 10, 180, 0.2), rgba(79, 179, 58, 0.2), rgba(20, 189, 179, 0.2), rgba(179, 39, 179, 0.2), rgba(132, 51, 83, 0.2));
-                animation: lightSpeedBackground 1.8s infinite;
-            }
-        }
-    }
-
-    @keyframes lightSpeedBackground {
-        0% {
-            background-position: 0 0;
-        }
-        25% {
-            background-position: 0 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        75% {
-            background-position: 50% 0;
-        }
-        100% {
-            background-position: 0 0;
-        }
-    }
-
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
-    }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        opacity: 0;
-    }
-
-    .timeForm {
-        margin-top: 3rem;
-    }
-
-    .pointer {
-        cursor: pointer;
-    }
-</style>
+<style src="./single/style.scss" lang="scss" />

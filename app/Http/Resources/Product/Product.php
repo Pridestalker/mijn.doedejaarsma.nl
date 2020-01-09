@@ -96,11 +96,11 @@ class Product extends JsonResource
 
     protected function getInfo($field)
     {
-        if (!$this->info) {
-            return new \stdClass();
+        try {
+            return $this->info->$field;
+        } catch (\Exception $e) {
+            return null;
         }
-
-        return $this->info->{$field};
     }
 
     protected function links(): array
