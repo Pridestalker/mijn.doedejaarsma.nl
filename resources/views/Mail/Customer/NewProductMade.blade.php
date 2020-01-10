@@ -18,42 +18,41 @@ Zodra onze vormgevers hiermee aan de slag gaan ontvang je een status update.
 Naam: {{ $product->name }}
 
 
-@isset($product->description)
-Omschrijving: {{ $product->description }}
+@isset($product->info->description)
+Omschrijving: {{ $product->info->description }}
 
 
 @endisset
-Soort: {{ $product->soort }}
 
 
-@isset($product->format)
-Formaat: {{ $product->format }}
-
-
-@endisset
-Deadline: {{ $product->deadline }}
-
-
-Status: {{ $product->status }}
-
-
-@isset($product->options->oplage)
-Oplage: {{ $product->options->oplage }}
+@isset($product->info->format)
+Formaat: {{ $product->info->format }}
 
 
 @endisset
-@isset($product->options->papier)
-Papier: {{ $product->options->papier }}
+Deadline: {{ $product->order->deadline }}
+
+
+Status: {{ $product->order->status }}
+
+
+@isset($product->info->options->oplage)
+Oplage: {{ $product->info->options->oplage }}
 
 
 @endisset
-@isset($product->options->gewicht)
-Gewicht: {{ $product->options->gewicht }}
+@isset($product->info->options->papier)
+Papier: {{ $product->info->options->papier }}
 
 
 @endisset
-@isset($product->options->afleveradres)
-Afleveradres: {{ $product->options->afleveradres }}
+@isset($product->info->options->gewicht)
+Gewicht: {{ $product->info->options->gewicht }}
+
+
+@endisset
+@isset($product->info->options->afleveradres)
+Afleveradres: {{ $product->info->options->afleveradres }}
 
 
 @endisset
