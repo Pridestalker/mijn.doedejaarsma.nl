@@ -27,6 +27,11 @@
 					name="user_id"
 					type="hidden"
 					value="{{ \Auth::user()->id }}">
+				<input
+					name="product_type"
+					type="hidden"
+					value="std_product"
+					>
 			</form>
 		</div>
 	</div>

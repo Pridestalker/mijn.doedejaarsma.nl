@@ -71,8 +71,9 @@ class ProductService
                 'attachment'    => $path,
                 'options'       => $this->getPrintOptions(),
                 'format'        => $attributes->get('format'),
+                'type'          => $attributes->get('soort'),
                 'cost_centre'   => $attributes->get('kostenplaats'),
-				'reference'		=> $attributes->get('referentie')
+                'reference'     => $attributes->get('referentie')
             ]);
         } catch (Exception $e) {
             Log::error($e->getMessage(), $e->getTrace());
@@ -80,15 +81,8 @@ class ProductService
         }
 
         if ($this->product::exists()) {
-            if ($this->request->has('user_id')) {
-                event(
-                    new ProductCreatedEvent(
-                        $this->product,
-                        User::findOrFail($this->request->get('user_id'))
-                    )
-                );
-            } else {
-                event(new ProductCreatedEvent($this->product, Auth::user()));
+            if ('std_product' !== $this->request->input('product_type')) {
+                event(new ProductCreatedEvent($this->product, $this->getUser()));
             }
 
             return $this->product;
@@ -98,11 +92,18 @@ class ProductService
         throw new \RuntimeException('Error creating product');
     }
 
+    protected function getUser()
+    {
+        try {
+            return User::findOrFail($this->getUserId());
+        } catch (Exception $exception) {
+            return Auth::user();
+        }
+    }
+
     protected function getUserId()
     {
-        return $this->request->has('user_id') ?
-            $this->request->get('user_id') :
-            Auth::user()->id;
+        return $this->request->input('user_id', Auth::user()->id);
     }
 
     protected function getPrintOptions(): ?string
