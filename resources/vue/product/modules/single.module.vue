@@ -76,25 +76,25 @@
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component';
-import Vue from 'vue';
-import { productModule } from '../../store/product.module';
-import { userModule } from '../../store/user.module';
-import { format, formatDistance } from 'date-fns';
-import { nl } from 'date-fns/locale';
-// @ts-ignore
-import AddHoursComponent from '../components/AddHoursComponent'
-// @ts-ignore
-import TitleComponent from '../../components/TitleComponent'
-// @ts-ignore
-import SpanUnderline from '../../components/SpanUnderline'
-// @ts-ignore
-import CardContainer from '../../components/CardContainer'
-// @ts-ignore
-import MagicButton from '../../components/MagicButton'
-import { Product } from '../../constants/product.model'
+	import Component from 'vue-class-component';
+	import Vue from 'vue';
+	import { productModule } from '../../store/product.module';
+	import { userModule } from '../../store/user.module';
+	import { format, formatDistance } from 'date-fns';
+	import { nl } from 'date-fns/locale';
+	// @ts-ignore
+	import AddHoursComponent from '../components/AddHoursComponent'
+	// @ts-ignore
+	import TitleComponent from '../../components/TitleComponent'
+	// @ts-ignore
+	import SpanUnderline from '../../components/SpanUnderline'
+	// @ts-ignore
+	import CardContainer from '../../components/CardContainer'
+	// @ts-ignore
+	import MagicButton from '../../components/MagicButton'
+	import { Product } from '../../constants/product.model'
 
-// @ts-ignore
+	// @ts-ignore
 @Component({
     components: { MagicButton, CardContainer, SpanUnderline, TitleComponent, AddHoursComponent },
 })
@@ -160,7 +160,7 @@ export default class SingleModule extends Vue {
 
     getOptions(options) {
     	try {
-			JSON.parse(options);
+			return JSON.parse(options);
 		} catch	{
     		return [];
 		}

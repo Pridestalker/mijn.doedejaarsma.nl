@@ -45,7 +45,7 @@
 
         <aside class="product-dashboard-fabcontainer">
             <a href="#" class="product-dashboard-fab" @click.prevent="filter.open = !filter.open">
-                <i class="fas fa-sliders-h"/>
+                <i class="fas fa-sliders-h mr-2"/> Filter
             </a>
         </aside>
 
@@ -110,21 +110,21 @@
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component';
-import Vue from 'vue';
-import { Watch } from 'vue-property-decorator';
-import { productsModule } from '../../store/products.module';
-import { format, isAfter, isBefore, differenceInDays } from 'date-fns';
-import { nl } from 'date-fns/locale';
-// @ts-ignore
-import TitleComponent from '../../components/TitleComponent'
-// @ts-ignore
-import CardContainer from '../../components/CardContainer'
-// @ts-ignore
-import TableComponent from '../../components/TableComponent'
-import { Product } from "../../constants/product.model"
+	import Component from 'vue-class-component';
+	import Vue from 'vue';
+	import { Watch } from 'vue-property-decorator';
+	import { productsModule } from '../../store/products.module';
+	import { differenceInDays, format, isAfter, isBefore } from 'date-fns';
+	import { nl } from 'date-fns/locale';
+	// @ts-ignore
+	import TitleComponent from '../../components/TitleComponent'
+	// @ts-ignore
+	import CardContainer from '../../components/CardContainer'
+	// @ts-ignore
+	import TableComponent from '../../components/TableComponent'
+	import { Product } from "../../constants/product.model"
 
-@Component( {
+	@Component( {
     components: { TableComponent, CardContainer, TitleComponent },
 } )
 export default class OverviewModule extends Vue {
@@ -276,10 +276,8 @@ export default class OverviewModule extends Vue {
     .product-dashboard-fabcontainer {
         position: absolute;
         top: -1rem;
-        right: 4rem;
+        right: .7rem;
         font-size: 1.125rem;
-        width: 3rem;
-        height: 3rem;
         z-index: 1;
         display: flex;
         align-items: center;
@@ -291,18 +289,19 @@ export default class OverviewModule extends Vue {
         top: calc(100% - 1rem);
         right: 4rem;
         font-size: 1.125rem;
-        width: 3rem;
-        height: 3rem;
+		padding: .5rem 3rem;
         z-index: 1;
         background: #0b2f4d;
         color: #fff !important;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
-    }
+        border-radius: 14px;
+		box-shadow: 0 3px 6px rgba(51, 51, 51, 0.2)
+	}
 
     .product-dashboard-faddcontainer {
+		display: none;
         position: absolute;
         left: 4rem;
         top: calc(100% - 1rem);;

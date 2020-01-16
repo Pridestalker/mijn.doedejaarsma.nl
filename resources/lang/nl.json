@@ -1,0 +1,19 @@
+{
+	"Email": "E-mailadres",
+	"Password": "Wachtwoord",
+	"Remember me": "Onthouden",
+	"Forgot Your Password?": "Wachtwoord vergeten?",
+	"Login": "Inloggen",
+	"Reset Password": "Nieuw wachtwoord aanvragen",
+	"Send Password Reset Link": "Stuur wachtwoord reset link",
+	"Confirm Password": "Wachtwoord bevestigen",
+
+	"Error": "Fout",
+	"Forbidden": "Geen toegang",
+	"Not Found": "Niet gevonden",
+	"Oh no": "Oh nee",
+	"Server Error": "Server fout",
+	"Whoops!": "Oeps!",
+	"Whoops, something went wrong on our servers.": "Oeps, er ging iets fout op onze servers.",
+	"This action is unauthorized.": "Deze actie is niet toegestaan."
+}
