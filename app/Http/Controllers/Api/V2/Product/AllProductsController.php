@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Api\V2\Product;
 
 use Auth;
-use App\User;
-use App\Models\Team;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\Order\Order;
 use App\Http\Controllers\Controller;
-use Facebook\WebDriver\Exception\NullPointerException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AllProductsController extends Controller
@@ -40,7 +36,24 @@ class AllProductsController extends Controller
      */
     protected function createAdminCollection($request): AnonymousResourceCollection
     {
-        return Order::collection(\App\Models\Order::paginate($this->getPerPage($request)));
+        $orders = \App\Models\Order::query();
+
+        /** @noinspection StaticInvocationViaThisInspection */
+        $orders->whereIn('status', $this->getAllStatus($request));
+
+        if ($this->wantsOrderBy($request, 'deadline')) {
+            $orders->orderByDesc('deadline');
+        }
+
+        if ($this->wantsOrderBy($request, 'name')) {
+            $orders->orderByDesc('name');
+        }
+
+        if ($this->wantsOrderBy($request, 'status')) {
+            $orders->orderByDesc('status');
+        }
+
+        return Order::collection($orders->paginate($this->getPerPage($request)));
     }
 
     /**
@@ -71,8 +84,8 @@ class AllProductsController extends Controller
         }
 
         if ($this->wantsOrderBy($request, 'status')) {
-        	$orders->orderByDesc('status');
-		}
+            $orders->orderByDesc('status');
+        }
 
         return Order::collection($orders->paginate($this->getPerPage($request)));
     }
@@ -132,7 +145,7 @@ class AllProductsController extends Controller
     }
 
     private function isSearching(Request $request)
-	{
-		return $request->has('name');
-	}
+    {
+        return $request->has('name');
+    }
 }

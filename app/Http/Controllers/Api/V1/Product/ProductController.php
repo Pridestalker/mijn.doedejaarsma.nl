@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers\Api\V1\Product;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\JsonResponse;
+use Log;
+use Auth;
+use Exception;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Resources\Product\Product as Resource;
-use App\ModelFilters\ProductsFilter\DefaultFilter;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Events\Product\ProductStarted;
+use App\Events\Product\ProductFinished;
 use App\Http\Controllers\Services\ProductService;
 use App\Http\Resources\Product\ProductCollection;
-use App\Events\Product\ProductFinished;
-use App\Events\Product\ProductStarted;
-use App\Http\Controllers\Controller;
-use App\Models\Product;
-use App\User;
-use Exception;
-use Auth;
-use Log;
+use App\Http\Resources\Product\Product as Resource;
+use App\ModelFilters\ProductsFilter\DefaultFilter;
 
 class ProductController extends Controller
 {
@@ -114,6 +113,12 @@ class ProductController extends Controller
                 'updated_by'        => Auth::user()->id,
             ]
         );
+
+        if ($request->has('status')) {
+            $product->order->update([
+                'status'    => $request->input('status')
+            ]);
+        }
 
         return new Resource($product);
     }
