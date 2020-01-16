@@ -5,6 +5,11 @@
 		</div>
 		<div v-show="step === 1">
 			<naam-component />
+
+			<div class="form-group">
+				<label for="description">Omschrijving</label>
+				<textarea id="description" class="form-control" name="description">Dit gaat om een niet gewijzigde aanvraag.</textarea>
+			</div>
 		</div>
 		<div v-show="step === 2">
 			<format-component />

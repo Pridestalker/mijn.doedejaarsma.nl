@@ -23,6 +23,7 @@ class StandardProduct extends JsonResource
         return [
             'id'            => $this->id,
             'name'          => $this->name,
+	        'description'   => $this->info->description,
             'soort'         => $this->info->type,
             'format'        => $this->info->format,
             'attachment'    => $this->info->attachment,

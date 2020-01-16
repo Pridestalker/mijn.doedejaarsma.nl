@@ -40,7 +40,9 @@
 
 		<div class="form-group">
 			<label for="description">Omschrijving</label>
-			<textarea id="description" class="form-control" name="description" />
+			<textarea id="description" class="form-control" name="description" disabled>
+				{{ product.description }}
+			</textarea>
 		</div>
 
 		<div class="form-group">
