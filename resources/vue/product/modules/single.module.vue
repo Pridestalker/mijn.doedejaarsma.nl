@@ -12,7 +12,7 @@
         </div>
 
         <div v-if="(userMod.hasRole('admin') || userMod.hasRole('designer'))">
-            De opdracht is
+            Status opdracht:
             <span @click="statusChange = !statusChange">
                 <span-underline hover :type="product.status">
                     {{product.status}}
@@ -31,28 +31,26 @@
         </div>
 
         <p v-else>
-            {{ product.name }} is <span-underline title="status" :type="product.status">{{ product.status }}</span-underline>
+			Status opdracht: <span title="status">{{ product.status }}</span>
         </p>
 
-
         <p v-if="product.deadline">
-            De opdracht heeft de volgende deadline: <span-underline type="date">{{ formattedDate(product.deadline) }}</span-underline>
+            Deadline: <span-underline type="date">{{ formattedDate(product.deadline) }}</span-underline>
         </p>
 
         <div v-if="product.soort = 'drukwerk'">
-            <span>Het gaat om een <span-underline :type="product.soort">{{ product.soort }}</span-underline> aanvraag</span>
+            <span>Eigenschappen <span :style="{fontWeight: 'bold'}">{{ product.soort }}</span> aanvraag</span>
             <ul v-if="product.options">
-                <li v-for="(value, option) in getOptions(product.options)" :key="option">
+				<li v-if="product.format">Formaat: {{ product.format }}</li>
+                <li v-for="(value, option) in getOptions(product.options)" :key="option" v-if="value">
                     {{ option }}: {{ value }}
                 </li>
             </ul>
         </div>
         <div v-else-if="product.soort = 'digitaal'">
-            <span>Het gaat om een <span-underline :type="product.soort">{{ product.soort }}</span-underline> aanvraag</span>
+            <span>Het gaat om een digitale aanvraag</span>
         </div>
-        <p v-if="product.format">
-            "{{ product.format }}" is het gewenste formaat.
-        </p>
+
         <p v-if="product.hours">
             Gemaakte uren: <span-underline type="date">{{ formattedTime(product.hours.total) }}</span-underline>
         </p>
