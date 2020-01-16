@@ -40,6 +40,15 @@ task('build', function () {
     run('cd {{release_path}} && build');
 });
 
+//Overwrite
+
+task('deploy:vendors', function () {
+    if (!commandExist('unzip')) {
+        writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
+    }
+    run('cd {{release_path}} && {{bin/composer}} {{composer_options}} --ignore-platform-reqs');
+});
+
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
