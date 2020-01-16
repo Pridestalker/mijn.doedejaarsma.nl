@@ -1,4 +1,5 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
@@ -23,9 +24,16 @@ add('writable_dirs', []);
 // Hosts
 host('141.105.127.47')
     ->port('33')
+    ->stage('production')
     ->user('djc')
     ->set('deploy_path', '~/domains/mijn.doedejaarsma.nl/public_html');
-    
+
+host('141.105.127.47')
+    ->port('33')
+    ->stage('staging')
+    ->user('djc')
+    ->set('deploy_path', '~/domains/staging.doedejaarsma.nl/public_html');
+
 // Tasks
 
 task('build', function () {
