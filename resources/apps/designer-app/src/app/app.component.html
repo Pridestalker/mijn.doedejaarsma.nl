@@ -1,0 +1,25 @@
+<mat-sidenav-container hasBackdrop>
+  <mat-sidenav #matSidenav mode="push"
+               [style.width]="'300px'" [style.padding]="'2rem'">
+    <h2>
+      Menu
+    </h2>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar role="heading" color="primary"
+                 class="mat-elevation-z4">
+      <button mat-icon-button
+              (click)="matSidenav.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span [style.flex]="'1 1 auto'"></span>
+      <h1>{{ title }}</h1>
+      <span [style.flex]="'1 1 auto'"></span>
+    </mat-toolbar>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
