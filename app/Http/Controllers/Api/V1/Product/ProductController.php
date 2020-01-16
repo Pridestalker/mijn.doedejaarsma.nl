@@ -6,7 +6,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
 use App\Http\Resources\Product\Product as Resource;
 use App\ModelFilters\ProductsFilter\DefaultFilter;
 use App\Http\Controllers\Services\ProductService;
@@ -16,7 +15,6 @@ use App\Events\Product\ProductStarted;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\User;
-
 use Exception;
 use Auth;
 use Log;
@@ -43,22 +41,19 @@ class ProductController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse|Resource
+     * @return Resource|JsonResponse|RedirectResponse
      */
     public function store(Request $request)
     {
         try {
             $productService = new ProductService($request);
             $product = $productService->store();
-        
+
             return response()
-                ->json(
-                    new Resource($product),
-                    201
-                );
-        } catch ( Exception $exception) {
+                ->json(new Resource($product), 201);
+        } catch (Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
-            
+
             return response()
                 ->json(
                     [
@@ -68,7 +63,7 @@ class ProductController extends Controller
                 );
         }
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -80,7 +75,7 @@ class ProductController extends Controller
     {
         return new Resource($product);
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -100,7 +95,7 @@ class ProductController extends Controller
                     return back()->with('status', $exception->getMessage());
                 }
             }
-        
+
             if ($request->get('status') === 'afgerond') {
                 try {
                     event(new ProductFinished($product));
@@ -110,19 +105,19 @@ class ProductController extends Controller
                 }
             }
         }
-        
+
         $product->update($request->except('deadline'));
-        
+
         $product->update(
             [
                 'updated_at'        => now(),
                 'updated_by'        => Auth::user()->id,
             ]
         );
-    
+
         return new Resource($product);
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *

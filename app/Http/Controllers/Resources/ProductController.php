@@ -30,36 +30,35 @@ class ProductController extends Controller
      *
      * @var User
      */
-    private $_user;
-    
+    private $user;
+
     /**
      * An array of products.
      *
-     * @var array
+     * @var Product[]
      */
-    private $_producten = [];
-    
+    private $producten = [];
+
     /**
      * ProductController constructor.
      */
     public function __construct()
     {
         $this->middleware('auth');
-    
+
         $this->middleware('permission:read,\\App\\Models\\Product')
             ->only(['index', 'show', 'showImage', 'download']);
-        
+
         $this->middleware('permission:create,\\App\\Models\\Product')
             ->only(['create', 'store']);
-        
+
         $this->middleware('permission:update,\\App\\Models\\Product')
             ->only(['edit', 'update']);
-        
+
         $this->middleware('permission:delete,\\App\\Models\\Product')
             ->only('destroy');
-    
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -67,12 +66,12 @@ class ProductController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View
     {
-        ($this->_isAnAdmin() || $this->_isADesigner())
-            ? $this->_fetchAllProducts() : $this->_fetchOwnedProducts();
-        
+        ($this->isAnAdmin() || $this->isADesigner())
+            ? $this->fetchAllProducts() : $this->fetchOwnedProducts();
+
         return View::make('products.index');
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -88,26 +87,25 @@ class ProductController extends Controller
      *
      * @param Request $request the current request.
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function store(Request $request)
     {
-        //
         try {
             $productService = new ProductService($request);
             $product = $productService->store();
-    
+
             return redirect()
-                ->route('products.show', $product->id)
+                ->route('products.index', $product->id)
                 ->with('clearStorage', true);
         } catch (\Exception $exception) {
             \Log::error($exception->getMessage(), $exception->getTrace());
-            
+
             return back()
                 ->with(
                     'status',
                     'De aanvraag is niet doorgekomen.
-                    Als dit vaker voor komt neem dan contact met ons op'
+                    Neem contact met ons op als dit vaker voorkomt'
                 );
         }
     }
@@ -117,15 +115,14 @@ class ProductController extends Controller
      *
      * @param Product $product the product injected via {param}.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\View|Response
      */
     public function show(Product $product)
     {
-        //
         return View::make('products.show')
             ->with('product', $product);
     }
-    
+
     /**
      * Fetch attachment for a product.
      *
@@ -135,7 +132,7 @@ class ProductController extends Controller
      */
     public function showImage(Product $product): StreamedResponse
     {
-        return \Storage::download($product->attachment);
+        return \Storage::download($product->info->attachment);
     }
 
     /**
@@ -143,7 +140,7 @@ class ProductController extends Controller
      *
      * @param Product $product the product that is going to be edited.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(Product $product)
     {
@@ -151,19 +148,17 @@ class ProductController extends Controller
         return View::make('products.edit')
             ->with('product', $product);
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request the current request.
      * @param Product $product the requested product injected via URL {param}
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function update(Request $request, Product $product)
     {
-        //
-        
         if ($request->has('status')) {
             if ($request->get('status') === 'opgepakt') {
                 try {
@@ -173,7 +168,7 @@ class ProductController extends Controller
                     return back()->with('status', $exception->getMessage());
                 }
             }
-            
+
             if ($request->get('status') === 'afgerond') {
                 try {
                     event(new ProductFinished($product));
@@ -183,13 +178,13 @@ class ProductController extends Controller
                 }
             }
         }
-        
+
         $product->update($request->except('deadline'));
-        
+
         return back()
             ->with('status', 'Product aangepast');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -213,7 +208,7 @@ class ProductController extends Controller
                 ->with('status', 'Er is iets fout gegaan met verwijderen.');
         }
     }
-    
+
     public function download()
     {
         try {
@@ -230,61 +225,61 @@ class ProductController extends Controller
                 );
         }
     }
-    
+
     /**
      * Checks if the user is an admin.
      *
      * @return bool
      */
-    private function _isAnAdmin(): bool
+    private function isAnAdmin(): bool
     {
-        $this->_setUser();
-        return $this->_user->isAn('admin');
+        $this->setUser();
+        return $this->user->isAn('admin');
     }
-    
+
     /**
      * Checks if the user is a designer.
      *
      * @return bool
      */
-    private function _isADesigner(): bool
+    private function isADesigner(): bool
     {
-        $this->_setUser();
-        return $this->_user->isA('designer');
+        $this->setUser();
+        return $this->user->isA('designer');
     }
-    
+
     /**
      * Sets the products in a private variable
      *
      * @return void
      */
-    private function _fetchOwnedProducts(): void
+    private function fetchOwnedProducts(): void
     {
-        $this->_setUser();
-        $this->_producten = Product::byUser(Auth::user())
-            ->orderByDesc('deadline')
-            ->get();
+        $this->setUser();
+        $this->producten = Product::byUser(Auth::user())
+                                  ->orderByDesc('deadline')
+                                  ->get();
     }
-    
+
     /**
      * Sets all products in private variable
      *
      * @return void
      */
-    private function _fetchAllProducts(): void
+    private function fetchAllProducts(): void
     {
-        $this->_producten = Product::orderByDesc('deadline')->get();
+        $this->producten = Product::orderByDesc('deadline')->get();
     }
-    
+
     /**
      * Sets the current user.
      *
      * @return void
      */
-    private function _setUser(): void
+    private function setUser(): void
     {
-        if (!isset($this->_user)) {
-            $this->_user = Auth::user();
+        if (!isset($this->user)) {
+            $this->user = Auth::user();
         }
     }
 }

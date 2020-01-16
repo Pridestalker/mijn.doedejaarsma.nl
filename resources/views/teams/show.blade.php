@@ -23,15 +23,36 @@
     @endcan
 </div>
 <div class="mt-3 row px-3">
-    @foreach($team->users as $member)
-        <div class="card col-md-4">
-            <div class="card-body">
-                <h5 class="card-title">{{ $member->name }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ $member->email }}</h6>
-                <p class="card-text text-muted">Aanvragen: {{ $member->products()->count() }}</p>
-                <a href="{{ route('users.show', $member) }}" class="card-link">Bekijken</a>
-            </div>
+    <div class="card col-md-12">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Kostenplaats</th>
+                    </tr>
+                </thead>
+                @foreach($team->cost_centres as $cost_centre)
+                    <tr>
+                        <td>
+                            {{ $cost_centre->name }}
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+
+            <add-cost-centre team_id="{{ $team->id }}"></add-cost-centre>
         </div>
-    @endforeach
+    </div>
+</div>
+
+<div class="mt-3 card">
+	<div class="card-header">Toevoegen standaard product</div>
+	<div class="card-body">
+		<form action="{{ route('products-standard.store') }}" method="POST" enctype="multipart/form-data">
+			@csrf
+			<create-std-product-for-team-view></create-std-product-for-team-view>
+			<input type="hidden" name="team_id" id="team_id" value="{{$team->id}}">
+		</form>
+	</div>
 </div>
 @endsection

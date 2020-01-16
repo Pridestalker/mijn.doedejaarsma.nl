@@ -1,4 +1,5 @@
 require('./bootstrap');
+import 'core-js/stable';
 import Vue from 'vue';
 import * as axios from 'axios';
 import store from './store/store';

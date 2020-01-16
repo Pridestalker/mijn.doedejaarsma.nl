@@ -3,8 +3,8 @@ recipe: laravel
 
 config:
   webroot: public
-  xdebug: true
-  php: 7.2
+  xdebug: false
+  php: 7.3
 
 services:
   mailhog:

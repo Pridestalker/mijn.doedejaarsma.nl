@@ -16,9 +16,9 @@ mix
     .ts('resources/vue/product/product.app.js', 'public/js')
     .js('resources/vue/admin/admin.app.js', 'public/js')
     .ts('resources/vue/dashboard/designer/designer.dashboard.js', 'public/js')
-    .extract();
-
-mix.sass('resources/sass/app.scss', 'public/css');
+    .extract()
+    .sass('resources/sass/app.scss', 'public/css')
+    .copyDirectory('resources/images', 'public/img');
 
 
 if (!mix.inProduction()) {

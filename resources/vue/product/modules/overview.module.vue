@@ -1,8 +1,8 @@
 <template>
     <card-container>
-        <title-component>Producten Overzicht</title-component>
+        <title-component>Overzicht</title-component>
         <small class="text-muted" v-if="meta">{{ meta.from? meta.from : 0 }} - {{ meta.to? meta.to : 0 }} van de {{ meta.total ? meta.total : 0 }} <span>producten</span></small>
-        
+
         <table-component>
             <template v-slot:thead>
                 <tr>
@@ -27,89 +27,86 @@
                 </td>
             </tr>
         </table-component>
-        
+
         <aside>
             <a href="#" @click.prevent="goToPage('first')">
-                <i class="fas fa-angle-double-left "></i>
+                <i class="fas fa-angle-double-left"/>
             </a>
             <a href="#" @click.prevent="goToPage('prev')">
-                <i class="fas fa-angle-left"></i>
+                <i class="fas fa-angle-left"/>
             </a>
             <a href="#" @click.prevent="goToPage('next')">
-                <i class="fas fa-angle-right"></i>
+                <i class="fas fa-angle-right"/>
             </a>
             <a href="#" @click.prevent="goToPage('last')">
-                <i class="fas fa-angle-double-right"></i>
+                <i class="fas fa-angle-double-right"/>
             </a>
         </aside>
-        
+
         <aside class="product-dashboard-fabcontainer">
             <a href="#" class="product-dashboard-fab" @click.prevent="filter.open = !filter.open">
-                <i class="fas fa-sliders-h"></i>
+                <i class="fas fa-sliders-h"/>
             </a>
         </aside>
-        
+
         <aside class="product-dashboard-faddcontainer">
             <a href="/products/create" class="product-dashboard-fab">
-                <i class="fas fa-folder-plus"></i>
+                <i class="fas fa-folder-plus"/>
             </a>
         </aside>
-        
-        <aside class="product-dashboard-filter" v-if="filter.open">
-            <h2>Filter</h2>
-            <form class="form-filter">
-                <h5 class="my-2">Zoeken</h5>
-                <div>
-                    <input type="text" v-model="params.name" placeholder="Zoeken..." class="form-control" />
-                </div>
-                
-                <h5 class="my-2">Status</h5>
-                <div>
-                    <input type="checkbox" id="aangevraagd" v-model="params.status" :value="'aangevraagd'"/>
-                    <label for="aangevraagd">Aangevraagd</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="opgepakt" v-model="params.status" :value="'opgepakt'" />
-                    <label for="opgepakt">Opgepakt</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="afgerond" v-model="params.status" :value="'afgerond'" />
-                    <label for="afgerond">Afgerond</label>
-                </div>
-    
-                <h5 class="my-2">Per pagina</h5>
-                <div>
-                    <label for="perPage">Aanvragen per pagina</label>
-                    <select class="custom-select" v-model="params.per_page" id="perPage">
-                        <option :value="15">15</option>
-                        <option :value="20">20</option>
-                        <option :value="35">35</option>
-                        <option :value="50">50</option>
-                    </select>
-                </div>
-                
-                <h5 class="my-2">Sorteren</h5>
-                <div>
-                    <input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'name'" id="order_naam">
-                    <label for="order_naam">Sorteer op naam</label>
-                </div>
-                <div>
-                    <input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'deadline'" id="order_deadline">
-                    <label for="order_deadline">Sorteer op deadline</label>
-                </div>
-                <div>
-                    <input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'status'" id="order_status">
-                    <label for="order_status">Sorteer op status</label>
-                </div>
-                
-                <h5 class="my-2">Team</h5>
-                <div>
-                    <input type="checkbox" v-model="params.team" id="wholeTeam">
-                    <label for="wholeTeam">Alles van team ophalen</label>
-                </div>
-            </form>
-        </aside>
-    </card-container>
+
+		<transition name="appear">
+			<aside class="product-dashboard-filter" v-show="filter.open">
+				<h2>Filter</h2>
+				<form class="form-filter">
+					<h5 class="my-2">Status</h5>
+					<div>
+						<input type="checkbox" id="aangevraagd" v-model="params.status" :value="'aangevraagd'"/>
+						<label for="aangevraagd">Aangevraagd</label>
+					</div>
+					<div>
+						<input type="checkbox" id="opgepakt" v-model="params.status" :value="'opgepakt'" />
+						<label for="opgepakt">Opgepakt</label>
+					</div>
+					<div>
+						<input type="checkbox" id="afgerond" v-model="params.status" :value="'afgerond'" />
+						<label for="afgerond">Afgerond</label>
+					</div>
+
+					<h5 class="my-2">Per pagina</h5>
+					<div>
+						<label for="perPage">Aanvragen per pagina</label>
+						<select class="custom-select" v-model="params.per_page" id="perPage">
+							<option :value="15">15</option>
+							<option :value="20">20</option>
+							<option :value="35">35</option>
+							<option :value="50">50</option>
+						</select>
+					</div>
+
+					<h5 class="my-2">Sorteren</h5>
+					<div>
+						<input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'name'" id="order_naam">
+						<label for="order_naam">Sorteer op naam</label>
+					</div>
+					<div>
+						<input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'deadline'" id="order_deadline">
+						<label for="order_deadline">Sorteer op deadline</label>
+					</div>
+					<div>
+						<input type="checkbox" class="custom-checkbox" v-model="params.ordered" :value="'status'" id="order_status">
+						<label for="order_status">Sorteer op status</label>
+					</div>
+
+					<h5 class="my-2">Team</h5>
+					<div>
+						<input type="checkbox" v-model="params.team" id="wholeTeam">
+						<label for="wholeTeam">Alles van team ophalen</label>
+					</div>
+				</form>
+			</aside>
+		</transition>
+	</card-container>
 </template>
 
 <script lang="ts">
@@ -140,32 +137,36 @@ export default class OverviewModule extends Vue {
         status: ['aangevraagd', 'opgepakt'],
         team: true,
     };
-    
+
     filter = {
         open: false,
     };
-    
+
     async mounted(): Promise<void> {
         await this.fetchData();
     }
-    
+
     async fetchData(): Promise<void> {
         productsModule.setParams(this.params);
         await productsModule.loadProducts();
         this.products = productsModule.allProducts;
         this.meta = productsModule.getMeta;
     }
-    
+
     // noinspection JSMethodCanBeStatic
     formattedDate(date): string {
-        return format(new Date(date), 'cccc dd MMMM yyyy', { locale: nl })
+    	try {
+ 	       return format(new Date(date), 'EEEE dd MMMM yyyy', { locale: nl })
+		} catch {
+    		return date;
+		}
     }
-    
+
     goToSingle(id: number): void {
         // @ts-ignore
         this.$router.push({ name: 'single', params: { id }});
     }
-    
+
     goToPage(page: string): void {
         switch (page) {
             case 'first':
@@ -185,24 +186,24 @@ export default class OverviewModule extends Vue {
                     this.params.page-- : console.warn('Je bent al op de eerste pagina.');
                 break;
         }
-        
+
         this.fetchData();
     }
-    
+
     // noinspection JSMethodCanBeStatic
     getDeadlineClass(deadline): Array<string> {
         const Class: string[] = [];
         if (isAfter(new Date(), new Date(deadline))) {
             Class.push('is-past');
         }
-        
+
         if (isBefore(new Date(), new Date(deadline))) {
             Class.push('is-future');
         }
-        
+
         return Class;
     }
-    
+
     getProductRowOpacity(date): number {
         const diff = differenceInDays(new Date(), new Date(date));
 
@@ -227,7 +228,7 @@ export default class OverviewModule extends Vue {
             padding: 8px 0;
         }
     }
-    
+
     .product-dashboard-filter {
         position: absolute;
         width: 75%;
@@ -244,14 +245,22 @@ export default class OverviewModule extends Vue {
         -o-transition: all 0.3s;
         transition: all 0.3s;
         transform-origin: right;
-        
-        animation-name: appear;
-        animation-duration: 300ms;
-        animation-iteration-count: 1;
-    
         overflow-y: scroll;
     }
-    
+	.appear-enter-active {
+		animation-name: appear;
+		animation-duration: 300ms;
+		animation-iteration-count: 1;
+	}
+
+
+	.appear-leave-active {
+		animation-name: appear;
+		animation-duration: 300ms;
+		animation-iteration-count: 1;
+		animation-direction: reverse;
+	}
+
     @keyframes appear {
         0% {
             transform: scale(0, 1);
@@ -263,7 +272,7 @@ export default class OverviewModule extends Vue {
             transform: scale(0,1);
         }
     }
-    
+
     .product-dashboard-fabcontainer {
         position: absolute;
         top: -1rem;
@@ -277,7 +286,7 @@ export default class OverviewModule extends Vue {
         justify-content: center;
         border-radius: 50%;
     }
-    
+
     .product-dashboard-fab {
         top: calc(100% - 1rem);
         right: 4rem;
@@ -292,21 +301,21 @@ export default class OverviewModule extends Vue {
         justify-content: center;
         border-radius: 50%;
     }
-    
+
     .product-dashboard-faddcontainer {
         position: absolute;
         left: 4rem;
         top: calc(100% - 1rem);;
     }
-    
+
     .is-past {
         color: #e0a800;
     }
-    
+
     .is-future {
         color: #0a2315;
     }
-    
+
     @media screen and (max-width: 414px) {
         .hide-mobile {
             display: none;

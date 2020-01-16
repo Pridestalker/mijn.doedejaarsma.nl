@@ -7,9 +7,11 @@ use Eloquent;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use App\Models\Order;
 
 /**
  * App\Product
@@ -42,31 +44,34 @@ use Illuminate\Support\Carbon;
  * @method static Builder|\App\Product whereStatus($value)
  * @method static Builder|\App\Product whereUpdatedAt($value)
  * @method static Builder|\App\Product whereUserId($value)
- * @property string|null $factuur
- * @property string|null $kostenplaats
- * @property string|null $referentie
- * @property-read User   $user
+ * @property string|null                                          $factuur
+ * @property string|null                                          $kostenplaats
+ * @property string|null                                          $referentie
+ * @property-read User                                            $user
+ * @property-read InfoProduct                                     $info
  * @method static Builder|Product whereFactuur($value)
  * @method static Builder|Product whereKostenplaats($value)
  * @method static Builder|Product whereReferentie($value)
  * @method static Builder|Product byUser( User $user)
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Hour[] $hours
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product filter($input = array(), $filter = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product paginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product simplePaginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereBeginsWith($column, $value, $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereEndsWith($column, $value, $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereLike($column, $value, $boolean = 'and')
- * @property int|null $updated_by
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product finished()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product inProgress()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product requested()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereUpdatedBy($value)
+ * @property-read Collection|Hour[] $hours
+ * @method static Builder|Product filter($input = array(), $filter = null)
+ * @method static Builder|Product paginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
+ * @method static Builder|Product simplePaginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
+ * @method static Builder|Product whereBeginsWith($column, $value, $boolean = 'and')
+ * @method static Builder|Product whereEndsWith($column, $value, $boolean = 'and')
+ * @method static Builder|Product whereLike($column, $value, $boolean = 'and')
+ * @property int|null                                             $updated_by
+ * @method static Builder|Product finished()
+ * @method static Builder|Product inProgress()
+ * @method static Builder|Product requested()
+ * @method static Builder|Product whereUpdatedBy($value)
+ * @property-read int|null $hours_count
+ * @property-read \App\Models\Order $order
  */
 class Product extends Model
 {
     use Filterable;
-    
+
     protected $fillable = [
         'name',
         'description',
@@ -84,11 +89,11 @@ class Product extends Model
         'updated_at',
         'updated_by',
     ];
-    
+
     /*
      * Scopes
      */
-    
+
     /**
      * Query scope to fetch products per user.
      *
@@ -102,7 +107,7 @@ class Product extends Model
         $userIds = $user->bedrijf->first()->users()->pluck('id');
         return $query->where('user_id', 'IN', $userIds);
     }
-    
+
     /**
      * @param Builder $query
      *
@@ -112,7 +117,7 @@ class Product extends Model
     {
         return $query->where('status', '=', 'afgerond');
     }
-    
+
     /**
      * @param Builder $query
      *
@@ -122,7 +127,7 @@ class Product extends Model
     {
         return $query->where('status', '=', 'opgepakt');
     }
-    
+
     /**
      * @param Builder $query
      *
@@ -132,11 +137,11 @@ class Product extends Model
     {
         return $query->where('status', '=', 'aangevraagd');
     }
-    
+
     /*
      * Relationships
      */
-    
+
     /**
      * Creates an Eloquent relation.
      *
@@ -144,16 +149,25 @@ class Product extends Model
      */
     public function user(): BelongsTo
     {
+        if ($this->order) {
+            return $this->order->user();
+        }
+
         return $this->belongsTo(User::class);
     }
-    
-    /**
-     * Creates an Eloquent relation.
-     *
-     * @return HasMany
-     */
+
     public function hours(): HasMany
     {
         return $this->hasMany(Hour::class);
+    }
+
+    public function order()
+    {
+        return $this->morphOne(Order::class, 'orderable');
+    }
+
+    public function info()
+    {
+        return $this->morphOne(InfoProduct::class, 'infoable');
     }
 }
