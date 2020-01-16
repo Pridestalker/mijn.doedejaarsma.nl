@@ -291,7 +291,7 @@ export default class OverviewModule extends Vue {
         font-size: 1.125rem;
 		padding: .5rem 3rem;
         z-index: 1;
-        background: #0b2f4d;
+        background: #ef8615;
         color: #fff !important;
         display: flex;
         align-items: center;

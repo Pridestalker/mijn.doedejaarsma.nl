@@ -35,7 +35,7 @@
         </p>
 
         <p v-if="product.deadline">
-            Deadline: <span-underline type="date">{{ formattedDate(product.deadline) }}</span-underline>
+            Deadline: <span type="date">{{ formattedDate(product.deadline) }}</span>
         </p>
 
         <div v-if="product.soort = 'drukwerk'">
@@ -52,12 +52,12 @@
         </div>
 
         <p v-if="product.hours">
-            Gemaakte uren: <span-underline type="date">{{ formattedTime(product.hours.total) }}</span-underline>
+            Gemaakte uren: <span type="date">{{ formattedTime(product.hours.total) }}</span>
         </p>
 
 		<p v-if="product && (product.kostenplaats || product.referentie)">
 			<span class="d-block" v-if="product.kostenplaats">Kostenplaats: {{ product.kostenplaats.name }}</span>
-			<span class="d-block" v-if="product.referentie">referentie: {{ product.referentie }}</span>
+			<span class="d-block" v-if="product.referentie">Referentie: {{ product.referentie }}</span>
 		</p>
 
         <p v-if="product.attachment">
@@ -68,7 +68,7 @@
         <footer>
             <small class="text-muted pointer" v-if="product.updated_at" @click="fetchData" title="Gegevens updaten">
                 Laatste update: {{ formattedUpdate }}
-                door: {{ updatedBy }}
+                door {{ updatedBy }}
             </small>
         </footer>
 
