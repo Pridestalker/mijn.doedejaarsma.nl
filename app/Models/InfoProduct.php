@@ -53,4 +53,9 @@ class InfoProduct extends Model
     {
         return $this->morphTo();
     }
+
+    public function kostenplaats()
+    {
+    	return $this->belongsTo(CostCentre::class, 'cost_centre');
+    }
 }

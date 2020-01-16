@@ -81,7 +81,7 @@ class Product extends JsonResource
 
     protected function getCostsCentre()
     {
-        return self::when($this->getInfo('cost_centre'), $this->getInfo('cost_centre'));
+        return self::when($this->getInfo('cost_centre'), $this->getInfo('kostenplaats'));
     }
 
     protected function getReference()
