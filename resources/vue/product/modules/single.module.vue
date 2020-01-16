@@ -57,8 +57,9 @@
             Gemaakte uren: <span-underline type="date">{{ formattedTime(product.hours.total) }}</span-underline>
         </p>
 
-		<p>
-			Kostenplaats: {{ product.kostenplaats.name }}, referentie: {{ product.referentie }}
+		<p v-if="product && (product.kostenplaats || product.referentie)">
+			<span class="d-block" v-if="product.kostenplaats">Kostenplaats: {{ product.kostenplaats.name }}</span>
+			<span class="d-block" v-if="product.referentie">referentie: {{ product.referentie }}</span>
 		</p>
 
         <p v-if="product.attachment">
