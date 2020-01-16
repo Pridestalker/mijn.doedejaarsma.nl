@@ -81,6 +81,6 @@
     </card-container>
 </template>
 
-<script lang="ts" src="./single"></script>
+<script lang="ts" src="./single/Single.ts"></script>
 
 <style src="./single/style.scss" lang="scss" />

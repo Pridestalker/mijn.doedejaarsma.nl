@@ -44,8 +44,7 @@ export default class SingleModule extends Vue {
 
 	async fetchData(): Promise<void> {
 		productModule.setId(this.id as number);
-		await productModule.loadProduct();
-		this.product = productModule.product;
+		this.product = await productModule.loadProduct();
 	}
 
 	async updateStatus(): Promise<void> {
