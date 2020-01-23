@@ -20,7 +20,7 @@ class AllProductsController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if ($this->isAdmin()) {
+        if ($this->isAdmin() || $this->isDesigner()) {
             $orders = $this->createAdminCollection($request);
         } else {
             $orders = $this->createUserCollection($request);
@@ -111,6 +111,16 @@ class AllProductsController extends Controller
         }
 
         return Auth::user()->isAn('admin');
+    }
+
+
+    private function isDesigner(): bool
+    {
+        if (null === Auth::user() || !Auth::user()) {
+            throw new \Exception('User not logged in.');
+        }
+
+        return Auth::user()->isA('designer');
     }
 
     /**

@@ -22,15 +22,18 @@ add('writable_dirs', []);
 
 
 // Hosts
-host('141.105.127.47')
-    ->port('33')
+host('production')
     ->stage('production')
+    ->hostName('141.105.127.47')
+    ->port('33')
+    ->roles('app')
     ->user('djc')
     ->set('deploy_path', '~/domains/mijn.doedejaarsma.nl/public_html');
 
-host('141.105.127.47')
-    ->port('33')
+host('staging')
     ->stage('staging')
+    ->hostname('141.105.127.47')
+    ->port('33')
     ->user('djc')
     ->set('deploy_path', '~/domains/staging.doedejaarsma.nl/public_html');
 
