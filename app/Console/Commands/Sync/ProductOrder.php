@@ -37,7 +37,7 @@ class ProductOrder extends Command
         $ids = $this->argument('ids');
 
         foreach ($ids as $id) {
-            if (Order::find($id)) {
+            if (Order::where('orderable_id', '=', $id)->exists()) {
                 $this->warn("Product with $id already exists.");
                 $this->info('skipping');
                 continue;
