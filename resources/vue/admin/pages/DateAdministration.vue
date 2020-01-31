@@ -26,7 +26,7 @@
                 <b-table-column field="name" label="Naam product" @click="toggle(props.row)">{{ props.row.name }}</b-table-column>
                 <b-table-column field="uren" label="Uren" width="40" numeric>{{ props.row.hours.total }}</b-table-column>
                 <b-table-column field="referentie" label="Referentie">{{ props.row.referentie }}</b-table-column>
-                <b-table-column field="kostenplaats" label="Kostenplaats">{{ props.row.kostenplaats }}</b-table-column>
+                <b-table-column field="kostenplaats" label="Kostenplaats">{{ props.row.kostenplaats.name }}</b-table-column>
                 <b-table-column field="requestee" label="Aangevraagd door">{{ props.row.owner.name }}</b-table-column>
             </template>
             
