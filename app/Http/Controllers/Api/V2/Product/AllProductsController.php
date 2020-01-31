@@ -39,7 +39,9 @@ class AllProductsController extends Controller
         $orders = \App\Models\Order::query();
 
         /** @noinspection StaticInvocationViaThisInspection */
-        $orders->whereIn('status', $this->getAllStatus($request));
+        if ($this->getAllStatus($request)) {
+            $orders->whereIn('status', $this->getAllStatus($request));
+        }
 
         if ($this->wantsOrderBy($request, 'deadline')) {
             $orders->orderByDesc('deadline');
