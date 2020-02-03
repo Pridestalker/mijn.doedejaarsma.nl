@@ -43,6 +43,16 @@ class AllProductsController extends Controller
             $orders->whereIn('status', $this->getAllStatus($request));
         }
 
+        if ($request->has(['hours_year_created', 'hours_month_created'])) {
+            $orders->whereIn(
+                'orderable_id',
+                \DB::table('hours')
+                ->select(\DB::raw('hours.product_id'))
+                ->whereYear('created_at', $request->input('hours_year_created'))
+                ->whereMonth('created_at', $request->input('hours_month_created'))
+            );
+        }
+
         if ($this->wantsOrderBy($request, 'deadline')) {
             $orders->orderByDesc('deadline');
         }
