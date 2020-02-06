@@ -74,7 +74,6 @@ class CreationTest extends ProductTestCase
             );
 
         $re->assertStatus(302);
-        $re->assertSessionHas('clearStorage');
         $re->assertSessionHasNoErrors();
         $re->assertRedirect('/products/1');
     }
@@ -119,7 +118,6 @@ class CreationTest extends ProductTestCase
             );
 
         $re->assertStatus(302);
-        $re->assertSessionHas('clearStorage');
         $re->assertSessionHasNoErrors();
         $re->assertRedirect('/products/1');
     }
@@ -146,7 +144,6 @@ class CreationTest extends ProductTestCase
                 ]
             );
 
-        $re->assertSessionHas('clearStorage');
         $re->assertRedirect('/products/1');
         $re->assertSessionHasNoErrors();
 
@@ -185,7 +182,6 @@ class CreationTest extends ProductTestCase
             );
 
         $res->assertStatus(302);
-        $res->assertSessionHas('clearStorage');
         $res->assertSessionHasNoErrors();
         $res->assertRedirect('/products/1');
         $this->assertSame((int) Product::find(1)->user_id, (int) $customer->id);
@@ -219,7 +215,6 @@ class CreationTest extends ProductTestCase
             );
 
         $res->assertStatus(302);
-        $res->assertSessionHas('clearStorage');
         $res->assertSessionHasNoErrors();
         $res->assertRedirect('/products/1');
         $this->assertSame((int) Product::find(1)->user_id, (int) $customer->id);
