@@ -5,10 +5,15 @@
     <div class="card-header">{{ __('Login') }}</div>
 
     <div class="card-body">
+		@error('deactivated')
+		<div class="alert alert-danger" role="alert">
+			<strong>{!! $message !!}</strong>
+		</div>
+		@enderror
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
-
-            <div class="form-group row">
+			<div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
 
                 <div class="col-md-6">
@@ -19,6 +24,8 @@
                             <strong>{{ $errors->first('email') }}</strong>
                         </span>
                     @endif
+
+
                 </div>
             </div>
 

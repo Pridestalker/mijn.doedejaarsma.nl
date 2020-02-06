@@ -2,28 +2,28 @@
 
 namespace App;
 
+use Eloquent;
 use App\Models\Hour;
+use App\Models\Team;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Team;
-use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Notifications\DatabaseNotification;
-use Illuminate\Notifications\DatabaseNotificationCollection;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Carbon;
-use Lab404\Impersonate\Models\Impersonate;
-use Laravel\Passport\Client;
-use Laravel\Passport\HasApiTokens;
 use Laravel\Passport\Token;
-use Silber\Bouncer\Database\Ability;
-use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Laravel\Passport\Client;
+use Illuminate\Support\Carbon;
 use Silber\Bouncer\Database\Role;
+use Laravel\Passport\HasApiTokens;
+use Silber\Bouncer\Database\Ability;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
+use Lab404\Impersonate\Models\Impersonate;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 
 /**
  * App\User
@@ -75,13 +75,15 @@ use Silber\Bouncer\Database\Role;
  * @property-read int|null $tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @property bool $is_active
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsActive($value)
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable,
-        HasApiTokens,
-        HasRolesAndAbilities,
-        Impersonate;
+    use Notifiable;
+    use HasApiTokens;
+    use HasRolesAndAbilities;
+    use Impersonate;
 
     /**
      * The attributes that are mass assignable.
@@ -89,7 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'is_active'
     ];
 
     /**
@@ -108,6 +110,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_active' => 'boolean'
     ];
 
     public function bedrijf(): BelongsToMany
@@ -117,7 +120,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function teams(): BelongsToMany
     {
-        return $this->belongsToMany( Team::class );
+        return $this->belongsToMany(Team::class);
     }
 
     public function orders(): HasMany
@@ -135,11 +138,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Hour::class);
     }
 
-    /*
-     * Impersonation
-     */
     public function canImpersonate(): bool
     {
-        return in_array( 'admin', $this->getRoles()->toArray(), true );
+        return in_array('admin', $this->getRoles()->toArray(), true);
     }
 }
