@@ -75,6 +75,8 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @property-read int|null $tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @property bool $is_active
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsActive($value)
  */
 class User extends Authenticatable implements MustVerifyEmail
 {

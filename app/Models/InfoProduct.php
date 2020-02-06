@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $reference
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\InfoProduct whereReference($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\InfoProduct whereType($value)
+ * @property-read \App\Models\CostCentre|null $kostenplaats
  */
 class InfoProduct extends Model
 {

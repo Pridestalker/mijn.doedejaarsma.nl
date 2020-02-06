@@ -13,7 +13,7 @@ class AddActiveFieldToUsers extends Migration
     public function up(): void
     {
         Schema::table('users', static function (Blueprint $table) {
-            $table->boolean('is_active')->default(1);
+            $table->boolean('is_active')->default(1)->after('remember_token');
         });
     }
 
