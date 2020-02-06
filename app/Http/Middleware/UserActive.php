@@ -16,20 +16,25 @@ class UserActive
      */
     public function handle($request, Closure $next)
     {
-        if (!\Auth::check()) {
+        if (!\Auth::check() || $request->user()->is_active) {
             return $next($request);
         }
 
-        if (!$request->user()->is_active) {
-            \Auth::logout();
-            $errors = new MessageBag();
-            $errors->add('deactivated', 'Dit account is niet langer actief');
+        \Auth::logout();
+        $message = <<<HTML
+<span>
+Je account is niet langer actief. Inloggen is daarom niet mogelijk.
+Neem bij vragen contact op met <a href="mailto:support@doedejaarsma.nl">support@doedejaarsma.nl</a>.
+</span>
+HTML;
+        $errors = new MessageBag();
+        $errors->add(
+            'deactivated',
+            $message
+        );
 
-            return redirect()
-                ->to('/login')
-                ->withErrors($errors);
-        }
-
-        return $next($request);
+        return redirect()
+            ->to('/login')
+            ->withErrors($errors);
     }
 }

@@ -7,7 +7,7 @@
     <div class="card-body">
 		@error('deactivated')
 		<div class="alert alert-danger" role="alert">
-			<strong>{{ $message }}</strong>
+			<strong>{!! $message !!}</strong>
 		</div>
 		@enderror
 
