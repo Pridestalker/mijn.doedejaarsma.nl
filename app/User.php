@@ -77,6 +77,7 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @property-read int|null $orders_count
  * @property bool $is_active
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User active()
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -112,6 +113,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'is_active' => 'boolean'
     ];
+
+    /**
+     * @param Builder $query
+     *
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
 
     public function bedrijf(): BelongsToMany
     {

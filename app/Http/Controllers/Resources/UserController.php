@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Resources;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::active()->get();
 
         return \View::make('users.index')
             ->with('users', $users);
@@ -25,11 +25,10 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create()
     {
-        //
         return redirect()->to('register');
     }
 
@@ -48,8 +47,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return Response
+     * @param User $user
+     *
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(User $user)
     {
@@ -61,8 +61,9 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
-     * @return Response
+     * @param User $user
+     *
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(User $user)
     {
@@ -75,9 +76,9 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int     $id
+     * @param User    $user
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, User $user)
     {
