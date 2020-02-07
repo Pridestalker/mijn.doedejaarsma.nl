@@ -32,7 +32,7 @@
                     <label for="user_id">Gebruiker</label>
                     <select name="user_id" id="user_id" class="custom-select">
                         <option value="{{ Auth::user()->id }}">{{ Auth::user()->name }}</option>
-                        @foreach( \App\User::whereIs('customer')->get() as $customer)
+                        @foreach( \App\User::whereIs('customer')->active()->get() as $customer)
                             <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                         @endforeach
                     </select>
