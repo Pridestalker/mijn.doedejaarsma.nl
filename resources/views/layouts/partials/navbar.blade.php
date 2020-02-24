@@ -33,9 +33,9 @@
                                 <a class="dropdown-item" href="{{ route('register') }}">{{ __('Register') }}</a>
                             @endif
 
-                                <a href="{{ route('users.show', \Auth::user()) }}" class="dropdown-item">
-                                    Profiel
-                                </a>
+							<a href="{{ route('users.show', \Auth::user()) }}" class="dropdown-item">
+								Profiel
+							</a>
 
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();

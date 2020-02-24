@@ -1,4 +1,4 @@
-@extends('layouts.app-novue')
+@extends('layouts.master')
 
 @push('head')
     <script defer src="https://use.fontawesome.com/releases/v5.8.0/js/all.js" integrity="sha384-ukiibbYjFS/1dhODSWD+PrZ6+CGCgf8VbyUH7bQQNUulL+2r59uGYToovytTf4Xm" crossorigin="anonymous"></script>
