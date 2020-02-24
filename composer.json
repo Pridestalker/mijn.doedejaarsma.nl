@@ -79,7 +79,6 @@
             "@php artisan key:generate --ansi"
         ],
         "churn": "churn run ./app",
-        "larastan": "@php artisan code:analyse",
         "phpunit": "phpunit"
     }
 }
