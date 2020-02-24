@@ -9,7 +9,7 @@ use Exception;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Events\Product\ProductCreatedEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use App\Exceptions\Http\BadRequestException;
 
 class ProductService
 {
@@ -26,7 +26,7 @@ class ProductService
 
     /**
      * @return Product|\Illuminate\Database\Eloquent\Model
-     * @throws Exception
+     * @throws BadRequestException
      */
     public function store()
     {
@@ -41,7 +41,7 @@ class ProductService
 
         if ($validated->fails()) {
             \Session::flash('errors', $validated->errors());
-            throw new BadRequestHttpException('Not all fields are filled');
+            throw new BadRequestException('Not all fields are filled', 400);
         }
 
         if ($this->hasFile()) {
@@ -57,7 +57,9 @@ class ProductService
 
         try {
             $this->product = Product::create([
-                'name'  => $attributes->get('name')
+                'name'  => $attributes->get('name'),
+                'soort' => $attributes->get('soort'),
+                'status'    => $attributes->get('status'),
             ]);
 
             $this->product->order()->create([

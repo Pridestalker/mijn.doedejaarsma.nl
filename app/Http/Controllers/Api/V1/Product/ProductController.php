@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Events\Product\ProductStarted;
 use App\Events\Product\ProductFinished;
+use App\Exceptions\Http\BadRequestException;
 use App\Http\Controllers\Services\ProductService;
 use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\Product as Resource;
@@ -50,6 +51,15 @@ class ProductController extends Controller
 
             return response()
                 ->json(new Resource($product), 201);
+        } catch (BadRequestException $exception) {
+            report($exception);
+
+            return response()->json(
+                [
+                    'error' => $exception->getMessage(),
+                ],
+                $exception->getCode()
+            );
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
 

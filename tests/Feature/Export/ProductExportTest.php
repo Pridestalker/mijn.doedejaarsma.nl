@@ -2,16 +2,14 @@
 
 namespace Tests\Feature\Export;
 
+use Excel;
 use App\Models\Product;
-use App\User;
-use Maatwebsite\Excel\Facades\Excel;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProductExportTest extends ExportTestCase
 {
 	use RefreshDatabase;
-	
+
     /**
      * Test if exports are downloadable.
      *
@@ -24,12 +22,11 @@ class ProductExportTest extends ExportTestCase
     {
         Excel::fake();
         factory(Product::class, 5)->create();
-        
-        $user = $this->runWithActor('admin');
-        
-        $res = $this->get(route('download.product.all'));
-        
+
+        $this->runWithActor('admin');
+
+        $this->get(route('download.product.all'));
+
         Excel::assertDownloaded('producten.xlsx');
-        
     }
 }

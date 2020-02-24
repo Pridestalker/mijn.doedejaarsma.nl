@@ -4,7 +4,7 @@ namespace Tests\Feature\Products;
 
 use App\User;
 use Carbon\Carbon;
-use App\Models\Product;
+use App\Models\Order;
 use App\Events\Product\ProductCreatedEvent;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -73,9 +73,8 @@ class CreationTest extends ProductTestCase
                 ]
             );
 
-        $re->assertStatus(302);
+        $re->assertStatus(201);
         $re->assertSessionHasNoErrors();
-        $re->assertRedirect('/products/1');
     }
 
     public function testProductCanNotBeSubmittedWithoutValues(): void
@@ -89,9 +88,8 @@ class CreationTest extends ProductTestCase
                 []
             );
 
-        $re->assertStatus(302);
+        $re->assertStatus(400);
         $re->assertSessionHas('errors');
-        $re->assertRedirect($this->createProductRoute());
     }
 
     /**
@@ -117,9 +115,8 @@ class CreationTest extends ProductTestCase
                 ]
             );
 
-        $re->assertStatus(302);
+        $re->assertStatus(201);
         $re->assertSessionHasNoErrors();
-        $re->assertRedirect('/products/1');
     }
 
     /**
@@ -144,7 +141,6 @@ class CreationTest extends ProductTestCase
                 ]
             );
 
-        $re->assertRedirect('/products/1');
         $re->assertSessionHasNoErrors();
 
         \Event::assertDispatched(
@@ -181,10 +177,9 @@ class CreationTest extends ProductTestCase
                 ]
             );
 
-        $res->assertStatus(302);
+        $res->assertStatus(201);
         $res->assertSessionHasNoErrors();
-        $res->assertRedirect('/products/1');
-        $this->assertSame((int) Product::find(1)->user_id, (int) $customer->id);
+        $this->assertSame((int) Order::find(1)->user_id, (int) $customer->id);
     }
 
     /**
@@ -214,10 +209,9 @@ class CreationTest extends ProductTestCase
                 ]
             );
 
-        $res->assertStatus(302);
+        $res->assertStatus(201);
         $res->assertSessionHasNoErrors();
-        $res->assertRedirect('/products/1');
-        $this->assertSame((int) Product::find(1)->user_id, (int) $customer->id);
+        $this->assertSame((int) Order::find(1)->user_id, (int) $customer->id);
 
         \Event::assertDispatched(
             ProductCreatedEvent::class,
